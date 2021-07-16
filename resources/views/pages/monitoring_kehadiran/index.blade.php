@@ -88,28 +88,32 @@
                     }
                 },
                 {
-                    data: 'times_in',
-                    name: 'times_in'
+                    data: 'jam_masuk',
+                    name: 'jam_masuk'
                 },
                 {
-                    data: 'locations',
-                    name: 'locations'
+                    data: 'jam_pulang',
+                    name: 'jam_pulang'
                 },
                 {
-                    data: 'user.name',
-                    name: 'user.name'
+                    data: 'lokasi_masuk',
+                    name: 'lokasi_masuk'
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'lokasi_pulang',
+                    name: 'lokasi_pulang'
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'user.nama',
+                    name: 'user.nama'
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'foto_masuk',
+                    name: 'foto_masuk'
+                },
+                {
+                    data: 'foto_pulang',
+                    name: 'foto_pulang'
                 },
                 {
                     data: 'flag',

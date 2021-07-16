@@ -24,12 +24,12 @@ class KaryawanRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
+            'nama' => 'required|max:255',
             'email' => 'required|email',
-            'divisions_id' => 'required',
-            'regions_id' => 'required',
-            'locations_id' => 'required',
-            'privileges_id' => 'required',
+            'id_bagian' => 'required',
+            'id_wilayah' => 'required',
+            'id_lokasi' => 'required',
+            'privilege' => 'required',
         ];
     }
 }

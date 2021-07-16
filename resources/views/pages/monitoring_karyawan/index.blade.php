@@ -55,10 +55,10 @@
                                         <div class="col-12">
                                             <label for="name">Nama</label>
                                             <input
-                                                class="form-control tanggalan @error('name') is-invalid @enderror"
-                                                name="name"
-                                                value="{{ old('name') }}" type="text">
-                                            @error('name')
+                                                class="form-control tanggalan @error('nama') is-invalid @enderror"
+                                                name="nama"
+                                                value="{{ old('nama') }}" type="text">
+                                            @error('nama')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -74,40 +74,40 @@
                                         </div>
                                         <div class="col-12 mt-2">
                                             <label for="">Wilayah</label>
-                                            <select class="form-control select2" id="region"  name="regions_id">
+                                            <select class="form-control select2" id="region"  name="id_wilayah">
                                                 <option label="Pilih WIlayah"></option>
                                                 @foreach ($regions as $value)
                                                     <option value="{{$value->id}}"
-                                                    {{old('regions_id')==$value->id ? 'selected' : ''}}>
-                                                    {{$value->name}}</option>
+                                                    {{old('id_wilayah')==$value->id ? 'selected' : ''}}>
+                                                    {{$value->nama}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="col-12 mt-2">
                                             <label for="">Lokasi</label>
-                                            <select class="form-control select2" id="location"  name="locations_id">
+                                            <select class="form-control select2" id="location"  name="id_lokasi">
                                                 <option label="Pilih Lokasi"></option>
                                             </select>
                                         </div>
                                         <div class="col-12 mt-2">
                                             <label for="">Divisi</label>
-                                            <select class="form-control select2"  name="divisions_id">
+                                            <select class="form-control select2"  name="id_bagian">
                                                 <option label="Pilih Divisi"></option>
                                                 @foreach ($divisions as $value)
                                                     <option value="{{$value->id}}"
-                                                    {{old('divisions_id')==$value->id ? 'selected' : ''}}>
-                                                    {{$value->name}}</option>
+                                                    {{old('id_bagian')==$value->id ? 'selected' : ''}}>
+                                                    {{$value->nama}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="col-12 mt-2">
                                             <label for="">Privilege</label>
-                                            <select class="form-control select2"  name="privileges_id">
-                                                <option label="Pilih WIlayah"></option>
+                                            <select class="form-control select2"  name="privilege">
+                                                <option label="Pilih Privilege"></option>
                                                 @foreach ($privileges as $value)
                                                     <option value="{{$value->id}}"
-                                                    {{old('privileges_id')==$value->id ? 'selected' : ''}}>
-                                                    {{$value->name}}</option>
+                                                    {{old('privilege')==$value->id ? 'selected' : ''}}>
+                                                    {{$value->nama}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -168,28 +168,28 @@
                     }
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'nama',
+                    name: 'nama'
                 },
                 {
                     data: 'email',
                     name: 'email'
                 },
                 {
-                    data: 'region.name',
-                    name: 'region.name'
+                    data: 'region.nama',
+                    name: 'region.nama'
                 },
                 {
-                    data: 'location.name',
-                    name: 'location.name'
+                    data: 'location.nama',
+                    name: 'location.nama'
                 },
                 {
-                    data: 'division.name',
-                    name: 'division.name'
+                    data: 'division.nama',
+                    name: 'division.nama'
                 },
                 {
-                    data: 'privilege.name',
-                    name: 'privilege.name'
+                    data: 'privilege.nama',
+                    name: 'privilege.nama'
                 },
                 {
                     data: 'flag',

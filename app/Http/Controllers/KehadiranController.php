@@ -16,17 +16,17 @@ class KehadiranController extends Controller
             $query = Attendance::with(['user']);
 
             return DataTables::of($query)
-            ->editColumn('photos_in', function($item){
-                return $item->photos_in ? '<img src"'. Storage::url($item->photos_in) .'"style="max-height:80px;"/>' : '';
+            ->editColumn('foto_masuk', function($item){
+                return $item->foto_masuk ? '<img src"'. Storage::url($item->foto_masuk) .'"style="max-height:80px;"/>' : '';
             })
-            ->editColumn('photos_out', function($item){
-                return $item->photos_out ? '<img src"'. Storage::url($item->photos_out) .'"style="max-height:80px;"/>' : '';
+            ->editColumn('foto_pulang', function($item){
+                return $item->foto_pulang ? '<img src"'. Storage::url($item->foto_pulang) .'"style="max-height:80px;"/>' : '';
             })
-            ->editColumn('times_in', function($item){
-                return Carbon::parse($item->times_in)->format('d-m-Y H:i');
+            ->editColumn('jam_masuk', function($item){
+                return Carbon::parse($item->jam_masuk)->format('d-m-Y H:i');
             })
-            ->editColumn('times_out', function($item){
-                return Carbon::parse($item->times_out)->format('d-m-Y H:i');
+            ->editColumn('jam_pulang', function($item){
+                return Carbon::parse($item->jam_pulang)->format('d-m-Y H:i');
             })
             ->editColumn('flag', function($item){
                 if ($item->flag == 1) {
@@ -58,7 +58,7 @@ class KehadiranController extends Controller
                 </div>
                 ';
             })
-            ->rawColumns(['photos_in','photos_out','times_in','times_out','flag','action'])
+            ->rawColumns(['foto_masuk','foto_pulang','jam_masuk','jam_pulang','flag','action'])
             ->make();
         }
 

@@ -55,21 +55,21 @@
                                         <div class="col-12">
                                             <label for="name">Nama</label>
                                             <input
-                                                class="form-control tanggalan @error('name') is-invalid @enderror"
-                                                name="name"
-                                                value="{{ old('name') }}" type="text">
-                                            @error('name')
+                                                class="form-control tanggalan @error('nama') is-invalid @enderror"
+                                                name="nama"
+                                                value="{{ old('nama') }}" type="text">
+                                            @error('nama')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-12 mt-2">
-                                            <label for="">SoW</label>
+                                            <label for="">Kategori SoW</label>
                                             <select class="form-control select2"  name="sows_id">
-                                                <option label="Pilih Dokumen"></option>
-                                                @foreach ($sows as $value)
+                                                <option label="Pilih Kategori"></option>
+                                                @foreach ($categories as $value)
                                                     <option value="{{$value->id}}"
                                                     {{old('sows_id')==$value->id ? 'selected' : ''}}>
-                                                    {{$value->name}}</option>
+                                                    {{$value->nama}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -93,7 +93,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama Detail</th>
-                                    <th>SoW</th>
+                                    <th>Kategori SoW</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -125,12 +125,12 @@
                     }
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'nama',
+                    name: 'nama'
                 },
                 {
-                    data: 'sow.name',
-                    name: 'sow.name'
+                    data: 'category.nama',
+                    name: 'category.nama'
                 },
                 {
                     data: 'action',

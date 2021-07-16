@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Sow extends Model
 {
 
+    protected $table = 'bm_sow';
     protected $fillable = [
-        'name','divisions_id'
+        'nama','id_bagian'
     ];
 
     public $timestamps = false;
 
     public function division() {
-        return $this->belongsTo(Division::class, 'divisions_id');
+        return $this->belongsTo(Division::class, 'id_bagian');
     }
 
 }

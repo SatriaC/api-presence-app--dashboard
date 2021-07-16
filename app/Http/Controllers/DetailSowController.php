@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DetailSow;
 use App\Http\Requests\DetailSowRequest;
-use App\Sow;
+use App\Category;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -13,7 +13,7 @@ class DetailSowController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = DetailSow::with(['sow']);
+            $query = DetailSow::with(['category']);
 
             return DataTables::of($query)
             ->addColumn('action', function($item){
@@ -42,9 +42,9 @@ class DetailSowController extends Controller
             ->make();
         }
 
-        $sows = Sow::all();
+        $categories = Category::all();
 
-        return view('pages.monitoring_detail.index', compact('sows'));
+        return view('pages.monitoring_detail.index', compact('categories'));
     }
 
     public function store(DetailSowRequest $request)
@@ -58,9 +58,9 @@ class DetailSowController extends Controller
     public function edit($id)
     {
         $item = DetailSow::findOrFail($id);
-        $sows = Sow::all();
+        $categories = Category::all();
 
-        return view('pages.monitoring_detail.edit', compact('item', 'sows'));
+        return view('pages.monitoring_detail.edit', compact('item', 'categories'));
     }
 
     public function update(DetailSowRequest $request, $id)

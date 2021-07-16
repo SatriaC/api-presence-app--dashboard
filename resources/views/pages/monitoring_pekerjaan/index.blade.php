@@ -89,48 +89,48 @@
                     }
                 },
                 {
-                    data: 'created_at',
-                    name: 'created_at'
+                    data: 'approved_at',
+                    name: 'approved_at'
                 },
                 // {
                 //     data: 'locations',
                 //     name: 'locations'
                 // },
                 {
-                    data: 'user.name',
-                    name: 'user.name'
+                    data: 'user.nama',
+                    name: 'user.nama'
                 },
                 {
-                    data: 'user.division.name',
-                    name: 'user.division.name'
+                    data: 'user.division.nama',
+                    name: 'user.division.nama'
                 },
                 {
-                    data: 'detail.sow.name',
-                    name: 'detail.sow.name'
+                    data: 'detail.sow.nama',
+                    name: 'detail.sow.nama'
                 },
                 {
-                    data: 'detail.name',
-                    name: 'detail.name'
+                    data: 'detail.nama',
+                    name: 'detail.nama'
                 },
                 {
-                    data: 'report',
-                    name: 'report'
+                    data: 'laporan',
+                    name: 'laporan'
                 },
                 {
-                    data: 'photos_before',
-                    name: 'photos_before'
+                    data: 'foto_before',
+                    name: 'foto_before'
                 },
                 {
-                    data: 'photos_after',
-                    name: 'photos_after'
+                    data: 'foto_after',
+                    name: 'foto_after'
                 },
                 {
                     data: 'flag',
                     name: 'flag'
                 },
                 {
-                    data: 'reason_rejected',
-                    name: 'reason_rejected'
+                    data: 'alasan_rejected',
+                    name: 'alasan_rejected'
                 },
                 {
                     data: 'action',

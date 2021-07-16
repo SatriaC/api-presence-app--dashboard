@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Privilege extends Model
 {
+    protected $table = 'bm_privilege';
     //
 }

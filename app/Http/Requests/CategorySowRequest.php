@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DivisionRequest extends FormRequest
+class CategorySowRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class DivisionRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'required|max:255',
+            'nama'    => 'required|max:255',
+            'id_sow' => 'required',
         ];
     }
 }

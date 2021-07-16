@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetailSow extends Model
 {
+    protected $table = 'bm_detailsow';
     protected $fillable = [
-        'name','sows_id'
+        'nama','id_kategori', 'flag'
     ];
 
     public $timestamps = false;
 
-    public function sow() {
-        return $this->belongsTo(Sow::class, 'sows_id');
+    public function category() {
+        return $this->belongsTo(Category::class, 'id_kategori');
     }
 }

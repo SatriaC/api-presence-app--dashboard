@@ -24,8 +24,8 @@ class SowRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'divisions_id' => 'required',
+            'nama' => 'required|max:255',
+            'id_bagian' => 'required',
         ];
     }
 }

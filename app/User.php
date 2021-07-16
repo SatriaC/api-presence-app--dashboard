@@ -10,14 +10,16 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $table = 'bm_user';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'divisions_id', 'locations_id', 'regions_id', 'privileges_id', 'flag'
+        'nama','nik', 'email', 'password', 'id_bagian', 'id_lokasi', 'id_wilayah', 'privilege', 'flag'
     ];
+    public $timestamps = false;
 
     /**
      * The attributes that should be hidden for arrays.
@@ -39,18 +41,18 @@ class User extends Authenticatable
 
 
     public function division() {
-        return $this->belongsTo(Division::class, 'divisions_id');
+        return $this->belongsTo(Division::class, 'id_bagian');
     }
 
     public function location() {
-        return $this->belongsTo(Location::class, 'locations_id');
+        return $this->belongsTo(Location::class, 'id_lokasi');
     }
 
     public function region() {
-        return $this->belongsTo(Region::class, 'regions_id');
+        return $this->belongsTo(Region::class, 'id_wilayah');
     }
 
     public function privilege() {
-        return $this->belongsTo(Privilege::class, 'privileges_id');
+        return $this->belongsTo(Privilege::class, 'privilege');
     }
 }
