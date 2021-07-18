@@ -19,8 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/register', 'API\AuthController@register');
-Route::post('/login', 'API\AuthController@login');
+
+Route::post('register', 'API\AuthController@register');
+Route::post('login', 'API\AuthController@login');
 
 Route::get('/getRegion', 'API\LocationController@locations')->name('api-locations');
 
@@ -30,8 +31,12 @@ Route::get('/getRegion', 'API\LocationController@locations')->name('api-location
 // Route::put('users/{id}', 'API\UserController@update');
 // Route::delete('users/{id}', 'API\UserController@delete');
 
-Route::get('pekerjaan', 'API\PekerjaanController@index');
-Route::get('pekerjaan/{id}', 'API\PekerjaanController@show');
-Route::post('pekerjaan', 'API\PekerjaanController@store');
-Route::put('pekerjaan/{id}', 'API\PekerjaanController@update'); //BISA UNTUK APPROVAL JUGA
-Route::delete('pekerjaan/{id}', 'API\PekerjaanController@delete');
+
+Route::prefix('v1')->middleware(['auth:api'])->group(function () {
+});
+    Route::get('pekerjaan', 'API\PekerjaanController@index');
+    Route::get('pekerjaan/{id}', 'API\PekerjaanController@show');
+    Route::post('pekerjaan', 'API\PekerjaanController@store');
+    Route::put('pekerjaan/{id}', 'API\PekerjaanController@update'); //BISA UNTUK APPROVAL JUGA
+    Route::delete('pekerjaan/{id}', 'API\PekerjaanController@delete');
+
