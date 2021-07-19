@@ -21,8 +21,11 @@ class Attendance extends Model
 
     protected $fillable = [
         'id_user',
-        'lokasi_masuk',
-        'lokasi_pulang',
+        'latitude_masuk',
+        'longitude_masuk',
+        'latitude_pulang',
+        'longitude_pulang',
+        // 'lokasi_pulang',
         'jam_masuk',
         'jam_pulang',
         'foto_masuk',

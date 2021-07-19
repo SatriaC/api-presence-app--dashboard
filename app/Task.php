@@ -17,6 +17,7 @@ class Task extends Model
         'note',
         'approved_by',
         'approved_at',
+        'reported_at',
         'alasan_rejected',
         'flag',
     ];
