@@ -33,7 +33,7 @@ Route::get('/getRegion', 'API\LocationController@locations')->name('api-location
 
 
 Route::prefix('v1')->middleware(['auth:api'])->group(function () {
-    Route::get('logout', 'API\AuthController@logout');
+    Route::post('logout', 'API\AuthController@logout');
     Route::get('pekerjaan', 'API\PekerjaanController@index');
     Route::get('pekerjaan/{id}', 'API\PekerjaanController@show');
     Route::post('pekerjaan', 'API\PekerjaanController@store');

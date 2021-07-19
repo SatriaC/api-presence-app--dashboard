@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -48,9 +49,14 @@ class AuthController extends Controller
     }
 
     public function logout (Request $request) {
-        $token = $request->user()->token();
-        $token->revoke();
-        // return ResponseFormatter::success($token, 'Token Berhasil dihapus');
-        return $this->error(200, 'Berhasil Logout');
+        // $token = $request->user()->token();
+        // $token->revoke();
+        // // return ResponseFormatter::success($token, 'Token Berhasil dihapus');
+        // return $this->error(200, 'Berhasil Logout');
+        if(Auth::check()) {
+            Auth::user()->token()->revoke();
+            return response()->json(["status" => "success", "error" => false, "message" => "Success! You are logged out."], 200);
+        }
+        return response()->json(["status" => "failed", "error" => true, "message" => "Failed! You are already logged out."], 403);
     }
 }
