@@ -46,4 +46,11 @@ class AuthController extends Controller
         return response(['user'=>auth()->user(), 'access_token'=>$accessToken]);
         # code...
     }
+
+    public function logout (Request $request) {
+        $token = $request->user()->token();
+        $token->revoke();
+        // return ResponseFormatter::success($token, 'Token Berhasil dihapus');
+        return $this->error(200, 'Berhasil Logout');
+    }
 }
