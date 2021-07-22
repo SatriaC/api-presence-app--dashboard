@@ -39,21 +39,21 @@
                         @csrf
                         @method('PUT')
                         <div class="col-12">
-                            <label for="name">Nama</label>
-                            <input class="form-control tanggalan @error('name') is-invalid @enderror" name="name"
-                                value="{{ $item->name }}" type="text">
-                            @error('name')
+                            <label for="nama">Nama</label>
+                            <input class="form-control tanggalan @error('nama') is-invalid @enderror" name="nama"
+                                value="{{ $item->nama }}" type="text">
+                            @error('nama')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-12 mt-2">
                             <label for="">SoW</label>
-                            <select class="form-control select2" name="sows_id">
+                            <select class="form-control select2" name="id_kategori">
                                 <option label="Pilih Bagian"></option>
                                 @foreach ($sows as $value)
                                     <option value="{{ $value->id }}"
-                                    {{$item->sows_id==$value->id ? 'selected' : ''}}>
-                                    {{$value->name}}</option>
+                                    {{$item->id_kategori==$value->id ? 'selected' : ''}}>
+                                    {{$value->nama}}</option>
                                 @endforeach
                             </select>
                         </div>
