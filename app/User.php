@@ -53,7 +53,7 @@ class User extends Authenticatable
         return $this->belongsTo(Region::class, 'id_wilayah');
     }
 
-    public function privilege() {
+    public function privil() {
         return $this->belongsTo(Privilege::class, 'privilege');
     }
 }

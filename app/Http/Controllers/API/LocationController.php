@@ -11,9 +11,9 @@ class LocationController extends Controller
 
     public function locations()
     {
-        $location = Location::where('regions_id', request()->regions_id)
+        $location = Location::where('id_wilayah', request()->regions_id)
             ->get();
-            
+
         return response()->json([
             "code" => 200,
             "status" => 'success',

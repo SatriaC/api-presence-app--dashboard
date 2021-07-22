@@ -53,7 +53,7 @@
                                     @csrf
                                     <div class="modal-body">
                                         <div class="col-12">
-                                            <label for="name">Nama</label>
+                                            <label for="nama">Nama</label>
                                             <input
                                                 class="form-control tanggalan @error('nama') is-invalid @enderror"
                                                 name="nama"
@@ -188,8 +188,8 @@
                     name: 'division.nama'
                 },
                 {
-                    data: 'privilege.nama',
-                    name: 'privilege.nama'
+                    data: 'privil.nama',
+                    name: 'privil.nama'
                 },
                 {
                     data: 'flag',
@@ -222,7 +222,7 @@
                     $('#location').empty();
                     $('#location').append('<option value="">Pilih Lokasi</option>');
                     $.each(html.data, function (key, item){
-                        $('#location').append('<option value="'+item.id+'">'+item.name+'</option>')
+                        $('#location').append('<option value="'+item.id+'">'+item.nama+'</option>')
                     });
                 },
                 error: function (xhr){

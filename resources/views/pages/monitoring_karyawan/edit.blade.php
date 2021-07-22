@@ -39,10 +39,10 @@
                         @csrf
                         @method('PUT')
                         <div class="col-12">
-                            <label for="name">Nama</label>
-                            <input class="form-control tanggalan @error('name') is-invalid @enderror" name="name"
-                                value="{{ $user->name }}" type="text">
-                            @error('name')
+                            <label for="nama">Nama</label>
+                            <input class="form-control tanggalan @error('nama') is-invalid @enderror" name="nama"
+                                value="{{ $user->nama }}" type="text">
+                            @error('nama')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -56,40 +56,40 @@
                         </div>
                         <div class="col-12 mt-2">
                             <label for="">Wilayah</label>
-                            <select class="form-control select2" id="region" name="regions_id">
+                            <select class="form-control select2" id="region" name="id_wilayah">
                                 <option label="Pilih WIlayah"></option>
                                 @foreach ($regions as $value)
                                     <option value="{{ $value->id }}"
-                                        {{ $user->regions_id == $value->id ? 'selected' : '' }}>
-                                        {{ $value->name }}</option>
+                                        {{ $user->id_wilayah == $value->id ? 'selected' : '' }}>
+                                        {{ $value->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-12 mt-2">
                             <label for="">Lokasi</label>
-                            <select class="form-control select2" id="location" name="locations_id">
+                            <select class="form-control select2" id="location" name="id_lokasi">
                                 <option label="Pilih Lokasi"></option>
                             </select>
                         </div>
                         <div class="col-12 mt-2">
                             <label for="">Divisi</label>
-                            <select class="form-control select2" name="divisions_id">
+                            <select class="form-control select2" name="id_bagian">
                                 <option label="Pilih Divisi"></option>
                                 @foreach ($divisions as $value)
                                     <option value="{{ $value->id }}"
-                                    {{$user->divisions_id==$value->id ? 'selected' : ''}}>
-                                    {{$value->name}}</option>
+                                    {{$user->id_bagian==$value->id ? 'selected' : ''}}>
+                                    {{$value->nama}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-12 mt-2">
                             <label for="">Privilege</label>
-                            <select class="form-control select2" name="privileges_id">
+                            <select class="form-control select2" name="privilege">
                                 <option label="Pilih WIlayah"></option>
                                 @foreach ($privileges as $value)
                                     <option value="{{ $value->id }}"
-                                        {{ $user->privileges_id == $value->id ? 'selected' : '' }}>
-                                        {{ $value->name }}</option>
+                                        {{ $user->privilege == $value->id ? 'selected' : '' }}>
+                                        {{ $value->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -127,7 +127,7 @@
                         $('#location').append('<option value="">Pilih Lokasi</option>');
                         $.each(html.data, function(key, item) {
                             $('#location').append('<option value="' + item.id + '">' +
-                                item.name + '</option>')
+                                item.nama + '</option>')
                         });
                     },
                     error: function(xhr) {

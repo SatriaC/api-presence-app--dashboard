@@ -64,11 +64,11 @@
                                         </div>
                                         <div class="col-12 mt-2">
                                             <label for="">Kategori SoW</label>
-                                            <select class="form-control select2"  name="sows_id">
+                                            <select class="form-control select2"  name="id_kategori">
                                                 <option label="Pilih Kategori"></option>
                                                 @foreach ($categories as $value)
                                                     <option value="{{$value->id}}"
-                                                    {{old('sows_id')==$value->id ? 'selected' : ''}}>
+                                                    {{old('id_kategori')==$value->id ? 'selected' : ''}}>
                                                     {{$value->nama}}</option>
                                                 @endforeach
                                             </select>

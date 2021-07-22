@@ -53,23 +53,23 @@
                                     @csrf
                                     <div class="modal-body">
                                         <div class="col-12">
-                                            <label for="name">Nama</label>
+                                            <label for="nama">Nama</label>
                                             <input
-                                                class="form-control tanggalan @error('name') is-invalid @enderror"
-                                                name="name"
-                                                value="{{ old('name') }}" type="text">
-                                            @error('name')
+                                                class="form-control tanggalan @error('nama') is-invalid @enderror"
+                                                name="nama"
+                                                value="{{ old('nama') }}" type="text">
+                                            @error('nama')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-12 mt-2">
-                                            <label for="">Divisi</label>
-                                            <select class="form-control select2"  name="divisions_id">
+                                            <label for="">Bagian</label>
+                                            <select class="form-control select2"  name="id_bagian">
                                                 <option label="Pilih Dokumen"></option>
                                                 @foreach ($divisions as $value)
                                                     <option value="{{$value->id}}"
-                                                    {{old('divisions_id')==$value->id ? 'selected' : ''}}>
-                                                    {{$value->name}}</option>
+                                                    {{old('id_bagian')==$value->id ? 'selected' : ''}}>
+                                                    {{$value->nama}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -125,12 +125,12 @@
                     }
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'nama',
+                    name: 'nama'
                 },
                 {
-                    data: 'division.name',
-                    name: 'division.name'
+                    data: 'division.nama',
+                    name: 'division.nama'
                 },
                 {
                     data: 'action',

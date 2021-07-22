@@ -53,12 +53,12 @@
                                     @csrf
                                     <div class="modal-body">
                                         <div class="col-12">
-                                            <label for="name">Nama</label>
+                                            <label for="nama">Nama</label>
                                             <input
-                                                class="form-control tanggalan @error('name') is-invalid @enderror"
-                                                name="name"
-                                                value="{{ old('name') }}" type="text">
-                                            @error('name')
+                                                class="form-control tanggalan @error('nama') is-invalid @enderror"
+                                                name="nama"
+                                                value="{{ old('nama') }}" type="text">
+                                            @error('nama')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -114,8 +114,8 @@
                     }
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'nama',
+                    name: 'nama'
                 },
                 {
                     data: 'flag',
