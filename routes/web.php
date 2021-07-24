@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::get('/','DashboardController@index')->name('dashboard');
+Route::get('/','DashboardController@index')->name('dashboard');
 Route::prefix('monitor')
     // ->namespace('Admin')
     // ->middleware(['auth','admin'])
@@ -29,6 +29,7 @@ Route::prefix('monitor')
         Route::resource('bagian', 'DivisionController');
         Route::resource('karyawan', 'KaryawanController');
         Route::resource('detail-sow', 'DetailSowController');
+        Route::resource('kategori-sow', 'KategoriSowController');
         Route::resource('sow', 'SowController');
         Route::resource('kehadiran', 'KehadiranController');
         Route::resource('pekerjaan', 'PekerjaanController');

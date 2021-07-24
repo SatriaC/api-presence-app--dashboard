@@ -1,13 +1,13 @@
 @extends('layouts.admin')
-@section('title', 'Monitor SOW')
+@section('title', 'Monitor Kategori SOW')
 @section('content')
     <!-- Page Header -->
     <div class="page-header">
         <div>
-            <h2 class="main-content-title tx-24 mg-b-5">Monitor SOW</h2>
+            <h2 class="main-content-title tx-24 mg-b-5">Monitor Kategori SOW</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">BM</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Monitor SOW</li>
+                <li class="breadcrumb-item active" aria-current="page">Monitor Kategori SOW</li>
             </ol>
         </div>
         <div class="d-flex">
@@ -47,13 +47,13 @@
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content modal-content-demo">
                                     <div class="modal-header">
-                                        <h6 class="modal-title">Tambah Data SOW</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                                        <h6 class="modal-title">Tambah Data Kategori SOW</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                                     </div>
-                                    <form action="{{ route('sow.store') }}" method="post" enctype="multipart/form-data">
+                                    <form action="{{ route('kategori-sow.store') }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="modal-body">
                                         <div class="col-12">
-                                            <label for="nama">Nama</label>
+                                            <label for="name">Nama</label>
                                             <input
                                                 class="form-control tanggalan @error('nama') is-invalid @enderror"
                                                 name="nama"
@@ -63,22 +63,15 @@
                                             @enderror
                                         </div>
                                         <div class="col-12 mt-2">
-                                            <label for="">Bagian</label>
-                                            <select class="form-control select2"  name="id_bagian">
-                                                <option label="Pilih Dokumen"></option>
-                                                @foreach ($divisions as $value)
+                                            <label for="">SoW</label>
+                                            <select class="form-control select2"  name="id_sow">
+                                                <option label="Pilih SoW"></option>
+                                                @foreach ($sows as $value)
                                                     <option value="{{$value->id}}"
-                                                    {{old('id_bagian')==$value->id ? 'selected' : ''}}>
+                                                    {{old('id_sow')==$value->id ? 'selected' : ''}}>
                                                     {{$value->nama}}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
-                                        <div class="col-12 mt-2">
-                                            <label>Icon</label>
-                                            <input type="file" name="ikon" class="form-control @error('ikon') is-invalid @enderror" value="{{ old('ikon') }}"  required>
-                                            @error('ikon')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -95,13 +88,12 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive border">
-                        <table id="sowTable" class="table text-nowrap text-md-nowrap table-hover mg-b-0">
+                        <table id="kategoriSowTable" class="table text-nowrap text-md-nowrap table-hover mg-b-0">
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama SOW</th>
-                                    <th>Divisi</th>
-                                    <th>Icon</th>
+                                    <th>Nama Kategori</th>
+                                    <th>SoW</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -119,7 +111,7 @@
 <script>
     $(function() {
         moment.locale('id');
-        var datatable = $('#sowTable').DataTable({
+        var datatable = $('#kategoriSowTable').DataTable({
             processing: true,
             serverSide: true,
             ordering: true,
@@ -137,12 +129,8 @@
                     name: 'nama'
                 },
                 {
-                    data: 'division.nama',
-                    name: 'division.nama'
-                },
-                {
-                    data: 'ikon',
-                    name: 'ikon'
+                    data: 'sow.nama',
+                    name: 'sow.nama'
                 },
                 {
                     data: 'action',

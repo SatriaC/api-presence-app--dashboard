@@ -1,13 +1,13 @@
 @extends('layouts.admin')
-@section('title', 'Edit Data Sow')
+@section('title', 'Edit Data Kategori Sow')
 @section('content')
     <!-- Page Header -->
     <div class="page-header">
         <div>
-            <h2 class="main-content-title tx-24 mg-b-5">Edit Data Sow</h2>
+            <h2 class="main-content-title tx-24 mg-b-5">Edit Data Kategori Sow</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">BM</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Edit Data Sow</li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Data Kategori Sow</li>
             </ol>
         </div>
         <div class="d-flex">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('sow.update', $item->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('kategori-sow.update', $item->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="col-12">
@@ -47,23 +47,15 @@
                             @enderror
                         </div>
                         <div class="col-12 mt-2">
-                            <label for="">Bagian</label>
-                            <select class="form-control select2" name="id_bagian">
-                                <option label="Pilih Bagian"></option>
-                                @foreach ($divisions as $value)
+                            <label for="">SoW</label>
+                            <select class="form-control select2" name="id_sow">
+                                <option label="Pilih SoW"></option>
+                                @foreach ($sows as $value)
                                     <option value="{{ $value->id }}"
-                                    {{$item->id_bagian==$value->id ? 'selected' : ''}}>
+                                    {{$item->id_sow==$value->id ? 'selected' : ''}}>
                                     {{$value->nama}}</option>
                                 @endforeach
                             </select>
-                        </div>
-
-                        <div class="col-12 mt-2">
-                            <label>Icon</label>
-                            <input type="file" name="ikon" class="form-control @error('ikon') is-invalid @enderror" value="{{ $item->ikon }}"  required>
-                            @error('ikon')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
                         </div>
                         <button class="btn ripple btn-primary" type="submit"
                             onclick="return confirm('Apakah anda yakin akan mengedit data ?')">Submit</button>
@@ -73,3 +65,4 @@
         </div>
     </div>
 @endsection
+

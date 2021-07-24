@@ -6,6 +6,7 @@ use App\Sow;
 use App\Division;
 use App\Http\Requests\SowRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class SowController extends Controller
@@ -38,7 +39,10 @@ class SowController extends Controller
                 </div>
                 ';
             })
-            ->rawColumns(['action'])
+            ->editColumn('ikon', function($item){
+                return $item->ikon ? '<img src="'. Storage::url($item->ikon) .'" style="max-height: 40px;" />' : '';
+            })
+            ->rawColumns(['ikon','action'])
             ->make();
         }
 
@@ -51,6 +55,7 @@ class SowController extends Controller
     {
         $data = $request->all();
         Sow::create($data);
+        $data['ikon'] = $request->file('ikon')->store('assets/ikon-sow', 'public');
 
         return redirect()->route('sow.index')->with('success', 'Anda telah berhasil melakukan input data');
     }
@@ -66,6 +71,8 @@ class SowController extends Controller
     public function update(SowRequest $request, $id)
     {
         $data = $request->all();
+        $data['ikon'] = $request->file('ikon')->store('assets/ikon-sow', 'public');
+
         $item = Sow::findOrFail($id);
 
         $item->update($data);

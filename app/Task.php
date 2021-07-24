@@ -9,6 +9,7 @@ class Task extends Model
     protected $table = 'bm_pekerjaan';
     protected $fillable = [
         'id_user',
+        'id_bagian',
         'id_detail',
         'id_sow',
         'laporan',

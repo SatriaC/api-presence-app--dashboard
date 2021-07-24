@@ -13,25 +13,30 @@
     <div class="main-sidebar-body">
         <ul class="nav">
             {{-- <li class="nav-header"><span class="nav-label">Dashboard</span></li> --}}
-            <li class="nav-item">
-                <a class="nav-link" href="#"><span class="shape1"></span><span class="shape2"></span><i
+            <li class="nav-item {{ (request()->is('/')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('dashboard') }}"><span class="shape1"></span><span class="shape2"></span><i
                             class="ti-home sidemenu-icon"></i><span class="sidemenu-label">Dashboard</span></a>
             </li>
-            <li class="nav-item {{ (request()->is('monitor/karyawan*')) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('karyawan.index') }}"><span class="shape1"></span><span class="shape2"></span><i
-                            class="ti-user sidemenu-icon"></i><span class="sidemenu-label">Monitor Karyawan</span></a>
-            </li>
-            <li class="nav-item {{ (request()->is('monitor/bagian*')) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('bagian.index') }}"><span class="shape1"></span><span class="shape2"></span><i
-                            class="ti-bag sidemenu-icon"></i><span class="sidemenu-label">Bagian</span></a>
-            </li>
-            <li class="nav-item {{ (request()->is('monitor/sow*')) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('sow.index') }}"><span class="shape1"></span><span class="shape2"></span><i
-                            class="ti-layers sidemenu-icon"></i><span class="sidemenu-label">Monitor SoW</span></a>
-            </li>
-            <li class="nav-item {{ (request()->is('monitor/detail-sow*')) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('detail-sow.index') }}"><span class="shape1"></span><span class="shape2"></span><i
-                            class="ti-layers-alt sidemenu-icon"></i><span class="sidemenu-label">Detail SoW</span></a>
+            <li class="nav-item">
+                <a class="nav-link with-sub" href="#"><span class="shape1"></span><span class="shape2"></span><i
+                        class="ti-desktop sidemenu-icon"></i><span class="sidemenu-label">Monitor</span></a>
+                <ul class="nav-sub">
+                    <li class="nav-sub-item">
+                        <a class="nav-sub-link" href="{{ route('karyawan.index') }}">Karyawan</a>
+                    </li>
+                    <li class="nav-sub-item">
+                        <a class="nav-sub-link" href="{{ route('bagian.index') }}">Bagian</a>
+                    </li>
+                    <li class="nav-sub-item">
+                        <a class="nav-sub-link" href="{{ route('sow.index') }}">SoW</a>
+                    </li>
+                    <li class="nav-sub-item">
+                        <a class="nav-sub-link" href="{{ route('kategori-sow.index') }}">Kategori SoW</a>
+                    </li>
+                    <li class="nav-sub-item">
+                        <a class="nav-sub-link" href="{{ route('detail-sow.index') }}">Detail SoW</a>
+                    </li>
+                </ul>
             </li>
 
         </ul>
