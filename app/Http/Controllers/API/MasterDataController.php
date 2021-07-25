@@ -7,13 +7,15 @@ use App\DetailSow;
 use App\Http\Controllers\Controller;
 use App\Sow;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MasterDataController extends Controller
 {
 
     public function sow()
     {
-        $item = Sow::where('flag','=', 1)->get();
+        $bagian = Auth::user()->id_bagian;
+        $item = Sow::where([['flag','=', 1],['id_bagian', '=', $bagian]])->get();
 
         return response()->json([
             "code" => 200,
@@ -22,9 +24,9 @@ class MasterDataController extends Controller
         ]);
     }
 
-    public function kategoriSow()
+    public function kategoriSow($id)
     {
-        $item = Category::where('flag','=', 1)->get();
+        $item = Category::where([['flag','=', 1],['id_sow','=',$id]])->get();
 
         return response()->json([
             "code" => 200,
@@ -33,9 +35,9 @@ class MasterDataController extends Controller
         ]);
     }
 
-    public function detailSow()
+    public function detailSow($id)
     {
-        $item = DetailSow::where('flag','=', 1)->get();
+        $item = DetailSow::where([['flag','=', 1],['id_kategori','=',$id]])->get();
 
         return response()->json([
             "code" => 200,

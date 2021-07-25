@@ -45,10 +45,21 @@ Route::prefix('v1')->middleware(['auth:api'])->group(function () {
     Route::put('pekerjaan/{id}', 'API\PekerjaanController@update'); //BISA UNTUK APPROVAL JUGA
     Route::delete('pekerjaan/{id}', 'API\PekerjaanController@delete');
     Route::get('sow', 'API\MasterDataController@sow');
-    Route::get('kategori-sow', 'API\MasterDataController@kategoriSow');
-    Route::get('detail-sow', 'API\MasterDataController@detailSow');
+    Route::get('kategori-sow/{id}', 'API\MasterDataController@kategoriSow');
+    Route::get('detail-sow/{id}', 'API\MasterDataController@detailSow');
     Route::get('sow/{filename}', function ($filename) {
         $path = storage_path('app/public/assets/ikon-sow/' . $filename);
+        if (!File::exists($path)) {
+            return response(['message' => 'File tidak ada'], 404);
+        }
+        $file = File::get($path);
+        $type = File::mimeType($path);
+        $response = Response::make($file, 200);
+        $response->header('Content-type', $type);
+        return $response;
+    });
+    Route::get('pekerjaan/{filename}', function ($filename) {
+        $path = storage_path('app/public/file/pekerjaan/' . $filename);
         if (!File::exists($path)) {
             return response(['message' => 'File tidak ada'], 404);
         }

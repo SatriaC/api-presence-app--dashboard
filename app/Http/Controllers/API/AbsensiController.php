@@ -34,15 +34,17 @@ class AbsensiController extends Controller
 
         $file_name = null;
         if($request->foto_masuk){
-            $file = $request->foto_masuk;
-            $file_name = date('Ymd').'-'.$file->getClientOriginalName();
-            $file = str_replace('data:image/png;base64,', '', $file);
-            $file = str_replace(' ', '+', $file);
-            $data = base64_decode($file);
+            $file_name = "foto-absensi-masuk-".date('Y-m-d').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
+            $file = $request->foto_masuk->storeAs('public/file/absensi/',$file_name);
+            // $file = $request->foto_masuk;
+            // $file_name = date('Ymd').'-'.$file->getClientOriginalName();
+            // $file = str_replace('data:image/png;base64,', '', $file);
+            // $file = str_replace(' ', '+', $file);
+            // $data = base64_decode($file);
             // $request->foto_masuk->store(public_path('/Foto Pekerjaan/'))->put($file_name, $data);
 
             // $save_file = $file->storeAs('file/foto-profil', $file_name, 'public');
-            $save_file = Storage::disk('public')->put($file_name, $data);
+            // $save_file = Storage::disk('public')->put($file_name, $data);
         }
 
         Attendance::create([
@@ -83,13 +85,15 @@ class AbsensiController extends Controller
 
         $file_name = null;
         if($request->foto_pulang){
-            $file = $request->foto_pulang;
-            $file_name = date('Ymd').'-'.$file->getClientOriginalName();
-            $file = str_replace('data:image/png;base64,', '', $file);
-            $file = str_replace(' ', '+', $file);
-            $data = base64_decode($file);
-            // $save_file = $file->storeAs('file/foto-profil', $file_name, 'public');
-            $save_file = Storage::disk('public')->put($file_name, $data);
+            $file_name = "foto-absensi-pulang-".date('Y-m-d').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
+            $file = $request->foto_pulang->storeAs('public/file/absensi/',$file_name);
+            // $file = $request->foto_pulang;
+            // $file_name = date('Ymd').'-'.$file->getClientOriginalName();
+            // $file = str_replace('data:image/png;base64,', '', $file);
+            // $file = str_replace(' ', '+', $file);
+            // $data = base64_decode($file);
+            // // $save_file = $file->storeAs('file/foto-profil', $file_name, 'public');
+            // $save_file = Storage::disk('public')->put($file_name, $data);
 
         }
 
