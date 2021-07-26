@@ -39,24 +39,24 @@ class AuthController extends Controller
         ]);
 
         if (!auth()->attempt($loginData)) {
-            return response(['message' => 'Invalid Credentials']);
+            return response(['success' => false,'message' => 'Email/Password salah']);
         }
 
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
 
-        return response(['user'=>auth()->user(), 'access_token'=>$accessToken]);
+        return response(['success' => true,'user'=>auth()->user(), 'access_token'=>$accessToken]);
         # code...
     }
 
-    public function logout (Request $request) {
+    public function logout () {
         // $token = $request->user()->token();
         // $token->revoke();
         // // return ResponseFormatter::success($token, 'Token Berhasil dihapus');
         // return $this->error(200, 'Berhasil Logout');
         if(Auth::check()) {
             Auth::user()->token()->revoke();
-            return response()->json(["status" => "success", "error" => false, "message" => "Success! You are logged out."], 200);
+            return response()->json(['success' => true, 'message' => "Success! You are logged out."], 200);
         }
-        return response()->json(["status" => "failed", "error" => true, "message" => "Failed! You are already logged out."], 403);
+        return response()->json(['success' => false, 'message' => "Failed! You are already logged out."], 403);
     }
 }

@@ -35,7 +35,7 @@ Route::get('/getRegion', 'API\LocationController@locations')->name('api-location
 
 
 Route::prefix('v1')->middleware(['auth:api'])->group(function () {
-    Route::post('logout', 'API\AuthController@logout');
+    Route::get('logout', 'API\AuthController@logout');
     Route::post('absensi/masuk', 'API\AbsensiController@absenMasuk');
     Route::post('absensi/pulang', 'API\AbsensiController@absenPulang');
     Route::post('report/pekerjaan', 'API\PekerjaanController@report');
@@ -47,17 +47,17 @@ Route::prefix('v1')->middleware(['auth:api'])->group(function () {
     Route::get('sow', 'API\MasterDataController@sow');
     Route::get('kategori-sow/{id}', 'API\MasterDataController@kategoriSow');
     Route::get('detail-sow/{id}', 'API\MasterDataController@detailSow');
-    Route::get('sow/{filename}', function ($filename) {
-        $path = storage_path('app/public/assets/ikon-sow/' . $filename);
-        if (!File::exists($path)) {
-            return response(['message' => 'File tidak ada'], 404);
-        }
-        $file = File::get($path);
-        $type = File::mimeType($path);
-        $response = Response::make($file, 200);
-        $response->header('Content-type', $type);
-        return $response;
-    });
+    // Route::get('sow/{filename}', function ($filename) {
+    //     $path = storage_path('app/public/assets/ikon-sow/' . $filename);
+    //     if (!File::exists($path)) {
+    //         return response(['message' => 'File tidak ada'], 404);
+    //     }
+    //     $file = File::get($path);
+    //     $type = File::mimeType($path);
+    //     $response = Response::make($file, 200);
+    //     $response->header('Content-type', $type);
+    //     return $response;
+    // });
     Route::get('pekerjaan/{filename}', function ($filename) {
         $path = storage_path('app/public/file/pekerjaan/' . $filename);
         if (!File::exists($path)) {
@@ -70,4 +70,14 @@ Route::prefix('v1')->middleware(['auth:api'])->group(function () {
         return $response;
     });
 });
-
+Route::get('sow/{filename}', function ($filename) {
+    $path = storage_path('app/public/assets/ikon-sow/' . $filename);
+    if (!File::exists($path)) {
+        return response(['message' => 'File tidak ada'], 404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header('Content-type', $type);
+    return $response;
+});
