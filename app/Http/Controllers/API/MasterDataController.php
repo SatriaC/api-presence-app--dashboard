@@ -7,6 +7,7 @@ use App\Category;
 use App\DetailSow;
 use App\Http\Controllers\Controller;
 use App\Sow;
+use App\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,7 @@ class MasterDataController extends Controller
     public function sow()
     {
         $bagian = Auth::user()->id_bagian;
-        $item = Sow::where([['flag','=', 1],['id_bagian', '=', $bagian]])->get();
+        $item = Sow::where([['flag', '=', 1], ['id_bagian', '=', $bagian]])->get();
 
         return response()->json([
             "code" => 200,
@@ -27,7 +28,7 @@ class MasterDataController extends Controller
 
     public function kategoriSow($id)
     {
-        $item = Category::where([['flag','=', 1],['id_sow','=',$id]])->get();
+        $item = Category::where([['flag', '=', 1], ['id_sow', '=', $id]])->get();
 
         return response()->json([
             "code" => 200,
@@ -38,7 +39,7 @@ class MasterDataController extends Controller
 
     public function detailSow($id)
     {
-        $item = DetailSow::where([['flag','=', 1],['id_kategori','=',$id]])->get();
+        $item = DetailSow::where([['flag', '=', 1], ['id_kategori', '=', $id]])->get();
 
         return response()->json([
             "code" => 200,
@@ -55,6 +56,19 @@ class MasterDataController extends Controller
             "code" => 200,
             "status" => 'success',
             "data" => $item
+        ]);
+    }
+
+    public function statusLaporan()
+    {
+        $itemApproved = Task::whereNotNull('approved_by')->whereNull('alasan_reject')->count();
+        $itemRejected = Task::whereNotNull(['approved_by','alasan_reject'])->count();
+        $itemPending = Task::whereNull(['approved_by','alasan_reject'])->count();
+        
+        return response()->json([
+            "code" => 200,
+            "status" => 'success',
+            "data" => [$itemApproved, $itemPending, $itemRejected]
         ]);
     }
 }

@@ -20,7 +20,7 @@ class Task extends Model
         'approved_by',
         'approved_at',
         'reported_at',
-        'alasan_rejected',
+        'alasan_reject',
         'flag',
     ];
 
