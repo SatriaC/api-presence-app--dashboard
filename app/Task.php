@@ -10,6 +10,7 @@ class Task extends Model
     protected $fillable = [
         'id_user',
         'id_bagian',
+        'id_kategori',
         'id_detail',
         'id_sow',
         'laporan',

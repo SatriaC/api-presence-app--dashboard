@@ -80,6 +80,7 @@ class PekerjaanController extends Controller
             'id_user' => Auth::user()->id,
             'id_bagian' => Auth::user()->id_bagian,
             'id_sow' => $request->id_sow,
+            'id_kategori' => $request->id_kategori,
             'id_detail' => $request->id_detail,
             'reported_at' => date('Y-m-d H:i:s'),
             'laporan' => $request->laporan,
@@ -89,6 +90,8 @@ class PekerjaanController extends Controller
         ]);
 
         return response()->json([
+                'success' => true,
+                'foto before' => $request->foto_before,
                 'status' => 200,
                 'title' => 'success',
                 'message' => 'Data Pekerjaan Masuk Berhasil!'
