@@ -51,27 +51,29 @@ class PekerjaanController extends Controller
 
         $file_name = null;
         if($request->foto_before){
-            $file_name = "foto-pekerjaan-sebelum-".date('Y-m-d').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
-            $file = $request->foto_before->storeAs('public/file/pekerjaan/',$file_name);
-            // $file = str_replace('data:image/png;base64,', '', $file);
-            // $file = str_replace(' ', '+', $file);
-            // $data = base64_decode($file);
+            $file = $request->foto_before;
+            // $file = $request->foto_before->storeAs('public/file/pekerjaan/',$file_name);
+            $file = str_replace('data:image/png;base64,', '', $file);
+            $file = str_replace(' ', '+', $file);
+            $data = base64_decode($file);
             // $request->foto_before->store(public_path('/Foto Pekerjaan/'))->put($file_name, $data);
 
+            $file_name = "foto-pekerjaan-sebelum-".date('Y-m-d').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
             // $save_file = $file->storeAs('file/foto-profil', $file_name, 'public');
-            // $save_file = Storage::disk('public')->put($file_name, $data);
+            $save_file = Storage::disk('public')->put($file_name, $data);
         }
 
         $file_name1 = null;
         if($request->foto_after){
-            $file_name1 = "foto-pekerjaan-sesudah-".date('Y-m-d').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
-            $file1 = $request->foto_after->storeAs('public/file/pekerjaan/',$file_name1);
-            // $file1 = str_replace('data:image/png;base64,', '', $file1);
-            // $file1 = str_replace(' ', '+', $file1);
-            // $data1 = base64_decode($file1);
+            $file1 = $request->foto_after;
+            // $file1 = $request->foto_after->storeAs('public/file/pekerjaan/',$file_name1);
+            $file1 = str_replace('data:image/png;base64,', '', $file1);
+            $file1 = str_replace(' ', '+', $file1);
+            $data1 = base64_decode($file1);
             // $save_file = $file->storeAs('file/foto-profil', $file_name, 'public');
             // $request->foto_after->store(public_path('/public/'))->put($file_name1, $data1);
-            // $save_file = Storage::disk('public')->put($file_name1, $data1);
+            $file_name1 = "foto-pekerjaan-sesudah-".date('Y-m-d').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
+            $save_file = Storage::disk('public')->put($file_name1, $data1);
         }
 
         Task::create([
