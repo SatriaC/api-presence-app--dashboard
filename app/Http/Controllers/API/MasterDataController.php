@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Attendance;
 use App\Category;
 use App\DetailSow;
 use App\Http\Controllers\Controller;
@@ -38,6 +39,17 @@ class MasterDataController extends Controller
     public function detailSow($id)
     {
         $item = DetailSow::where([['flag','=', 1],['id_kategori','=',$id]])->get();
+
+        return response()->json([
+            "code" => 200,
+            "status" => 'success',
+            "data" => $item
+        ]);
+    }
+
+    public function absen()
+    {
+        $item = Attendance::where('id_user', Auth::guard('api')->user()->id)->orderBy('id', 'desc')->first();
 
         return response()->json([
             "code" => 200,
