@@ -59,7 +59,7 @@ class PekerjaanController extends Controller
             $data = base64_decode($file);
             // $request->foto_before->store(public_path('/Foto Pekerjaan/'))->put($file_name, $data);
 
-            $file_name = "foto-pekerjaan-sebelum-".date('Y-m-d H:i:s').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
+            $file_name = "foto-pekerjaan-sebelum-".date('Y-m-d His').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
             // $save_file = $file->storeAs('file/foto-profil', $file_name, 'public');
             $save_file = Storage::disk('public')->put($file_name, $data);
         }
@@ -73,7 +73,7 @@ class PekerjaanController extends Controller
             $data1 = base64_decode($file1);
             // $save_file = $file->storeAs('file/foto-profil', $file_name, 'public');
             // $request->foto_after->store(public_path('/public/'))->put($file_name1, $data1);
-            $file_name1 = "foto-pekerjaan-sesudah-".date('Y-m-d H:i:s').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
+            $file_name1 = "foto-pekerjaan-sesudah-".date('Y-m-d His').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
             $save_file = Storage::disk('public')->put($file_name1, $data1);
         }
 
