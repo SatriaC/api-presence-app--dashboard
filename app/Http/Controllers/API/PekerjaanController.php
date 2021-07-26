@@ -36,6 +36,7 @@ class PekerjaanController extends Controller
         $validator = Validator::make($request->all(),
         [
             'id_sow' => 'required',
+            'id_kategori' => 'required',
             'id_detail' => 'required',
             'laporan' => 'required',
             'foto_before' => 'required',
