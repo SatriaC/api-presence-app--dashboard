@@ -83,3 +83,15 @@ Route::get('sow/{filename}', function ($filename) {
     $response->header('Content-type', $type);
     return $response;
 });
+
+Route::get('foto_absensi/{filename}', function ($filename) {
+    $path = storage_path('app/public/foto_absensi/' . $filename);
+    if (!File::exists($path)) {
+        return response(['message' => 'File tidak ada'], 404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header('Content-type', $type);
+    return $response;
+});

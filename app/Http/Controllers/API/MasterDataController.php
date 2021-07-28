@@ -68,7 +68,7 @@ class MasterDataController extends Controller
         return response()->json([
             "code" => 200,
             "status" => 'success',
-            "data" => [$itemApproved, $itemPending, $itemRejected]
+            "data" => ['itemAproved' => $itemApproved,'itemPending' => $itemPending,'itemRejected' => $itemRejected]
         ]);
     }
 }

@@ -92,7 +92,7 @@ class PekerjaanController extends Controller
 
         return response()->json([
                 'success' => true,
-                'foto before' => $request->foto_before,
+                // 'foto before' => $request->foto_before,
                 'status' => 200,
                 'title' => 'success',
                 'message' => 'Data Pekerjaan Masuk Berhasil!'

@@ -33,32 +33,35 @@ class AbsensiController extends Controller
         // }
 
         $file_name = null;
-        if($request->foto_masuk){
-            $file_name = "foto-absensi-masuk-".date('Y-m-d').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
-            $file = $request->foto_masuk->storeAs('public/file/absensi/',$file_name);
-            // $file = $request->foto_masuk;
-            // $file_name = date('Ymd').'-'.$file->getClientOriginalName();
-            // $file = str_replace('data:image/png;base64,', '', $file);
-            // $file = str_replace(' ', '+', $file);
-            // $data = base64_decode($file);
-            // $request->foto_masuk->store(public_path('/Foto Pekerjaan/'))->put($file_name, $data);
-
-            // $save_file = $file->storeAs('file/foto-profil', $file_name, 'public');
-            // $save_file = Storage::disk('public')->put($file_name, $data);
+        if($request->foto_masuk){            
+            $file = $request->foto_masuk;
+            $file = str_replace('data:image/png;base64,', '', $file);
+            $file = str_replace(' ', '+', $file);
+            $data = base64_decode($file);
+            $file_name = "foto-absen-masuk-".date('Y-m-d His').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
+            Storage::disk('public')->put('foto_absensi/' . $file_name, $data);            
         }
 
+        $date_time = date('Y-m-d H:i:s');
+        $date = date('F j, Y');
+        $time = date('H:i:s');
         Attendance::create([
             'id_user' => Auth::user()->id,
             'latitude_masuk' => $request->latitude_masuk,
             'longitude_masuk' => $request->longitude_masuk,
-            'jam_masuk' => date('Y-m-d H:i:s'),
+            'jam_masuk' => $date_time,
             'foto_masuk' => $file_name,
         ]);
 
         return response()->json([
                 'status' => 200,
                 'title' => 'success',
-                'message' => 'Data Pekerjaan Masuk Berhasil!'
+                'message' => 'Absen Masuk Berhasil!',
+                "data" => [
+                    'foto_masuk' => $file_name,
+                    'date' => $date,
+                    'time' => $time
+                    ]
         ]);
     }
 
@@ -85,16 +88,12 @@ class AbsensiController extends Controller
 
         $file_name = null;
         if($request->foto_pulang){
-            $file_name = "foto-absensi-pulang-".date('Y-m-d').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
-            $file = $request->foto_pulang->storeAs('public/file/absensi/',$file_name);
-            // $file = $request->foto_pulang;
-            // $file_name = date('Ymd').'-'.$file->getClientOriginalName();
-            // $file = str_replace('data:image/png;base64,', '', $file);
-            // $file = str_replace(' ', '+', $file);
-            // $data = base64_decode($file);
-            // // $save_file = $file->storeAs('file/foto-profil', $file_name, 'public');
-            // $save_file = Storage::disk('public')->put($file_name, $data);
-
+            $file = $request->foto_pulang;
+            $file = str_replace('data:image/png;base64,', '', $file);
+            $file = str_replace(' ', '+', $file);
+            $data = base64_decode($file);
+            $file_name = "foto-absen-pulang-".date('Y-m-d His').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
+            Storage::disk('public')->put('foto_absensi/' . $file_name, $data);    
         }
 
         // print_r($request->all());
@@ -109,7 +108,7 @@ class AbsensiController extends Controller
         return response()->json([
             'status' => 200,
             'title' => 'success',
-            'message' => 'Data Pekerjaan Masuk Berhasil!'
+            'message' => 'Absen Pulang Berhasil!'
         ]);
     }
 }
