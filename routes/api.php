@@ -36,6 +36,7 @@ Route::get('/getRegion', 'API\LocationController@locations')->name('api-location
 
 Route::prefix('v1')->middleware(['auth:api'])->group(function () {
     Route::get('logout', 'API\AuthController@logout');
+    Route::get('get-absensi/masuk', 'API\AbsensiController@getAbsenMasuk');
     Route::post('absensi/masuk', 'API\AbsensiController@absenMasuk');
     Route::post('absensi/pulang', 'API\AbsensiController@absenPulang');
     Route::post('report/pekerjaan', 'API\PekerjaanController@report');

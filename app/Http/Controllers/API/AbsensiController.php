@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Attendance;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,44 @@ use Illuminate\Support\Facades\Storage;
 
 class AbsensiController extends Controller
 {
+    public function getAbsenMasuk()
+    {
+        $check = Attendance::find(1);
+        $waktuMasuk = Carbon::parse($check->jam_masuk);
+        $sekarang = Carbon::now();
+        $hasilSelisih = abs(strtotime($sekarang)) - abs(strtotime($waktuMasuk));
+
+        if ($hasilSelisih < 43200) {
+            $dataAbsen = Attendance::where('id_user', Auth::guard('api')->user()->id)->orderBy('id', 'desc')->first();
+            $date_time = date('Y-m-d H:i:s');
+            $date = date('F j, Y');
+            $time = date('H:i:s');
+            return response()->json([
+                'status' => 200,
+                'title' => 'success',
+                'message' => 'Absen Masuk Berhasil!',
+                "data" => [
+                    'dataAbsen' => $dataAbsen,
+                    'date' => $date,
+                    'date_time' => $date_time,
+                    'time' => $time
+                    ]
+        ]);
+        } else {
+            return response()->json([
+                'status' => 200,
+                'title' => 'success',
+                'message' => 'Anda telah melewatkan Absen Pulang!',
+                // "data" => [
+                    // 'foto_masuk' => $file_name,
+                    // 'date' => $date,
+                    // 'time' => $time
+                    // ]
+        ]);
+
+        }
+        // dd($hasil);
+    }
 
     public function absenMasuk(Request $request)
     {
@@ -33,13 +72,13 @@ class AbsensiController extends Controller
         // }
 
         $file_name = null;
-        if($request->foto_masuk){            
+        if($request->foto_masuk){
             $file = $request->foto_masuk;
             $file = str_replace('data:image/png;base64,', '', $file);
             $file = str_replace(' ', '+', $file);
             $data = base64_decode($file);
             $file_name = "foto-absen-masuk-".date('Y-m-d His').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
-            Storage::disk('public')->put('foto_absensi/' . $file_name, $data);            
+            Storage::disk('public')->put('foto_absensi/' . $file_name, $data);
         }
 
         $date_time = date('Y-m-d H:i:s');
@@ -93,7 +132,7 @@ class AbsensiController extends Controller
             $file = str_replace(' ', '+', $file);
             $data = base64_decode($file);
             $file_name = "foto-absen-pulang-".date('Y-m-d His').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
-            Storage::disk('public')->put('foto_absensi/' . $file_name, $data);    
+            Storage::disk('public')->put('foto_absensi/' . $file_name, $data);
         }
 
         // print_r($request->all());

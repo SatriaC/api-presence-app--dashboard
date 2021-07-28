@@ -61,10 +61,10 @@ class MasterDataController extends Controller
 
     public function statusLaporan()
     {
-        $itemApproved = Task::whereNotNull('approved_by')->whereNull('alasan_reject')->count();
-        $itemRejected = Task::whereNotNull(['approved_by','alasan_reject'])->count();
-        $itemPending = Task::whereNull(['approved_by','alasan_reject'])->count();
-        
+        $itemApproved = Task::whereNotNull('approved_by')->whereNull('alasan_reject')->where('id_user', Auth::guard('api')->user()->id)->count();
+        $itemRejected = Task::whereNotNull(['approved_by', 'alasan_reject'])->where('id_user', Auth::guard('api')->user()->id)->count();
+        $itemPending = Task::whereNull(['approved_by', 'alasan_reject'])->where('id_user', Auth::guard('api')->user()->id)->count();
+
         return response()->json([
             "code" => 200,
             "status" => 'success',

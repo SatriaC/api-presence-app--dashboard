@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Attendance;
 use App\Division;
 use App\Sow;
 use App\Task;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -26,7 +28,7 @@ class DashboardController extends Controller
                 $pembilangDone = Task::where([['flag', 3],['id_bagian', $item->id]])->count();
                 $pembilangOnProgress = Task::where([['flag', 2],['id_bagian', $item->id]])->count();
                 $pembilangNotYet = Task::where([['flag', 1],['id_bagian', $item->id]])->count();
-            if ($item->nama == 'CSOB') {
+            if ($item->nama == 'CSOB & HK') {
                 $data_done[] = ($pembilangDone/$CSOB)*100;
                 $data_onProgress[] = ($pembilangOnProgress/$CSOB)*100;
                 $data_notYet[] = ($pembilangNotYet/$CSOB)*100;
