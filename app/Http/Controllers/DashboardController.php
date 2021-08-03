@@ -14,8 +14,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $item = Task::where('flag', 1)->orderBy('id', 'desc')->get();
-        dd($item);
         $pekerjaan = Task::all()->count();
         $karyawan = User::all()->count();
         $sow = Sow::all()->count();
