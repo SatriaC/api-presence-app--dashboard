@@ -51,7 +51,7 @@ Route::prefix('v1')->middleware(['auth:api'])->group(function () {
     Route::get('detail-sow/{id}', 'API\MasterDataController@detailSow');
     Route::get('absen', 'API\MasterDataController@absen');
     Route::get('status-laporan', 'API\MasterDataController@statusLaporan');
-    Route::get('pekerjaan/onProgress', 'API\MasterDataController@pekerjaanOnProgress');
+    Route::get('report/on-progress', 'API\MasterDataController@pekerjaanOnProgress');
     // Route::get('sow/{filename}', function ($filename) {
     //     $path = storage_path('app/public/assets/ikon-sow/' . $filename);
     //     if (!File::exists($path)) {

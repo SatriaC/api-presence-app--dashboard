@@ -133,7 +133,7 @@ class AbsensiController extends Controller
             $file = str_replace('data:image/png;base64,', '', $file);
             $file = str_replace(' ', '+', $file);
             $data = base64_decode($file);
-            $file_name = "foto-absen-pulang-" . date('Y-m-d His') . '-' . Auth::guard('api')->user()->id . '-' . Auth::guard('api')->user()->nama . ".png";
+            $file_name = "foto-absen-pulang-" . date('Y-m-d-His') . '-' . Auth::guard('api')->user()->id . '-' . Auth::guard('api')->user()->nama . ".png";
             Storage::disk('public')->put('foto_absensi/' . $file_name, $data);
         }
 
