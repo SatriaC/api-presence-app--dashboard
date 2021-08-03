@@ -14,32 +14,63 @@ class AbsensiController extends Controller
 {
     public function getAbsenMasuk()
     {
-        $check = Attendance::find(1);
-        $waktuMasuk = Carbon::parse($check->jam_masuk);
-        $sekarang = Carbon::now();
-        $hasilSelisih = abs(strtotime($sekarang)) - abs(strtotime($waktuMasuk));
+        $dataAbsen = Attendance::where('id_user', Auth::guard('api')->user()->id)->orderBy('id', 'desc')->first();
+        if ($dataAbsen != null) {
+            $waktuMasuk = Carbon::parse($dataAbsen->jam_masuk);
+            $sekarang = Carbon::now();
+            $hasilSelisih = abs(strtotime($sekarang)) - abs(strtotime($waktuMasuk));
 
-        if ($hasilSelisih < 43200) {
-            $dataAbsen = Attendance::where('id_user', Auth::guard('api')->user()->id)->orderBy('id', 'desc')->first();
-            $date_time = date('Y-m-d H:i:s');
-            $date = date('F j, Y');
-            $time = date('H:i:s');
-            return response()->json([
-                'status' => 200,
-                'title' => 'success',
-                'message' => 'Absen Masuk Berhasil!',
-                "data" => [
-                    'dataAbsen' => $dataAbsen,
-                    'date' => $date,
-                    'date_time' => $date_time,
-                    'time' => $time
-                ]
-            ]);
+            if ($hasilSelisih < 43200) {
+                $date_time_masuk = $dataAbsen->jam_masuk;
+                $time_masuk = date('H:i:s', strtotime($date_time_masuk));
+                $date_time_pulang = $dataAbsen->jam_pulang;
+                $time_pulang = null;
+                if ($date_time_pulang != null) {
+                    $time_pulang = date('H:i:s', strtotime($date_time_pulang));
+                }
+                return response()->json([
+                    'status' => 200,
+                    'title' => 'success',
+                    'message' => 'Data Absen Berhasil diambil',
+                    "data" => [
+                        'dataAbsen' => $dataAbsen,
+                        'date_time_masuk' => $date_time_masuk,
+                        'time_masuk' => $time_masuk,
+                        'date_time_pulang' => $date_time_pulang,
+                        'time_pulang' => $time_pulang
+                    ]
+                ]);
+            }
+
+            if ($hasilSelisih > 43200 && $dataAbsen->jam_pulang == '0000-01-01 00:00:00') {
+                return response()->json([
+                    'status' => 500,
+                    'title' => 'success',
+                    'message' => 'Anda telah melewatkan absen pulang!',
+                    // "data" => [
+                    // 'foto_masuk' => $file_name,
+                    // 'date' => $date,
+                    // 'time' => $time
+                    // ]
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 501,
+                    'title' => 'success',
+                    'message' => 'Absen reset',
+                    // "data" => [
+                    // 'foto_masuk' => $file_name,
+                    // 'date' => $date,
+                    // 'time' => $time
+                    // ]
+                ]);
+            }
+            // dd($hasil);
         } else {
             return response()->json([
-                'status' => 200,
+                'status' => 500,
                 'title' => 'success',
-                'message' => 'Anda telah melewatkan Absen Pulang!',
+                'message' => 'Anda belum pernah absen.',
                 // "data" => [
                 // 'foto_masuk' => $file_name,
                 // 'date' => $date,
@@ -47,7 +78,52 @@ class AbsensiController extends Controller
                 // ]
             ]);
         }
-        // dd($hasil);
+
+        //     if ($hasilSelisih < 43200) {
+        //         $date_time_masuk = $dataAbsen->jam_masuk;
+        //         $time_masuk = date('H:i:s', strtotime($date_time_masuk));
+        //         $date_time_pulang = $dataAbsen->jam_pulang;
+        //         $time_pulang = null;
+        //         if ($date_time_pulang != null) {
+        //             $time_pulang = date('H:i:s', strtotime($date_time_pulang));
+        //         }
+        //         return response()->json([
+        //             'status' => 200,
+        //             'title' => 'success',
+        //             'message' => 'Data Absen Berhasil diambil',
+        //             "data" => [
+        //                 'dataAbsen' => $dataAbsen,
+        //                 'date_time_masuk' => $date_time_masuk,
+        //                 'time_masuk' => $time_masuk,
+        //                 'date_time_pulang' => $date_time_pulang,
+        //                 'time_pulang' => $time_pulang
+        //             ]
+        //         ]);
+        //     } else {
+        //         return response()->json([
+        //             'status' => 500,
+        //             'title' => 'success',
+        //             'message' => 'Anda telah melewatkan absen pulang!',
+        //             // "data" => [
+        //             // 'foto_masuk' => $file_name,
+        //             // 'date' => $date,
+        //             // 'time' => $time
+        //             // ]
+        //         ]);
+        //     }
+        //     // dd($hasil);
+        // }else{
+        //     return response()->json([
+        //         'status' => 500,
+        //         'title' => 'success',
+        //         'message' => 'Anda belum pernah absen.',
+        //         // "data" => [
+        //         // 'foto_masuk' => $file_name,
+        //         // 'date' => $date,
+        //         // 'time' => $time
+        //         // ]
+        //     ]);
+        // }
     }
 
     public function absenMasuk(Request $request)
@@ -78,7 +154,7 @@ class AbsensiController extends Controller
             $file = str_replace('data:image/png;base64,', '', $file);
             $file = str_replace(' ', '+', $file);
             $data = base64_decode($file);
-            $file_name = "foto-absen-masuk-" . date('Y-m-d His') . '-' . Auth::guard('api')->user()->id . '-' . Auth::guard('api')->user()->nama . ".png";
+            $file_name = "foto-absen-masuk-" . date('Y-m-d-His') . '-' . Auth::guard('api')->user()->id . '-' . Auth::guard('api')->user()->nama . ".png";
             Storage::disk('public')->put('foto_absensi/' . $file_name, $data);
         }
 
@@ -133,7 +209,7 @@ class AbsensiController extends Controller
             $file = str_replace('data:image/png;base64,', '', $file);
             $file = str_replace(' ', '+', $file);
             $data = base64_decode($file);
-            $file_name = "foto-absen-pulang-" . date('Y-m-d His') . '-' . Auth::guard('api')->user()->id . '-' . Auth::guard('api')->user()->nama . ".png";
+            $file_name = "foto-absen-pulang-" . date('Y-m-d-His') . '-' . Auth::guard('api')->user()->id . '-' . Auth::guard('api')->user()->nama . ".png";
             Storage::disk('public')->put('foto_absensi/' . $file_name, $data);
         }
 
