@@ -111,6 +111,7 @@ class PekerjaanController extends Controller
         //         // 'message' => 'Terjadi kesalahan '
         //     ], 'Terjadi kesalahan pada input', 500);
         // }
+        // $tst = 'test';
         $update_pekerjaan = Task::find($id);
         // $update_pekerjaan = Task::where([['id_user', Auth::guard('api')->user()->id],['id_sow', $id]])->orderBy('id', 'desc')->first();
 
