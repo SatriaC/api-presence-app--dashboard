@@ -14,7 +14,7 @@ class PekerjaanController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Task::with(['user','user.division', 'detail', 'detail.category']);
+            $query = Task::with(['user','user.division', 'detail', 'detail.category', 'detail.category.sow']);
 
             return DataTables::of($query)
             ->editColumn('foto_before', function($item){

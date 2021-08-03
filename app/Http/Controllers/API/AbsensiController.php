@@ -33,36 +33,37 @@ class AbsensiController extends Controller
                     'date' => $date,
                     'date_time' => $date_time,
                     'time' => $time
-                    ]
-        ]);
+                ]
+            ]);
         } else {
             return response()->json([
                 'status' => 200,
                 'title' => 'success',
                 'message' => 'Anda telah melewatkan Absen Pulang!',
                 // "data" => [
-                    // 'foto_masuk' => $file_name,
-                    // 'date' => $date,
-                    // 'time' => $time
-                    // ]
-        ]);
-
+                // 'foto_masuk' => $file_name,
+                // 'date' => $date,
+                // 'time' => $time
+                // ]
+            ]);
         }
         // dd($hasil);
     }
 
     public function absenMasuk(Request $request)
     {
-        $validator = Validator::make($request->all(),
-        [
-            'latitude_masuk' => 'required',
-            'longitude_masuk' => 'required',
-            'foto_masuk' => 'required',
-        ],
-        [
-            'latitude_masuk.required' => 'Latitude harus diisi.Mohon izinkan kami untuk mengetahui lokasi Anda',
-            'longitude_masuk.required' => 'Longitude harus diisi.Mohon izinkan kami untuk mengetahui lokasi Anda',
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'latitude_masuk' => 'required',
+                'longitude_masuk' => 'required',
+                'foto_masuk' => 'required',
+            ],
+            [
+                'latitude_masuk.required' => 'Latitude harus diisi.Mohon izinkan kami untuk mengetahui lokasi Anda',
+                'longitude_masuk.required' => 'Longitude harus diisi.Mohon izinkan kami untuk mengetahui lokasi Anda',
+            ]
+        );
 
         // if($validator->fails()){
         //     return ResponseFormatter::error([
@@ -72,12 +73,12 @@ class AbsensiController extends Controller
         // }
 
         $file_name = null;
-        if($request->foto_masuk){
+        if ($request->foto_masuk) {
             $file = $request->foto_masuk;
             $file = str_replace('data:image/png;base64,', '', $file);
             $file = str_replace(' ', '+', $file);
             $data = base64_decode($file);
-            $file_name = "foto-absen-masuk-".date('Y-m-d His').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
+            $file_name = "foto-absen-masuk-" . date('Y-m-d His') . '-' . Auth::guard('api')->user()->id . '-' . Auth::guard('api')->user()->nama . ".png";
             Storage::disk('public')->put('foto_absensi/' . $file_name, $data);
         }
 
@@ -93,29 +94,30 @@ class AbsensiController extends Controller
         ]);
 
         return response()->json([
-                'status' => 200,
-                'title' => 'success',
-                'message' => 'Absen Masuk Berhasil!',
-                "data" => [
-                    'foto_masuk' => $file_name,
-                    'date' => $date,
-                    'time' => $time
-                    ]
+            'status' => 200,
+            'title' => 'success',
+            'message' => 'Absen Masuk Berhasil!',
+            "data" => [
+                'foto_masuk' => $file_name,
+                'date' => $date,
+                'time' => $time
+            ]
         ]);
     }
 
     public function absenPulang(Request $request)
     {
-        $validator = Validator::make($request->all(),
-        [
-            'latitude_pulang' => 'required',
-            'longitude_pulang' => 'required',
-        ],
-        [
-            'latitude_pulang.required' => 'Latitude harus diisi.Mohon izinkan kami untuk mengetahui lokasi Anda',
-            'longitude_pulang.required' => 'Longitude harus diisi.Mohon izinkan kami untuk mengetahui lokasi Anda',
-        ]
-    );
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'latitude_pulang' => 'required',
+                'longitude_pulang' => 'required',
+            ],
+            [
+                'latitude_pulang.required' => 'Latitude harus diisi.Mohon izinkan kami untuk mengetahui lokasi Anda',
+                'longitude_pulang.required' => 'Longitude harus diisi.Mohon izinkan kami untuk mengetahui lokasi Anda',
+            ]
+        );
 
         // if($validator->fails()){
         //     return ResponseFormatter::error([
@@ -126,12 +128,12 @@ class AbsensiController extends Controller
         $update_jam_keluar = Attendance::where('id_user', Auth::guard('api')->user()->id)->orderBy('id', 'desc')->first();
 
         $file_name = null;
-        if($request->foto_pulang){
+        if ($request->foto_pulang) {
             $file = $request->foto_pulang;
             $file = str_replace('data:image/png;base64,', '', $file);
             $file = str_replace(' ', '+', $file);
             $data = base64_decode($file);
-            $file_name = "foto-absen-pulang-".date('Y-m-d His').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
+            $file_name = "foto-absen-pulang-" . date('Y-m-d His') . '-' . Auth::guard('api')->user()->id . '-' . Auth::guard('api')->user()->nama . ".png";
             Storage::disk('public')->put('foto_absensi/' . $file_name, $data);
         }
 

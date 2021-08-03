@@ -52,6 +52,7 @@
                                     <th>Pekerja</th>
                                     <th>Bagian</th>
                                     <th>SoW</th>
+                                    <th>Kategori SoW</th>
                                     <th>Detail SoW</th>
                                     <th>Laporan Pekerjaan</th>
                                     <th>Foto Sebelum</th>
@@ -89,8 +90,8 @@
                     }
                 },
                 {
-                    data: 'approved_at',
-                    name: 'approved_at'
+                    data: 'reported_at',
+                    name: 'reported_at'
                 },
                 // {
                 //     data: 'locations',
@@ -105,8 +106,12 @@
                     name: 'user.division.nama'
                 },
                 {
-                    data: 'detail.sow.nama',
-                    name: 'detail.sow.nama'
+                    data: 'detail.category.sow.nama',
+                    name: 'detail.category.sow.nama'
+                },
+                {
+                    data: 'detail.category.nama',
+                    name: 'detail.category.nama'
                 },
                 {
                     data: 'detail.nama',
@@ -129,8 +134,8 @@
                     name: 'flag'
                 },
                 {
-                    data: 'alasan_rejected',
-                    name: 'alasan_rejected'
+                    data: 'alasan_reject',
+                    name: 'alasan_reject'
                 },
                 {
                     data: 'action',

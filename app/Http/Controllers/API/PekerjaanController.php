@@ -31,7 +31,7 @@ class PekerjaanController extends Controller
         return response()->json($item, 201);
     }
 
-    public function report(Request $request)
+    public function reportSebelum(Request $request)
     {
         $validator = Validator::make($request->all(),
         [
@@ -40,7 +40,7 @@ class PekerjaanController extends Controller
             'id_detail' => 'required',
             'laporan' => 'required',
             'foto_before' => 'required',
-            'foto_after' => 'required',
+            // 'foto_after' => 'required',
         ]);
 
         // if($validator->fails()){
@@ -67,12 +67,9 @@ class PekerjaanController extends Controller
         $file_name1 = null;
         if($request->foto_after){
             $file1 = $request->foto_after;
-            // $file1 = $request->foto_after->storeAs('public/file/pekerjaan/',$file_name1);
             $file1 = str_replace('data:image/png;base64,', '', $file1);
             $file1 = str_replace(' ', '+', $file1);
             $data1 = base64_decode($file1);
-            // $save_file = $file->storeAs('file/foto-profil', $file_name, 'public');
-            // $request->foto_after->store(public_path('/public/'))->put($file_name1, $data1);
             $file_name1 = "foto-pekerjaan-sesudah-".date('Y-m-d His').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
             $save_file = Storage::disk('public')->put($file_name1, $data1);
         }
@@ -85,9 +82,9 @@ class PekerjaanController extends Controller
             'id_detail' => $request->id_detail,
             'reported_at' => date('Y-m-d H:i:s'),
             'laporan' => $request->laporan,
-            'note' => $request->note,
             'foto_before' => $file_name,
-            'foto_after' => $file_name1
+            'note' => $request->note,
+            // 'foto_after' => $file_name1
         ]);
 
         return response()->json([
@@ -96,6 +93,46 @@ class PekerjaanController extends Controller
                 'status' => 200,
                 'title' => 'success',
                 'message' => 'Data Pekerjaan Masuk Berhasil!'
+        ]);
+    }
+
+    public function reportSesudah(Request $request, $id)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+             'foto_after' => 'required',
+            ]
+        );
+
+        // if($validator->fails()){
+        //     return ResponseFormatter::error([
+        //         'errors' => $validator->errors()->all(),
+        //         // 'message' => 'Terjadi kesalahan '
+        //     ], 'Terjadi kesalahan pada input', 500);
+        // }
+        $update_pekerjaan = Task::find($id);
+        // $update_pekerjaan = Task::where([['id_user', Auth::guard('api')->user()->id],['id_sow', $id]])->orderBy('id', 'desc')->first();
+
+        $file_name1 = null;
+        if($request->foto_after){
+            $file1 = $request->foto_after;
+            $file1 = str_replace('data:image/png;base64,', '', $file1);
+            $file1 = str_replace(' ', '+', $file1);
+            $data1 = base64_decode($file1);
+            $file_name1 = "foto-pekerjaan-sesudah-".date('Y-m-d His').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
+            $save_file = Storage::disk('public')->put($file_name1, $data1);
+        }
+
+        $update_pekerjaan->foto_after = $file_name1;
+        $update_pekerjaan->flag = 2;
+
+        $update_pekerjaan->save();
+
+        return response()->json([
+            'status' => 200,
+            'title' => 'success',
+            'message' => 'Laporan Sesudah Berhasil!'
         ]);
     }
 

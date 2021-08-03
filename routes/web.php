@@ -22,15 +22,20 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/','DashboardController@index')->name('dashboard');
-Route::prefix('monitor')
+Route::prefix('master-data')
     // ->namespace('Admin')
-    // ->middleware(['auth','admin'])
+    ->middleware(['auth'])
     ->group(function(){
         Route::resource('bagian', 'DivisionController');
         Route::resource('karyawan', 'KaryawanController');
         Route::resource('detail-sow', 'DetailSowController');
         Route::resource('kategori-sow', 'KategoriSowController');
         Route::resource('sow', 'SowController');
+    });
+Route::prefix('report')
+    // ->namespace('Admin')
+    ->middleware(['auth'])
+    ->group(function(){
         Route::resource('kehadiran', 'KehadiranController');
         Route::resource('pekerjaan', 'PekerjaanController');
     });

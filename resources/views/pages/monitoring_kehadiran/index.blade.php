@@ -47,16 +47,14 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Tanggal</th>
-                                    <th>Lokasi</th>
+                                    <th>Jam Masuk</th>
+                                    <th>Jam Pulang</th>
+                                    <th>Lokasi Masuk</th>
+                                    <th>Lokasi Pulang</th>
                                     <th>Pekerja</th>
-                                    <th>Bagian</th>
-                                    <th>SoW</th>
-                                    <th>Detail SoW</th>
-                                    <th>Laporan Pekerjaan</th>
-                                    <th>Foto Sebelum</th>
-                                    <th>Foto Sesudah</th>
-                                    <th>Approval</th>
+                                    <th>Foto Masuk</th>
+                                    <th>Foto Pulang</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>

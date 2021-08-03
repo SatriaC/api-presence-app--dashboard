@@ -14,34 +14,38 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $item = Task::where('flag', 1)->orderBy('id', 'desc')->get();
+        dd($item);
         $pekerjaan = Task::all()->count();
         $karyawan = User::all()->count();
         $sow = Sow::all()->count();
-        $CSOB = Task::where('id_bagian', 1)->count();
-        $notCSOB = Task::where('id_bagian','!=', 1)->count();
 
         $bagian = Division::all();
         $data_done = [];
         $data_onProgress = [];
         $data_notYet = [];
         foreach ($bagian as $item) {
-                $pembilangDone = Task::where([['flag', 3],['id_bagian', $item->id]])->count();
-                $pembilangOnProgress = Task::where([['flag', 2],['id_bagian', $item->id]])->count();
-                $pembilangNotYet = Task::where([['flag', 1],['id_bagian', $item->id]])->count();
-            if ($item->nama == 'CSOB & HK') {
-                $data_done[] = ($pembilangDone/$CSOB)*100;
-                $data_onProgress[] = ($pembilangOnProgress/$CSOB)*100;
-                $data_notYet[] = ($pembilangNotYet/$CSOB)*100;
-            } else {
-                $data_done[] = ($pembilangDone/$pekerjaan)*100;
-                $data_onProgress[] = ($pembilangOnProgress/$pekerjaan)*100;
-                $data_notYet[] = ($pembilangNotYet/$pekerjaan)*100;
-            }
+            $data[] = Task::where('id_bagian', $item->id)->count();
 
         }
-        // dd($data_notYet);
+        $data_onProgress = Task::where('flag', 2)->count();
+        $data_notYet = Task::where('flag', 1)->count();
+        $data_done = Task::where('flag', 3)->count();
+        $data_name = ['Done', 'On Progress'];
+        $data_progress = [];
+
+        foreach ($data_name as $item) {
+            $pembilangDone = Task::where('flag', 3)->count();
+            $pembilangOnProgress = Task::where('flag', 2)->count();
+            if ($item == 'Done') {
+                $data_progress[] = ($pembilangDone/$pekerjaan)*100;
+            } else {
+                $data_progress[] = ($pembilangOnProgress/$pekerjaan)*100;
+            }
+        }
+        // dd($data_progress);
 
 
-        return view('pages.dashboards', compact(['pekerjaan', 'karyawan', 'sow','data_done','data_onProgress','data_notYet']));
+        return view('pages.dashboards', compact(['pekerjaan', 'karyawan', 'sow','data','data_done','data_onProgress','data_notYet','data_name','data_progress']));
     }
 }

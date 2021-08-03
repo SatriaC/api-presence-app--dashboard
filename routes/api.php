@@ -39,7 +39,8 @@ Route::prefix('v1')->middleware(['auth:api'])->group(function () {
     Route::get('get-absensi/masuk', 'API\AbsensiController@getAbsenMasuk');
     Route::post('absensi/masuk', 'API\AbsensiController@absenMasuk');
     Route::post('absensi/pulang', 'API\AbsensiController@absenPulang');
-    Route::post('report/pekerjaan', 'API\PekerjaanController@report');
+    Route::post('report/pekerjaan-sebelum', 'API\PekerjaanController@reportSebelum');
+    Route::post('report/pekerjaan-sesudah', 'API\PekerjaanController@reportSesudah');
     Route::get('pekerjaan', 'API\PekerjaanController@index');
     Route::get('pekerjaan/{id}', 'API\PekerjaanController@show');
     Route::post('pekerjaan', 'API\PekerjaanController@store');
@@ -50,6 +51,7 @@ Route::prefix('v1')->middleware(['auth:api'])->group(function () {
     Route::get('detail-sow/{id}', 'API\MasterDataController@detailSow');
     Route::get('absen', 'API\MasterDataController@absen');
     Route::get('status-laporan', 'API\MasterDataController@statusLaporan');
+    Route::get('pekerjaan/onProgress', 'API\MasterDataController@pekerjaanOnProgress');
     // Route::get('sow/{filename}', function ($filename) {
     //     $path = storage_path('app/public/assets/ikon-sow/' . $filename);
     //     if (!File::exists($path)) {

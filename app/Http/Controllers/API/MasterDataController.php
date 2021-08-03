@@ -64,11 +64,24 @@ class MasterDataController extends Controller
         $itemApproved = Task::whereNotNull('approved_by')->whereNull('alasan_reject')->where('id_user', Auth::guard('api')->user()->id)->count();
         $itemRejected = Task::whereNotNull(['approved_by', 'alasan_reject'])->where('id_user', Auth::guard('api')->user()->id)->count();
         $itemPending = Task::whereNull(['approved_by', 'alasan_reject'])->where('id_user', Auth::guard('api')->user()->id)->count();
+        $itemOnProgress = Task::where([['id_user', Auth::guard('api')->user()->id], ['flag', 1]])->count();
+        $itemCompleted = Task::where([['id_user', Auth::guard('api')->user()->id], ['flag', 2]])->count();
 
         return response()->json([
             "code" => 200,
             "status" => 'success',
-            "data" => ['itemAproved' => $itemApproved,'itemPending' => $itemPending,'itemRejected' => $itemRejected]
+            "data" => ['itemApproved' => $itemApproved, 'itemPending' => $itemPending, 'itemRejected' => $itemRejected, 'itemOnProgress' => $itemOnProgress, 'itemCompleted' => $itemCompleted]
+        ]);
+    }
+
+    public function pekerjaanOnProgress()
+    {
+        $item = Task::where([['id_user', Auth::guard('api')->user()->id], ['flag', 1]])->orderBy('id', 'desc')->get();
+
+        return response()->json([
+            "code" => 200,
+            "status" => 'success',
+            "data" => $item
         ]);
     }
 }

@@ -1,5 +1,56 @@
 @extends('layouts.admin')
 @section('title', 'Dashboard')
+    @push('custom-style')
+        <style>
+            #container1 {
+                height: 500px;
+            }
+
+            .highcharts-figure,
+            .highcharts-data-table table {
+                min-width: 320px;
+                max-width: 700px;
+                margin: 1em auto;
+            }
+
+            .highcharts-data-table table {
+                font-family: Verdana, sans-serif;
+                border-collapse: collapse;
+                border: 1px solid #EBEBEB;
+                margin: 10px auto;
+                text-align: center;
+                width: 100%;
+                max-width: 500px;
+            }
+
+            .highcharts-data-table caption {
+                padding: 1em 0;
+                font-size: 1.2em;
+                color: #555;
+            }
+
+            .highcharts-data-table th {
+                font-weight: 600;
+                padding: 0.5em;
+            }
+
+            .highcharts-data-table td,
+            .highcharts-data-table th,
+            .highcharts-data-table caption {
+                padding: 0.5em;
+            }
+
+            .highcharts-data-table thead tr,
+            .highcharts-data-table tr:nth-child(even) {
+                background: #f8f8f8;
+            }
+
+            .highcharts-data-table tr:hover {
+                background: #f1f7ff;
+            }
+
+        </style>
+    @endpush
 @section('content')
     <!-- Page Header -->
     <div class="page-header">
@@ -143,22 +194,43 @@
 
             <!--row-->
             <div class="row row-sm">
-                <div class="col-sm-12 col-lg-12 col-xl-12">
+                <div class="col-sm-6 col-lg-6 col-xl-6">
                     <div class="card custom-card overflow-hidden">
                         <div class="card-header border-bottom-0">
                             <div>
                                 <label class="main-content-label mb-2">Chart Document</label>
-                                <span class="d-block tx-12 mb-0 text-muted">The Project Budget is a tool used by project
-                                    managers to estimate the total cost of a project</span>
+                                {{-- <span class="d-block tx-12 mb-0 text-muted">The Project Budget is a tool used by project
+                                    managers to estimate the total cost of a project</span> --}}
                             </div>
                         </div>
-                        <div class="card-body pl-0">
+                        <div class="card-body">
                             <figure class="highcharts-figure">
                                 <div id="container"></div>
                             </figure>
                         </div>
                     </div>
                 </div><!-- col end -->
+                <div class="col-sm-6 col-lg-6 col-xl-6">
+                    <div class="card custom-card overflow-hidden">
+                        <div class="card-header border-bottom-0">
+                            <div>
+                                <label class="main-content-label mb-2">Pie Chart</label>
+                                {{-- <span class="d-block tx-12 mb-0 text-muted">The Project Budget is a tool used by project
+                                    managers to estimate the total cost of a project</span> --}}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="cart-item">
+
+                                <figure class="highcharts-figure">
+                                    <div id="container1"></div>
+                                    {{-- <p class="highcharts-description">
+                                    </p> --}}
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Row end -->
         </div>
@@ -221,6 +293,7 @@
 
     </style>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
@@ -230,7 +303,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Laporan Building Management'
+                text: 'Grafik Total Per Bagian'
             },
             // subtitle: {
             //     text: ''
@@ -246,7 +319,7 @@
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Jumlah Pekerjaan (%)'
+                    text: 'Jumlah Pekerjaan'
                 }
             },
             tooltip: {
@@ -264,18 +337,59 @@
                 }
             },
             series: [{
-                name: 'Done',
-                data: {!! json_encode($data_done) !!}
+                name: 'Jumlah Pekerjaan',
+                data: {!! json_encode($data) !!}
 
-            }, {
-                name: 'On Progress',
-                data: {!! json_encode($data_onProgress) !!}
+            }, ]
+        });
 
-            }, {
-                name: 'Not Yet',
-                data: {!! json_encode($data_notYet) !!}
+    </script>
+    <script>
+        $(function() {
+            var data_progress = {!! json_encode($data_progress) !!};
+            var data_name = {!! json_encode($data_name) !!};
+            var datas = [];
+            for (var i = 0; i < data_name.length; i++) {
+                datas.push({
+                    name: data_name[i],
+                    y: data_progress[i]
+                });
+            }
 
-            }]
+            Highcharts.chart('container1', {
+                chart: {
+                    type: 'variablepie'
+                },
+                title: {
+                    text: 'Status Pekerjaan'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    minPointSize: 75,
+                    innerSize: '100%',
+                    zMin: 0,
+                    name: 'Persentase',
+                    data: datas,
+
+
+                }]
+            });
+
         });
 
     </script>

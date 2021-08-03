@@ -19,7 +19,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link with-sub" href="#"><span class="shape1"></span><span class="shape2"></span><i
-                        class="ti-desktop sidemenu-icon"></i><span class="sidemenu-label">Monitor</span></a>
+                        class="ti-desktop sidemenu-icon"></i><span class="sidemenu-label">Master Data</span></a>
                 <ul class="nav-sub">
                     <li class="nav-sub-item">
                         <a class="nav-sub-link" href="{{ route('karyawan.index') }}">Karyawan</a>
@@ -35,6 +35,18 @@
                     </li>
                     <li class="nav-sub-item">
                         <a class="nav-sub-link" href="{{ route('detail-sow.index') }}">Detail SoW</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link with-sub" href="#"><span class="shape1"></span><span class="shape2"></span><i
+                        class="ti-clipboard sidemenu-icon"></i><span class="sidemenu-label">Reporting</span></a>
+                <ul class="nav-sub">
+                    <li class="nav-sub-item">
+                        <a class="nav-sub-link" href="{{ route('pekerjaan.index') }}">Pekerjaan</a>
+                    </li>
+                    <li class="nav-sub-item">
+                        <a class="nav-sub-link" href="{{ route('kehadiran.index') }}">Kehadiran</a>
                     </li>
                 </ul>
             </li>
