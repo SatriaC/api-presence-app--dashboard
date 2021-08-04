@@ -77,7 +77,7 @@ class MasterDataController extends Controller
     public function pekerjaanOnProgress()
     {
         $item = Task::where([['id_user', Auth::guard('api')->user()->id], ['flag', 1]])->orderBy('id', 'desc')->get();
-
+        // nama Sow, kategori dan detail
         return response()->json([
             "code" => 200,
             "status" => 'success',

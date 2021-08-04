@@ -381,7 +381,7 @@
                 },
                 series: [{
                     minPointSize: 75,
-                    innerSize: '100%',
+                    innerSize: '40%',
                     zMin: 0,
                     name: 'Persentase',
                     data: datas,

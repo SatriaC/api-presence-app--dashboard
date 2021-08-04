@@ -20,12 +20,15 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/','DashboardController@index')->name('dashboard');
+Route::middleware(['auth'])
+    ->group(function () {
+        Route::get('/', 'DashboardController@index')->name('dashboard');
+    });
+    
 Route::prefix('master-data')
     // ->namespace('Admin')
     ->middleware(['auth'])
-    ->group(function(){
+    ->group(function () {
         Route::resource('bagian', 'DivisionController');
         Route::resource('karyawan', 'KaryawanController');
         Route::resource('detail-sow', 'DetailSowController');
@@ -35,7 +38,7 @@ Route::prefix('master-data')
 Route::prefix('report')
     // ->namespace('Admin')
     ->middleware(['auth'])
-    ->group(function(){
+    ->group(function () {
         Route::resource('kehadiran', 'KehadiranController');
         Route::resource('pekerjaan', 'PekerjaanController');
     });
