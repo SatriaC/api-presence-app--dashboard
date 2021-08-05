@@ -29,12 +29,12 @@
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fe fe-power"></i> Sign Out
                     </a> --}}
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fe fe-power"></i> Sign Out
                     </a>
-                    {{-- <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
-                    </form> --}}
+                    </form>
                 </div>
             </div>
             <!-- Navresponsive closed -->
