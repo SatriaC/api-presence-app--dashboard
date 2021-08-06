@@ -46,7 +46,7 @@ class SowController extends Controller
                 ->make();
         }
 
-        $divisions = Division::all();
+        $divisions = Division::where('flag',1)->get();
 
         return view('pages.monitoring_sow.index', compact('divisions'));
     }
@@ -54,8 +54,12 @@ class SowController extends Controller
     public function store(SowRequest $request)
     {
         $data = $request->all();
+        // $data['ikon'] = $request->file('ikon');
+
+        $nama_file = date('Ymd') . "_" . $data['ikon']->getClientOriginalName();
+        $path = Storage::putFileAs('public/assets/ikon-sow', $data['ikon'], $nama_file);
+        $data['ikon'] = 'assets/ikon-sow/'.$nama_file;
         Sow::create($data);
-        $data['ikon'] = $request->file('ikon')->store('assets/ikon-sow', 'public');
 
         return redirect()->route('sow.index')->with('success', 'Anda telah berhasil melakukan input data');
     }
@@ -71,7 +75,9 @@ class SowController extends Controller
     public function update(SowRequest $request, $id)
     {
         $data = $request->all();
-        $data['ikon'] = $request->file('ikon')->store('assets/ikon-sow', 'public');
+        $nama_file = date('Ymd') . "_" . $data['ikon']->getClientOriginalName();
+        $path = Storage::putFileAs('public/assets/ikon-sow', $data['ikon'], $nama_file);
+        $data['ikon'] = 'assets/ikon-sow/'.$nama_file;
 
         $item = Sow::findOrFail($id);
 
