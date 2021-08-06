@@ -13,7 +13,7 @@ class KategoriSowController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Category::with(['sow']);
+            $query = Category::with(['sow'])->where('flag', 1);
 
             return DataTables::of($query)
             ->addColumn('action', function($item){
@@ -76,8 +76,10 @@ class KategoriSowController extends Controller
     public function destroy($id)
     {
         $item = Category::findOrFail($id);
-        $item->delete();
+        $item->update([
+            'flag' => 2,
+        ]);
 
-        return redirect()->route('kategori-sow.index');
+        return redirect()->route('kategori-sow.index')->with('success', 'Anda telah berhasil melakukan hapus data');
     }
 }

@@ -23,8 +23,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth'])
     ->group(function () {
         Route::get('/', 'DashboardController@index')->name('dashboard');
+        Route::get('ubah-password', 'UbahPasswordController@index')->name('ubah-password');
+        Route::post('/change-passwords', 'UbahPasswordController@changePassword')->name('password.change');
     });
-    
+
 Route::prefix('master-data')
     // ->namespace('Admin')
     ->middleware(['auth'])

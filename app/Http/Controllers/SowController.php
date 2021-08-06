@@ -14,21 +14,21 @@ class SowController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Sow::with(['division']);
+            $query = Sow::with(['division'])->where('flag', 1);
 
             return DataTables::of($query)
-            ->addColumn('action', function($item){
-                return '
+                ->addColumn('action', function ($item) {
+                    return '
                 <div class="btn-group">
                     <div class="dropdown">
                         <button class="btn btn-sm btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">
                             Aksi
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="'.route('sow.edit', $item->id).'">
+                            <a class="dropdown-item" href="' . route('sow.edit', $item->id) . '">
                                 Sunting
                             </a>
-                            <form action="'. route('sow.destroy',$item->id) .'" method="POST">
+                            <form action="' . route('sow.destroy', $item->id) . '" method="POST">
                             ' . method_field('delete') . csrf_field() . '
                                 <button type="submit" class="dropdown-item text-danger">
                                     Hapus
@@ -38,12 +38,12 @@ class SowController extends Controller
                     </div>
                 </div>
                 ';
-            })
-            ->editColumn('ikon', function($item){
-                return $item->ikon ? '<img src="'. Storage::url($item->ikon) .'" style="max-height: 40px;" />' : '';
-            })
-            ->rawColumns(['ikon','action'])
-            ->make();
+                })
+                ->editColumn('ikon', function ($item) {
+                    return $item->ikon ? '<img src="' . Storage::url($item->ikon) . '" style="max-height: 40px;" />' : '';
+                })
+                ->rawColumns(['ikon', 'action'])
+                ->make();
         }
 
         $divisions = Division::all();
@@ -65,7 +65,7 @@ class SowController extends Controller
         $item = Sow::findOrFail($id);
         $divisions = Division::all();
 
-        return view('pages.monitoring_sow.edit', compact('item','divisions'));
+        return view('pages.monitoring_sow.edit', compact('item', 'divisions'));
     }
 
     public function update(SowRequest $request, $id)
@@ -83,8 +83,10 @@ class SowController extends Controller
     public function destroy($id)
     {
         $item = Sow::findOrFail($id);
-        $item->delete();
+        $item->update([
+            'flag' => 2,
+        ]);
 
-        return redirect()->route('sow.index');
+        return redirect()->route('sow.index')->with('success', 'Anda telah berhasil melakukan hapus data');
     }
 }

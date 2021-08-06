@@ -9,10 +9,10 @@ class Sow extends Model
 
     protected $table = 'bm_sow';
     protected $fillable = [
-        'nama','id_bagian', 'ikon'
+        'nama','id_bagian', 'ikon', 'flag'
     ];
 
-    
+
 
     public $timestamps = false;
 

@@ -41,7 +41,7 @@
                         <div class="col-12">
                             <label for="nama">Nama</label>
                             <input class="form-control tanggalan @error('nama') is-invalid @enderror" name="nama"
-                                value="{{ $user->nama }}" type="text">
+                                value="{{ $user->nama }}" type="text" required>
                             @error('nama')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -49,14 +49,14 @@
                         <div class="col-12 mt-2">
                             <label for="">Email</label>
                             <input class="form-control tanggalan @error('email') is-invalid @enderror" name="email"
-                                value="{{ $user->email }}" type="email">
+                                value="{{ $user->email }}" type="email" required>
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-12 mt-2">
                             <label for="">Wilayah</label>
-                            <select class="form-control select2" id="region" name="id_wilayah">
+                            <select class="form-control select2" id="region" name="id_wilayah" required>
                                 <option label="Pilih WIlayah"></option>
                                 @foreach ($regions as $value)
                                     <option value="{{ $value->id }}"
@@ -67,13 +67,13 @@
                         </div>
                         <div class="col-12 mt-2">
                             <label for="">Lokasi</label>
-                            <select class="form-control select2" id="location" name="id_lokasi">
+                            <select class="form-control select2" id="location" name="id_lokasi" required>
                                 <option label="Pilih Lokasi"></option>
                             </select>
                         </div>
                         <div class="col-12 mt-2">
-                            <label for="">Divisi</label>
-                            <select class="form-control select2" name="id_bagian">
+                            <label for="">Bagian</label>
+                            <select class="form-control select2" name="id_bagian" required>
                                 <option label="Pilih Divisi"></option>
                                 @foreach ($divisions as $value)
                                     <option value="{{ $value->id }}"
@@ -84,7 +84,7 @@
                         </div>
                         <div class="col-12 mt-2">
                             <label for="">Privilege</label>
-                            <select class="form-control select2" name="privilege">
+                            <select class="form-control select2" name="privilege" required>
                                 <option label="Pilih WIlayah"></option>
                                 @foreach ($privileges as $value)
                                     <option value="{{ $value->id }}"

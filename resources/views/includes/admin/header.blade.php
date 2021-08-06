@@ -22,7 +22,7 @@
                         <h6 class="main-notification-title">ADMIN</h6>
                         <p class="main-notification-text">ADMIN</p>
                     </div>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{ route('ubah-password') }}">
                         <i class="fe fe-settings"></i> Change Password
                     </a>
                     {{-- <a class="dropdown-item" href="#"

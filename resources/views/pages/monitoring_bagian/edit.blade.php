@@ -39,10 +39,10 @@
                         @csrf
                         @method('PUT')
                         <div class="col-12">
-                            <label for="name">Nama</label>
-                            <input class="form-control tanggalan @error('name') is-invalid @enderror" name="name"
-                                value="{{ $item->name }}" type="text">
-                            @error('name')
+                            <label for="nama">Nama</label>
+                            <input class="form-control tanggalan @error('nama') is-invalid @enderror" name="nama"
+                                value="{{ $item->nama }}" type="text">
+                            @error('nama')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

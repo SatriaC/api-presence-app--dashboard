@@ -47,10 +47,10 @@
                             @enderror
                         </div>
                         <div class="col-12 mt-2">
-                            <label for="">SoW</label>
+                            <label for="">Kategori SoW</label>
                             <select class="form-control select2" name="id_kategori">
-                                <option label="Pilih Bagian"></option>
-                                @foreach ($sows as $value)
+                                <option label="Pilih Kategori SoW"></option>
+                                @foreach ($categories as $value)
                                     <option value="{{ $value->id }}"
                                     {{$item->id_kategori==$value->id ? 'selected' : ''}}>
                                     {{$value->nama}}</option>

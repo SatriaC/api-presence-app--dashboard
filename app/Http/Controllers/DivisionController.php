@@ -13,7 +13,7 @@ class DivisionController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Division::query();
+            $query = Division::query()->where('flag', 1);
 
             return DataTables::of($query)
             ->editColumn('flag', function($item){
@@ -82,8 +82,10 @@ class DivisionController extends Controller
     public function destroy($id)
     {
         $item = Division::findOrFail($id);
-        $item->delete();
+        $item->update([
+            'flag' => 2,
+        ]);
 
-        return redirect()->route('bagian.index');
+        return redirect()->route('bagian.index')->with('success', 'Anda telah berhasil melakukan hapus data');
     }
 }

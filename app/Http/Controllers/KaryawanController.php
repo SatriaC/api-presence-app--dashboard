@@ -41,7 +41,7 @@ class KaryawanController extends Controller
                             <form action="'. route('karyawan.destroy',$item->id) .'" method="POST">
                             ' . method_field('delete') . csrf_field() . '
                                 <button type="submit" class="dropdown-item text-danger">
-                                    Hapus
+                                    Ubah Status
                                 </button>
                             </form>
                         </div>
@@ -94,7 +94,9 @@ class KaryawanController extends Controller
     public function destroy($id)
     {
         $item = User::findOrFail($id);
-        $item->delete();
+        $item->update([
+            'flag' => 2,
+        ]);
 
         return redirect()->route('karyawan.index')->with('success', 'Anda telah berhasil melakukan hapus data');
     }

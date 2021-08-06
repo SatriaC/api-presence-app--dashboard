@@ -13,7 +13,7 @@ class DetailSowController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = DetailSow::with(['category']);
+            $query = DetailSow::with(['category'])->where('flag', 1);
 
             return DataTables::of($query)
             ->addColumn('action', function($item){
@@ -76,8 +76,10 @@ class DetailSowController extends Controller
     public function destroy($id)
     {
         $item = DetailSow::findOrFail($id);
-        $item->delete();
+        $item->update([
+            'flag' => 2,
+        ]);
 
-        return redirect()->route('detail-sow.index');
+        return redirect()->route('detail-sow.index')->with('success', 'Anda telah berhasil melakukan hapus data');
     }
 }
