@@ -10,6 +10,8 @@ use App\Sow;
 use App\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 class MasterDataController extends Controller
 {
@@ -77,11 +79,56 @@ class MasterDataController extends Controller
     public function pekerjaanOnProgress()
     {
         $item = Task::where([['id_user', Auth::guard('api')->user()->id], ['flag', 1]])->orderBy('id', 'desc')->get();
+        $item = Task::select(['bm_pekerjaan.*','bm_sow.nama AS nama_sow','bm_kategorisow.nama AS nama_kategori_sow','bm_detailsow.nama AS nama_detail_sow'])
+        ->leftJoin('bm_sow', 'bm_sow.id', '=', 'bm_pekerjaan.id_sow')
+        ->leftJoin('bm_kategorisow', 'bm_kategorisow.id', '=', 'bm_pekerjaan.id_kategori')
+        ->leftJoin('bm_detailsow', 'bm_detailsow.id', '=', 'bm_pekerjaan.id_detail')
+        ->where([['bm_pekerjaan.id_user', Auth::guard('api')->user()->id], ['bm_pekerjaan.flag', 1]])
+        ->orderBy('bm_pekerjaan.id', 'desc')->get();
         // nama Sow, kategori dan detail
         return response()->json([
             "code" => 200,
             "status" => 'success',
             "data" => $item
         ]);
+    }
+
+    public function fotoPekerjaan($filename)
+    {
+        $path = storage_path('app/public/file/pekerjaan/' . $filename);
+        if (!File::exists($path)) {
+            return response(['message' => 'File tidak ada'], 404);
+        }
+        $file = File::get($path);
+        $type = File::mimeType($path);
+        $response = Response::make($file, 200);
+        $response->header('Content-type', $type);
+        return $response;
+    }
+
+    public function fotoSow($filename)
+    {
+        $path = storage_path('app/public/assets/ikon-sow/' . $filename);
+        if (!File::exists($path)) {
+            return response(['message' => 'File tidak ada'], 404);
+        }
+        $file = File::get($path);
+        $type = File::mimeType($path);
+        $response = Response::make($file, 200);
+        $response->header('Content-type', $type);
+        return $response;
+    }
+
+    public function fotoAbsensi($filename)
+    {
+        $path = storage_path('app/public/foto_absensi/' . $filename);
+        if (!File::exists($path)) {
+            return response(['message' => 'File tidak ada'], 404);
+        }
+        $file = File::get($path);
+        $type = File::mimeType($path);
+        $response = Response::make($file, 200);
+        $response->header('Content-type', $type);
+        return $response;
     }
 }
