@@ -7,6 +7,7 @@ use App\Division;
 use App\Http\Requests\SowRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class SowController extends Controller
@@ -18,7 +19,8 @@ class SowController extends Controller
 
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
-                    return '
+                    if (Auth::user()->privilege == 1) {
+                        return '
                 <div class="btn-group">
                     <div class="dropdown">
                         <button class="btn btn-sm btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">
@@ -38,6 +40,9 @@ class SowController extends Controller
                     </div>
                 </div>
                 ';
+                    } else {
+                        return '';
+                    }
                 })
                 ->editColumn('ikon', function ($item) {
                     return $item->ikon ? '<img src="' . Storage::url($item->ikon) . '" style="max-height: 40px;" />' : '';
@@ -46,7 +51,7 @@ class SowController extends Controller
                 ->make();
         }
 
-        $divisions = Division::where('flag',1)->get();
+        $divisions = Division::where('flag', 1)->get();
 
         return view('pages.monitoring_sow.index', compact('divisions'));
     }
@@ -58,7 +63,7 @@ class SowController extends Controller
 
         $nama_file = date('Ymd') . "_" . $data['ikon']->getClientOriginalName();
         $path = Storage::putFileAs('public/assets/ikon-sow', $data['ikon'], $nama_file);
-        $data['ikon'] = 'assets/ikon-sow/'.$nama_file;
+        $data['ikon'] = 'assets/ikon-sow/' . $nama_file;
         Sow::create($data);
 
         return redirect()->route('sow.index')->with('success', 'Anda telah berhasil melakukan input data');
@@ -77,7 +82,7 @@ class SowController extends Controller
         $data = $request->all();
         $nama_file = date('Ymd') . "_" . $data['ikon']->getClientOriginalName();
         $path = Storage::putFileAs('public/assets/ikon-sow', $data['ikon'], $nama_file);
-        $data['ikon'] = 'assets/ikon-sow/'.$nama_file;
+        $data['ikon'] = 'assets/ikon-sow/' . $nama_file;
 
         $item = Sow::findOrFail($id);
 

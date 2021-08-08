@@ -77,6 +77,7 @@ class PekerjaanController extends Controller
         Task::create([
             'id_user' => Auth::user()->id,
             'id_bagian' => Auth::user()->id_bagian,
+            'id_wilayah' => Auth::user()->id_wilayah,
             'id_sow' => $request->id_sow,
             'id_kategori' => $request->id_kategori,
             'id_detail' => $request->id_detail,

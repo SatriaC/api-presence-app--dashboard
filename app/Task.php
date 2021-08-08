@@ -37,4 +37,8 @@ class Task extends Model
     public function sow() {
         return $this->belongsTo(Sow::class, 'id_sow');
     }
+
+    public function kategori() {
+        return $this->belongsTo(Sow::class, 'id_kategori');
+    }
 }

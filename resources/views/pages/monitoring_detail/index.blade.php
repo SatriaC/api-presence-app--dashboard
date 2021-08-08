@@ -40,8 +40,10 @@
             <div class="card custom-card">
                 <div class="card-header">
                     <div>
+                        @if (Auth::user()->privilege == 1)
                         <a href="#" class="btn btn-warning float-right"
                         data-target="#modaldemo3" data-toggle="modal">Tambah</a>
+                        @endif
                         <!-- Large Modal -->
                         <div class="modal fade show in" id="modaldemo3">
                             <div class="modal-dialog modal-lg" role="document">

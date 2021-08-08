@@ -21,12 +21,14 @@
                 <a class="nav-link with-sub" href="#"><span class="shape1"></span><span class="shape2"></span><i
                         class="ti-desktop sidemenu-icon"></i><span class="sidemenu-label">Master Data</span></a>
                 <ul class="nav-sub">
+                    @if (Auth::user()->privilege == 1)
                     <li class="nav-sub-item">
                         <a class="nav-sub-link" href="{{ route('karyawan.index') }}">Karyawan</a>
                     </li>
                     <li class="nav-sub-item">
                         <a class="nav-sub-link" href="{{ route('bagian.index') }}">Bagian</a>
                     </li>
+                    @endif
                     <li class="nav-sub-item">
                         <a class="nav-sub-link" href="{{ route('sow.index') }}">SoW</a>
                     </li>

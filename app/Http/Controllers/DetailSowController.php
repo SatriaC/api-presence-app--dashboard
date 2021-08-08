@@ -7,6 +7,7 @@ use App\Http\Requests\DetailSowRequest;
 use App\Category;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class DetailSowController extends Controller
 {
@@ -16,18 +17,19 @@ class DetailSowController extends Controller
             $query = DetailSow::with(['category'])->where('flag', 1);
 
             return DataTables::of($query)
-            ->addColumn('action', function($item){
-                return '
+                ->addColumn('action', function ($item) {
+                    if (Auth::user()->privilege == 1) {
+                        return '
                 <div class="btn-group">
                     <div class="dropdown">
                         <button class="btn btn-sm btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">
                             Aksi
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="'.route('detail-sow.edit', $item->id).'">
+                            <a class="dropdown-item" href="' . route('detail-sow.edit', $item->id) . '">
                                 Sunting
                             </a>
-                            <form action="'. route('detail-sow.destroy',$item->id) .'" method="POST">
+                            <form action="' . route('detail-sow.destroy', $item->id) . '" method="POST">
                             ' . method_field('delete') . csrf_field() . '
                                 <button type="submit" class="dropdown-item text-danger">
                                     Hapus
@@ -37,9 +39,12 @@ class DetailSowController extends Controller
                     </div>
                 </div>
                 ';
-            })
-            ->rawColumns(['action'])
-            ->make();
+                    } else {
+                        return '';
+                    }
+                })
+                ->rawColumns(['action'])
+                ->make();
         }
 
         $categories = Category::all();

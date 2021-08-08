@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Requests\KategoriSowRequest;
 use App\Sow;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class KategoriSowController extends Controller
@@ -17,6 +18,7 @@ class KategoriSowController extends Controller
 
             return DataTables::of($query)
             ->addColumn('action', function($item){
+                if (Auth::user()->privilege == 1) {
                 return '
                 <div class="btn-group">
                     <div class="dropdown">
@@ -37,6 +39,9 @@ class KategoriSowController extends Controller
                     </div>
                 </div>
                 ';
+            } else {
+                return '';
+            }
             })
             ->rawColumns(['action'])
             ->make();

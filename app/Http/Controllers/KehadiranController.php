@@ -7,13 +7,23 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class KehadiranController extends Controller
 {
     public function index()
     {
         if (request()->ajax()) {
-            $query = Attendance::with(['user']);
+            if (Auth::user()->privilege == 2) {
+                # code... //dikasih where wilayah
+                $query = Attendance::with(['user'])->where('id_wilayah', Auth::user()->id_wilayah);
+            } elseif (Auth::user()->privilege == 3) {
+                # code... //dikasih where wilayah
+                $query = Attendance::with(['user'])->where('id_wilayah', Auth::user()->id_wilayah);
+            } else {
+                $query = Attendance::with(['user']);
+            }
+
 
             return DataTables::of($query)
             ->editColumn('foto_masuk', function($item){
