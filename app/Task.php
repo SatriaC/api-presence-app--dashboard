@@ -13,6 +13,7 @@ class Task extends Model
         'id_kategori',
         'id_detail',
         'id_sow',
+        'id_wilayah',
         'laporan',
         'foto_before',
         'foto_after',
