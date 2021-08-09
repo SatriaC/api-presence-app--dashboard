@@ -34,7 +34,7 @@ Route::prefix('v1')->middleware(['auth:api'])->group(function () {
     Route::post('absensi/masuk', 'API\AbsensiController@absenMasuk');
     Route::post('absensi/pulang', 'API\AbsensiController@absenPulang');
     Route::post('report/pekerjaan-sebelum', 'API\PekerjaanController@reportSebelum');
-    Route::post('report/{id}/pekerjaan-sesudah', 'API\PekerjaanController@reportSesudah');
+    Route::post('report/pekerjaan-sesudah/{id}', 'API\PekerjaanController@reportSesudah');
     Route::get('pekerjaan', 'API\PekerjaanController@index');
     Route::get('pekerjaan/{id}', 'API\PekerjaanController@show');
     Route::post('pekerjaan', 'API\PekerjaanController@store');

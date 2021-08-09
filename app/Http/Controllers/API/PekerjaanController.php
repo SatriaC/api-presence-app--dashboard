@@ -61,7 +61,7 @@ class PekerjaanController extends Controller
 
             $file_name = "foto-pekerjaan-sebelum-".date('Y-m-d His').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
             // $save_file = $file->storeAs('file/foto-profil', $file_name, 'public');
-            $save_file = Storage::disk('public')->put($file_name, $data);
+            Storage::disk('public')->put('foto_pekerjaan/' . $file_name, $data);
         }
 
         $file_name1 = null;
@@ -71,7 +71,7 @@ class PekerjaanController extends Controller
             $file1 = str_replace(' ', '+', $file1);
             $data1 = base64_decode($file1);
             $file_name1 = "foto-pekerjaan-sesudah-".date('Y-m-d His').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
-            $save_file = Storage::disk('public')->put($file_name1, $data1);
+            Storage::disk('public')->put('foto_pekerjaan/' . $file_name1, $data1);
         }
 
         Task::create([
@@ -123,7 +123,7 @@ class PekerjaanController extends Controller
             $file1 = str_replace(' ', '+', $file1);
             $data1 = base64_decode($file1);
             $file_name1 = "foto-pekerjaan-sesudah-".date('Y-m-d His').'-'.Auth::guard('api')->user()->id.'-'.Auth::guard('api')->user()->nama.".png";
-            $save_file = Storage::disk('public')->put($file_name1, $data1);
+            $save_file = Storage::disk('public')->put('foto_pekerjaan/' . $file_name1, $data1);
         }
 
         $update_pekerjaan->foto_after = $file_name1;

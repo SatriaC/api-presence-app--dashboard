@@ -78,7 +78,7 @@ class MasterDataController extends Controller
 
     public function pekerjaanOnProgress()
     {
-        $item = Task::where([['id_user', Auth::guard('api')->user()->id], ['flag', 1]])->orderBy('id', 'desc')->get();
+        // $item = Task::where([['id_user', Auth::guard('api')->user()->id], ['flag', 1]])->orderBy('id', 'desc')->get();
         $item = Task::select(['bm_pekerjaan.*','bm_sow.nama AS nama_sow','bm_kategorisow.nama AS nama_kategori_sow','bm_detailsow.nama AS nama_detail_sow'])
         ->leftJoin('bm_sow', 'bm_sow.id', '=', 'bm_pekerjaan.id_sow')
         ->leftJoin('bm_kategorisow', 'bm_kategorisow.id', '=', 'bm_pekerjaan.id_kategori')
@@ -95,7 +95,7 @@ class MasterDataController extends Controller
 
     public function fotoPekerjaan($filename)
     {
-        $path = storage_path('app/public/file/pekerjaan/' . $filename);
+        $path = storage_path('app/public/foto_pekerjaan/' . $filename);
         if (!File::exists($path)) {
             return response(['message' => 'File tidak ada'], 404);
         }
