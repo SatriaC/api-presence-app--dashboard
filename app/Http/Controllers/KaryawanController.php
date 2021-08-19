@@ -16,7 +16,7 @@ class KaryawanController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = User::with(['division', 'location', 'region', 'privil']);
+            $query = User::with(['division', 'location', 'region', 'privil'])->orderBy('created_at', 'desc');
 
             return DataTables::of($query)
             ->editColumn('flag', function($item){

@@ -96,6 +96,7 @@
                                     <th>No.</th>
                                     <th>Nama Kategori</th>
                                     <th>SoW</th>
+                                    <th>Bagian</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -133,6 +134,10 @@
                 {
                     data: 'sow.nama',
                     name: 'sow.nama'
+                },
+                {
+                    data: 'sow.division.nama',
+                    name: 'sow.division.nama'
                 },
                 {
                     data: 'action',

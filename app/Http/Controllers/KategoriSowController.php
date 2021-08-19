@@ -14,7 +14,7 @@ class KategoriSowController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Category::with(['sow'])->where('flag', 1);
+            $query = Category::with(['sow','sow.division'])->where('flag', 1);
 
             return DataTables::of($query)
             ->addColumn('action', function($item){

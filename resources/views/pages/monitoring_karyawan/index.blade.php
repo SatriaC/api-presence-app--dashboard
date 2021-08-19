@@ -47,7 +47,7 @@
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content modal-content-demo">
                                     <div class="modal-header">
-                                        <h6 class="modal-title">Tambah Data SOW</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                                        <h6 class="modal-title">Tambah Data Karyawan</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                                     </div>
                                     <form action="{{ route('karyawan.store') }}" method="post" enctype="multipart/form-data">
                                     @csrf
@@ -73,6 +73,27 @@
                                             @enderror
                                         </div>
                                         <div class="col-12 mt-2">
+                                            <label for="no_hp">Nomor HP</label>
+                                            <input
+                                                class="form-control @error('no_hp') is-invalid @enderror"
+                                                name="no_hp"
+                                                value="{{ old('no_hp') }}" type="text">
+                                            @error('no_hp')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <label for="">Privilege</label>
+                                            <select class="form-control select2" onchange="priv()"  name="privilege" id="privilege">
+                                                <option label="Pilih Privilege"></option>
+                                                @foreach ($privileges as $value)
+                                                    <option value="{{$value->id}}"
+                                                    {{old('privilege')==$value->id ? 'selected' : ''}}>
+                                                    {{$value->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-12 mt-2">
                                             <label for="">Wilayah</label>
                                             <select class="form-control select2" id="region"  name="id_wilayah">
                                                 <option label="Pilih WIlayah"></option>
@@ -90,23 +111,12 @@
                                             </select>
                                         </div>
                                         <div class="col-12 mt-2">
-                                            <label for="">Divisi</label>
-                                            <select class="form-control select2"  name="id_bagian">
+                                            <label for="">Bagian</label>
+                                            <select class="form-control select2"  name="id_bagian" id="bagian">
                                                 <option label="Pilih Divisi"></option>
                                                 @foreach ($divisions as $value)
                                                     <option value="{{$value->id}}"
                                                     {{old('id_bagian')==$value->id ? 'selected' : ''}}>
-                                                    {{$value->nama}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-12 mt-2">
-                                            <label for="">Privilege</label>
-                                            <select class="form-control select2"  name="privilege">
-                                                <option label="Pilih Privilege"></option>
-                                                @foreach ($privileges as $value)
-                                                    <option value="{{$value->id}}"
-                                                    {{old('privilege')==$value->id ? 'selected' : ''}}>
                                                     {{$value->nama}}</option>
                                                 @endforeach
                                             </select>
@@ -132,6 +142,7 @@
                                     <th>No.</th>
                                     <th>Nama</th>
                                     <th>Email</th>
+                                    <th>No HP</th>
                                     <th>Wilayah</th>
                                     <th>Lokasi</th>
                                     <th>Bagian</th>
@@ -174,6 +185,10 @@
                 {
                     data: 'email',
                     name: 'email'
+                },
+                {
+                    data: 'no_hp',
+                    name: 'no_hp'
                 },
                 {
                     data: 'region.nama',
@@ -232,5 +247,29 @@
 
         });
     });
+</script>
+<script>
+    window.onload = function() {
+        document.getElementById('bagian').disabled = true;
+        document.getElementById('location').disabled = true;
+    }
+
+    function priv() {
+        var privilege = document.getElementById('privilege');
+        var p = privilege.options[privilege.selectedIndex].value;
+        var b = document.getElementById("bagian");
+        var l = document.getElementById("location");
+        if (p == "4") {
+            b.disabled = false;
+            l.disabled = false;
+            b.required = true;
+            l.required = true;
+        }  else {
+            b.disabled = true;
+            l.disabled = true;
+            b.required = false;
+            l.required = false;
+        }
+    }
 </script>
 @endpush

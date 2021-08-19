@@ -71,7 +71,7 @@
                                                 @foreach ($categories as $value)
                                                     <option value="{{$value->id}}"
                                                     {{old('id_kategori')==$value->id ? 'selected' : ''}}>
-                                                    {{$value->nama}}</option>
+                                                    {{$value->nama}} - {{$value->sow->nama}} - Bagian {{$value->sow->division->nama}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -96,6 +96,8 @@
                                     <th>No.</th>
                                     <th>Nama Detail</th>
                                     <th>Kategori SoW</th>
+                                    <th>SoW</th>
+                                    <th>Bagian</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -133,6 +135,14 @@
                 {
                     data: 'category.nama',
                     name: 'category.nama'
+                },
+                {
+                    data: 'category.sow.nama',
+                    name: 'category.sow.nama'
+                },
+                {
+                    data: 'category.sow.division.nama',
+                    name: 'category.sow.division.nama'
                 },
                 {
                     data: 'action',

@@ -25,6 +25,7 @@ class KaryawanRequest extends FormRequest
     {
         return [
             'nama' => 'required|max:255',
+            'no_hp' => 'required|max:15',
             'email' => 'required|email',
             'id_bagian' => 'required',
             'id_wilayah' => 'required',
