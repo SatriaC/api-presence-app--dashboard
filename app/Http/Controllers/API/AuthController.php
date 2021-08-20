@@ -53,7 +53,7 @@ class AuthController extends Controller
             'title' => 'success',
             'message' => 'Login Berhasil!',
             "data" => [
-                'success' => true,
+                // 'success' => true,
                 'user'=>$user,
                 // 'user'=>auth()->user(),
                 'access_token'=>$accessToken,
