@@ -649,7 +649,7 @@
         width: 35px;
         height: 35px;
         line-height: 35px;
-        background: #c01b3f;
+        background: #3195F1;
         text-align: center;
         border-radius: 50%;
         -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -672,7 +672,7 @@
         margin: 6px 0;
     }
     .main-sidebar-hide .main-sidebar-body li.active .sidemenu-icon {
-        background: #c01b3f;
+        background: #3195F1;
         margin-left: 5px;
     }
     .main-sidebar-hide .main-sidebar-body li.nav-item.active .nav-link {

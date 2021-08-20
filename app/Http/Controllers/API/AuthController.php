@@ -43,8 +43,22 @@ class AuthController extends Controller
         }
 
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
-
-        return response(['success' => true,'user'=>auth()->user(), 'access_token'=>$accessToken]);
+        $user = User::select(['bm_user.*','bm_bagian.nama AS nama_bagian','bm_lokasi.nama AS nama_lokasi'])
+        ->leftJoin('bm_lokasi', 'bm_lokasi.id', '=', 'bm_user.id_lokasi')
+        ->leftJoin('bm_bagian', 'bm_bagian.id', '=', 'bm_user.id_bagian')
+        ->where('bm_user.id', auth()->user()->id)->first();
+        // return response(['success' => true,'user'=>auth()->user(), 'access_token'=>$accessToken]);
+        return response()->json([
+            'status' => 200,
+            'title' => 'success',
+            'message' => 'Login Berhasil!',
+            "data" => [
+                'success' => true,
+                'user'=>$user,
+                // 'user'=>auth()->user(),
+                'access_token'=>$accessToken,
+            ]
+        ]);
         # code...
     }
 
