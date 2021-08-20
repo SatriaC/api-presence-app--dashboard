@@ -16,7 +16,11 @@ class AbsensiController extends Controller
     {
         $dataAbsen = Attendance::where('id_user', Auth::guard('api')->user()->id)->orderBy('id', 'desc')->first();
         if ($dataAbsen != null) {
+            $waktuMasuk = Carbon::parse($dataAbsen->jam_masuk);
+            $sekarang = Carbon::now();
+            $hasilSelisih = abs(strtotime($sekarang)) - abs(strtotime($waktuMasuk));
 
+            if ($hasilSelisih < 43200) {
                 $date_time_masuk = $dataAbsen->jam_masuk;
                 $time_masuk = date('H:i:s', strtotime($date_time_masuk));
                 $date_time_pulang = $dataAbsen->jam_pulang;
@@ -36,15 +40,90 @@ class AbsensiController extends Controller
                         'time_pulang' => $time_pulang
                     ]
                 ]);
+            }
+
+            if ($hasilSelisih > 43200 && $dataAbsen->jam_pulang == '0000-01-01 00:00:00') {
+                return response()->json([
+                    'status' => 500,
+                    'title' => 'success',
+                    'message' => 'Anda telah melewatkan absen pulang!',
+                    // "data" => [
+                    // 'foto_masuk' => $file_name,
+                    // 'date' => $date,
+                    // 'time' => $time
+                    // ]
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 501,
+                    'title' => 'success',
+                    'message' => 'Absen reset',
+                    // "data" => [
+                    // 'foto_masuk' => $file_name,
+                    // 'date' => $date,
+                    // 'time' => $time
+                    // ]
+                ]);
+            }
+            // dd($hasil);
         } else {
             return response()->json([
                 'status' => 500,
                 'title' => 'success',
                 'message' => 'Anda belum pernah absen.',
+                // "data" => [
+                // 'foto_masuk' => $file_name,
+                // 'date' => $date,
+                // 'time' => $time
+                // ]
             ]);
         }
 
-
+        //     if ($hasilSelisih < 43200) {
+        //         $date_time_masuk = $dataAbsen->jam_masuk;
+        //         $time_masuk = date('H:i:s', strtotime($date_time_masuk));
+        //         $date_time_pulang = $dataAbsen->jam_pulang;
+        //         $time_pulang = null;
+        //         if ($date_time_pulang != null) {
+        //             $time_pulang = date('H:i:s', strtotime($date_time_pulang));
+        //         }
+        //         return response()->json([
+        //             'status' => 200,
+        //             'title' => 'success',
+        //             'message' => 'Data Absen Berhasil diambil',
+        //             "data" => [
+        //                 'dataAbsen' => $dataAbsen,
+        //                 'date_time_masuk' => $date_time_masuk,
+        //                 'time_masuk' => $time_masuk,
+        //                 'date_time_pulang' => $date_time_pulang,
+        //                 'time_pulang' => $time_pulang
+        //             ]
+        //         ]);
+        //     } else {
+        //         return response()->json([
+        //             'status' => 500,
+        //             'title' => 'success',
+        //             'message' => 'Anda telah melewatkan absen pulang!',
+        //             // "data" => [
+        //             // 'foto_masuk' => $file_name,
+        //             // 'date' => $date,
+        //             // 'time' => $time
+        //             // ]
+        //         ]);
+        //     }
+        //     // dd($hasil);
+        // }else{
+        //     return response()->json([
+        //         'status' => 500,
+        //         'title' => 'success',
+        //         'message' => 'Anda belum pernah absen.',
+        //         // "data" => [
+        //         // 'foto_masuk' => $file_name,
+        //         // 'date' => $date,
+        //         // 'time' => $time
+        //         // ]
+        //     ]);
+        // }
     }
 
     public function absenMasuk(Request $request)

@@ -53,6 +53,16 @@
                                     @csrf
                                     <div class="modal-body">
                                         <div class="col-12">
+                                            <label for="nik">NIK</label>
+                                            <input
+                                                class="form-control tanggalan @error('nik') is-invalid @enderror"
+                                                name="nik"
+                                                value="{{ old('nik') }}" type="text">
+                                            @error('nik')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-12">
                                             <label for="nama">Nama</label>
                                             <input
                                                 class="form-control tanggalan @error('nama') is-invalid @enderror"

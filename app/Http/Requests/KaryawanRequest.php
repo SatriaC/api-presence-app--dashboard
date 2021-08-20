@@ -28,6 +28,7 @@ class KaryawanRequest extends FormRequest
             'no_hp' => 'required|max:15',
             'email' => 'required|email',
             'id_bagian' => 'required',
+            'nik' => 'required',
             'id_wilayah' => 'required',
             'id_lokasi' => 'required',
             'privilege' => 'required',
