@@ -5,6 +5,9 @@
 <script src="{{ asset('assets/plugins/bootstrap/js/popper.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
+<!-- Jquery-Ui js-->
+<script src="{{ asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js') }}"></script>
+
 <!-- Internal Chart.Bundle js-->
 <script src="{{ asset('assets/plugins/chart.js/Chart.bundle.min.js') }}"></script>
 
@@ -59,6 +62,24 @@
 
 <!-- Internal Jquery-Ui js-->
 <script src="{{ asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js') }}"></script>
+
 <!-- Internal Form-elements js-->
-<script src="{{ asset('assets/js/select2.js') }}"></script>
+		<script src="{{ asset('assets/js/advanced-form-elements.js') }}"></script>
+        <script src="{{ asset('assets/js/select2.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+
+		<!-- Internal Daternagepicker js-->
+		<script src="{{ asset('assets/plugins/bootstrap-daterangepicker/moment.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+
+		<!-- Internal Fileuploads js-->
+		<script src="{{ asset('assets/plugins/fileuploads/js/fileupload.js') }}"></script>
+        <script src="{{ asset('assets/plugins/fileuploads/js/file-upload.js') }}"></script>
+
+		<!-- InternalFancy uploader js-->
+		<script src="{{ asset('assets/plugins/fancyuploder/jquery.ui.widget.js') }}"></script>
+        <script src="{{ asset('assets/plugins/fancyuploder/jquery.fileupload.js') }}"></script>
+        <script src="{{ asset('assets/plugins/fancyuploder/jquery.iframe-transport.js') }}"></script>
+        <script src="{{ asset('assets/plugins/fancyuploder/jquery.fancy-fileupload.js') }}"></script>
+        <script src="{{ asset('assets/plugins/fancyuploder/fancy-uploader.js') }}"></script>

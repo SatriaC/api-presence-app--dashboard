@@ -35,3 +35,15 @@
 
     <!-- InternalSumoselect css-->
     <link rel="stylesheet" href="{{ asset('assets/plugins/sumoselect/sumoselect.css') }}">
+
+		<!-- Internal Daterangepicker css-->
+		<link href="{{ asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+
+		<!-- InternalFileupload css-->
+		<link href="{{ asset('assets/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css"/>
+
+		<!-- InternalFancy uploader css-->
+		<link href="{{ asset('assets/plugins/fancyuploder/fancy_fileupload.css') }}" rel="stylesheet" />
+
+		<!-- Internal TelephoneInput css-->
+		<link rel="stylesheet" href="{{ asset('assets/plugins/telephoneinput/telephoneinput.css') }}">

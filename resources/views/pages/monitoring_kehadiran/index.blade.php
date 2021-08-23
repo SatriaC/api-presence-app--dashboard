@@ -102,8 +102,8 @@
                     name: 'lokasi_pulang'
                 },
                 {
-                    data: 'user.nama',
-                    name: 'user.nama'
+                    data: 'nama',
+                    name: 'nama'
                 },
                 {
                     data: 'foto_masuk',

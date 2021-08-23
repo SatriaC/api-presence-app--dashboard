@@ -192,6 +192,42 @@
             </div>
             <!--End row-->
 
+
+            <div class="row row-sm">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <form action="{{ route('dashboard') }}" method="GET">
+                                <div class="row row-sm">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{-- <p class="mg-b-10">SoW</p> --}}
+                                            <select class="form-control select2" name="id_wilayah" id="id_wilayah">
+                                                <option label="">Pilih WIlayah</option>
+                                                @foreach ($wilayah as $key => $value)
+                                                    <option value="{{ $value->id }}"
+                                                        {{ old('id') == $value->id ? 'selected' : '' }}>
+                                                        {{ $value->nama }} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group btn btn-list d-inline">
+                                            <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
+                                                    class="ti-search"></i></button>
+                                            <button class="btn ripple btn-warning d-inline" onclick="reset()">
+                                                Refresh&nbsp; <i class="fa fa-refresh"></i> </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!--row-->
             <div class="row row-sm">
                 <div class="col-sm-6 col-lg-6 col-xl-6">
@@ -391,6 +427,7 @@
             });
 
         });
+
 
     </script>
 @endpush

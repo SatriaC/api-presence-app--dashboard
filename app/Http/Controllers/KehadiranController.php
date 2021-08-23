@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class KehadiranController extends Controller
 {
@@ -21,16 +22,24 @@ class KehadiranController extends Controller
                 # code... //dikasih where wilayah
                 $query = Attendance::with(['user'])->where('id_wilayah', Auth::user()->id_wilayah);
             } else {
-                $query = Attendance::with(['user']);
+                $query = DB::table('bm_absen')
+                ->selectRaw("bm_absen.* ,bm_user.nama ,CONCAT ('https://www.google.com/maps/?q=',bm_absen.latitude_masuk,',',bm_absen.longitude_masuk) AS 'lokasi_absen_masuk',
+                CONCAT ('https://www.google.com/maps/?q=',bm_absen.latitude_pulang,',',bm_absen.longitude_pulang) AS 'lokasi_absen_pulang'")
+                ->leftJoin('bm_user', 'bm_user.id', '=', 'bm_absen.id_user')
+                ->get();
             }
 
 
             return DataTables::of($query)
             ->editColumn('foto_masuk', function($item){
-                return $item->foto_masuk ? '<img src"'. Storage::url($item->foto_masuk) .'"style="max-height:80px;"/>' : '';
+                // return $item->foto_masuk ? '<img src"'. Storage::url($item->foto_masuk) .'"style="max-height:80px;"/>' : '';
+                $url = asset('storage/'.$item->foto_masuk);
+                return '<img src="'.$url.'" border="0" width="100" class="img-rounded" align="center" />';
             })
             ->editColumn('foto_pulang', function($item){
-                return $item->foto_pulang ? '<img src"'. Storage::url($item->foto_pulang) .'"style="max-height:80px;"/>' : '';
+                $url = asset('storage/'.$item->foto_pulang);
+                return '<img src="'.$url.'" border="0" width="100" class="img-rounded" align="center" />';
+                // return $item->foto_pulang ? '<img src"'. Storage::url($item->foto_pulang) .'"style="max-height:80px;"/>' : '';
             })
             ->editColumn('jam_masuk', function($item){
                 return Carbon::parse($item->jam_masuk)->format('d-m-Y H:i');
@@ -45,6 +54,12 @@ class KehadiranController extends Controller
                     return 'TIDAK AKTIF';
                     # code...
                 }
+            })
+            ->addColumn('lokasi_masuk', function($item){
+                return '<a href="'.$item->lokasi_absen_masuk.'" target="_blank">Lokasi Masuk</a>';
+            })
+            ->addColumn('lokasi_pulang', function($item){
+                return '<a href="'.$item->lokasi_absen_pulang.'" target="_blank">Lokasi Pulang</a>';
             })
             ->addColumn('action', function($item){
                 return '
@@ -68,7 +83,7 @@ class KehadiranController extends Controller
                 </div>
                 ';
             })
-            ->rawColumns(['foto_masuk','foto_pulang','jam_masuk','jam_pulang','flag','action'])
+            ->rawColumns(['foto_masuk','foto_pulang','jam_masuk','jam_pulang','lokasi_masuk','lokasi_pulang','flag','action'])
             ->make();
         }
 
