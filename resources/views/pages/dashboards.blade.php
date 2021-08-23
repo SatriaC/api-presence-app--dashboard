@@ -216,8 +216,8 @@
                                         <div class="form-group btn btn-list d-inline">
                                             <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
                                                     class="ti-search"></i></button>
-                                            <button class="btn ripple btn-warning d-inline" onclick="reset()">
-                                                Refresh&nbsp; <i class="fa fa-refresh"></i> </button>
+                                            {{-- <button class="btn ripple btn-warning d-inline" onclick="reset()">
+                                                Refresh&nbsp; <i class="fa fa-refresh"></i> </button> --}}
                                         </div>
 
                                     </div>
