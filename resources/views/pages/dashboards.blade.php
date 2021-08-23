@@ -203,7 +203,7 @@
                                         <div class="form-group">
                                             {{-- <p class="mg-b-10">SoW</p> --}}
                                             <select class="form-control select2" name="id_wilayah" id="id_wilayah">
-                                                <option label="">Pilih WIlayah</option>
+                                                <option value="0" label="">Pilih Wilayah</option>
                                                 @foreach ($wilayah as $key => $value)
                                                     <option value="{{ $value->id }}"
                                                         {{ old('id') == $value->id ? 'selected' : '' }}>

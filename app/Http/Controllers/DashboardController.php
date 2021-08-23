@@ -18,7 +18,13 @@ class DashboardController extends Controller
         $pekerjaan = Task::all();
         $karyawan = User::all();
         $sow = Sow::where('flag', 1);
-        if (request()->id_wilayah != '') {
+
+        if (request()->id_wilayah == 0) {
+            # code...
+            $pekerjaan = Task::all();
+            $karyawan = User::all();
+        }
+        elseif (request()->id_wilayah != '') {
             $pekerjaan = $pekerjaan->where('id_wilayah', $request->id_wilayah);
             $karyawan = $karyawan->where('id_wilayah', $request->id_wilayah);
             // $sow = $sow;
@@ -30,7 +36,11 @@ class DashboardController extends Controller
         $data_onProgress = [];
         $data_notYet = [];
         foreach ($bagian as $item) {
-            if (request()->id_wilayah != '') {
+            if (request()->id_wilayah == 0) {
+                # code...
+                $data[] = Task::where('id_bagian', $item->id)->count();
+            }
+            elseif (request()->id_wilayah != '') {
                 $data[] = Task::where('id_bagian', $item->id)->where('id_wilayah', $request->id_wilayah)->count();
             } else {
                 $data[] = Task::where('id_bagian', $item->id)->count();
@@ -64,7 +74,10 @@ class DashboardController extends Controller
         foreach ($data_name as $item) {
             $pembilangDone = Task::where('flag', 3);
             $pembilangOnProgress = Task::where('flag', 2);
-            if (request()->id_wilayah != '') {
+            if (request()->id_wilayah == 0) {
+                # code...
+            }
+            elseif (request()->id_wilayah != '') {
                 $pembilangDone = $pembilangDone->where('id_wilayah', $request->id_wilayah);
                 $pembilangOnProgress = $pembilangOnProgress->where('id_wilayah', $request->id_wilayah);
             }
