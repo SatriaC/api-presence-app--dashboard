@@ -116,13 +116,13 @@
                                         </div>
                                         <div class="col-12 mt-2">
                                             <label for="">Lokasi</label>
-                                            <select class="form-control select2" id="location"  name="id_lokasi">
+                                            <select class="form-control select2" id="location" required name="id_lokasi">
                                                 <option label="Pilih Lokasi"></option>
                                             </select>
                                         </div>
                                         <div class="col-12 mt-2">
                                             <label for="">Bagian</label>
-                                            <select class="form-control select2"  name="id_bagian" id="bagian">
+                                            <select class="form-control select2" required name="id_bagian" id="bagian">
                                                 <option label="Pilih Divisi"></option>
                                                 @foreach ($divisions as $value)
                                                     <option value="{{$value->id}}"
@@ -205,12 +205,12 @@
                     name: 'region.nama'
                 },
                 {
-                    data: 'location.nama',
-                    name: 'location.nama'
+                    data: 'id_lokasi',
+                    name: 'id_lokasi'
                 },
                 {
-                    data: 'division.nama',
-                    name: 'division.nama'
+                    data: 'id_bagian',
+                    name: 'id_bagian'
                 },
                 {
                     data: 'privil.nama',

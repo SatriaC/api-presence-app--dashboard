@@ -27,10 +27,10 @@ class KaryawanRequest extends FormRequest
             'nama' => 'required|max:255',
             'no_hp' => 'required|max:15',
             'email' => 'required|email',
-            'id_bagian' => 'required',
             'nik' => 'required',
             'id_wilayah' => 'required',
-            'id_lokasi' => 'required',
+            // 'id_bagian' => 'required',
+            // 'id_lokasi' => 'required',
             'privilege' => 'required',
         ];
     }

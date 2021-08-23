@@ -19,6 +19,22 @@ class KaryawanController extends Controller
             $query = User::with(['division', 'location', 'region', 'privil'])->orderBy('created_at', 'desc');
 
             return DataTables::of($query)
+            ->editColumn('id_bagian', function($item){
+                if ($item->id_bagian != '') {
+                    return $item->division->nama;
+                } else {
+                    return '';
+                    # code...
+                }
+            })
+            ->editColumn('id_lokasi', function($item){
+                if ($item->id_lokasi != '') {
+                    return $item->location->nama;
+                } else {
+                    return '';
+                    # code...
+                }
+            })
             ->editColumn('flag', function($item){
                 if ($item->flag == 1) {
                     return 'AKTIF';
@@ -49,7 +65,7 @@ class KaryawanController extends Controller
                 </div>
                 ';
             })
-            ->rawColumns(['flag','action'])
+            ->rawColumns(['flag','action', 'id_bagian', 'id_lokasi'])
             ->make();
         }
 

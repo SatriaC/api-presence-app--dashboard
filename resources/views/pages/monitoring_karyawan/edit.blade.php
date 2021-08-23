@@ -39,6 +39,14 @@
                         @csrf
                         @method('PUT')
                         <div class="col-12">
+                            <label for="nik">NIK</label>
+                            <input class="form-control tanggalan @error('nik') is-invalid @enderror" name="nik"
+                                value="{{ $user->nik ?? '' }}" type="text" required>
+                            @error('nik')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-12">
                             <label for="nama">Nama</label>
                             <input class="form-control tanggalan @error('nama') is-invalid @enderror" name="nama"
                                 value="{{ $user->nama }}" type="text" required>
@@ -54,33 +62,13 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-12 mt-2">
-                            <label for="">Wilayah</label>
-                            <select class="form-control select2" id="region" name="id_wilayah" required>
-                                <option label="Pilih WIlayah"></option>
-                                @foreach ($regions as $value)
-                                    <option value="{{ $value->id }}"
-                                        {{ $user->id_wilayah == $value->id ? 'selected' : '' }}>
-                                        {{ $value->nama }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-12 mt-2">
-                            <label for="">Lokasi</label>
-                            <select class="form-control select2" id="location" name="id_lokasi" required>
-                                <option label="Pilih Lokasi"></option>
-                            </select>
-                        </div>
-                        <div class="col-12 mt-2">
-                            <label for="">Bagian</label>
-                            <select class="form-control select2" name="id_bagian" required>
-                                <option label="Pilih Divisi"></option>
-                                @foreach ($divisions as $value)
-                                    <option value="{{ $value->id }}"
-                                    {{$user->id_bagian==$value->id ? 'selected' : ''}}>
-                                    {{$value->nama}}</option>
-                                @endforeach
-                            </select>
+                        <div class="col-12">
+                            <label for="no_hp">Nomor HP</label>
+                            <input class="form-control tanggalan @error('no_hp') is-invalid @enderror" name="no_hp"
+                                value="{{ $user->no_hp }}" type="text" required>
+                            @error('no_hp')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-12 mt-2">
                             <label for="">Privilege</label>
@@ -93,6 +81,36 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="col-12 mt-2">
+                            <label for="">Wilayah</label>
+                            <select class="form-control select2" id="region" name="id_wilayah" required>
+                                <option label="Pilih WIlayah"></option>
+                                @foreach ($regions as $value)
+                                    <option value="{{ $value->id }}"
+                                        {{ $user->id_wilayah == $value->id ? 'selected' : '' }}>
+                                        {{ $value->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @if ($user->privilege == 4)
+                        <div class="col-12 mt-2">
+                            <label for="">Lokasi</label>
+                            <select class="form-control select2" id="location" name="id_lokasi" required>
+                                <option label="Pilih Lokasi"></option>
+                            </select>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <label for="">Bagian</label>
+                            <select class="form-control select2" name="id_bagian" id="bagian" required>
+                                <option label="Pilih Divisi"></option>
+                                @foreach ($divisions as $value)
+                                    <option value="{{ $value->id }}"
+                                    {{$user->id_bagian==$value->id ? 'selected' : ''}}>
+                                    {{$value->nama}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @endif
                         <div class="col-12">
                             <label for="nama">Status</label>
                             <select class="form-control"  name="flag" required>
