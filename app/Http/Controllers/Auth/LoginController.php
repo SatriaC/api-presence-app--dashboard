@@ -62,11 +62,15 @@ class LoginController extends Controller
         $user = User::where('email', $request->email)->first();
         // dd($user->email);
         if ($user) {
-            if($user->flag == 1 ){
-                if(Auth::attempt($login)){
-                    return redirect()->route('dashboard')->with(['success' => 'Berhasil Login']);
+            if($user->privilege != 4 ){
+                if($user->flag == 1 ){
+                    if(Auth::attempt($login)){
+                        return redirect()->route('dashboard')->with(['success' => 'Berhasil Login']);
+                    }
+                    return redirect('/login')->with(['error' => 'Password tidak sesuai']);
                 }
-                return redirect('/login')->with(['error' => 'Password tidak sesuai']);
+                return redirect('/login')->with(['error' => 'Mohon maaf, anda tidak memiliki hak login']);
+
             }
             return redirect('/login')->with(['error' => 'Mohon maaf, anda tidak memiliki hak login']);
         }

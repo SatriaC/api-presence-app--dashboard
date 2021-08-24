@@ -192,6 +192,7 @@
             </div>
             <!--End row-->
 
+            @if (Auth::user()->privilege == 1)
 
             <div class="row row-sm">
                 <div class="col-lg-12 col-md-12">
@@ -204,6 +205,7 @@
                                             {{-- <p class="mg-b-10">SoW</p> --}}
                                             <select class="form-control select2" name="id_wilayah" id="id_wilayah">
                                                 <option value="0" label="">Pilih Wilayah</option>
+                                                <option value="0" label="">All</option>
                                                 @foreach ($wilayah as $key => $value)
                                                     <option value="{{ $value->id }}"
                                                         {{ old('id') == $value->id ? 'selected' : '' }}>
@@ -228,6 +230,7 @@
                 </div>
             </div>
 
+            @endif
             <!--row-->
             <div class="row row-sm">
                 <div class="col-sm-6 col-lg-6 col-xl-6">
