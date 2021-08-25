@@ -40,44 +40,72 @@
         <div class="col-lg-12 col-md-12">
             <div class="card custom-card">
                 <div class="card-body">
-                    <form id="filter">
-                        <div class="row row-sm">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <select class="form-control select2" id="region">
-                                        <option value="">Pilih Wilayah</option>
-                                        @foreach ($wilayah as $key => $value)
-                                            <option value="{{ $value->id }}"
-                                                {{ old('id') == $value->id ? 'selected' : '' }}>
-                                                {{ $value->nama }} </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <select class="form-control select2" id="location">
-                                        <option value="">Pilih Lokasi</option>
-                                        @foreach ($lokasi as $key => $value)
-                                            <option value="{{ $value->id }}"
-                                                {{ old('id') == $value->id ? 'selected' : '' }}>
-                                                {{ $value->nama }} </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group btn btn-list d-inline">
-                                    <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
-                                            class="ti-search"></i></button>
-                                    <button class="btn ripple btn-warning d-inline" onclick="reset()">
-                                        Refresh&nbsp; <i class="fa fa-refresh"></i> </button>
-                                </div>
+                    @if (Auth::user()->privilege == 1)
 
-                            </div>
-                        </div>
-                    </form>
+                        <form id="search">
+                            <div class="row row-sm">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <select class="form-control select2" name="id_wilayah" id="id_wilayah">
+                                            <option value="">Pilih Wilayah</option>
+                                            @foreach ($wilayah as $key => $value)
+                                                <option value="{{ $value->id }}"
+                                                    {{ old('id') == $value->id ? 'selected' : '' }}>
+                                                    {{ $value->nama }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <select class="form-control select2" name="id_lokasi" id="id_lokasi">
+                                            <option value="">Pilih Lokasi</option>
+                                            @foreach ($lokasi as $key => $value)
+                                                <option value="{{ $value->id }}"
+                                                    {{ old('id') == $value->id ? 'selected' : '' }}>
+                                                    {{ $value->nama }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group btn btn-list d-inline">
+                                        <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
+                                                class="ti-search"></i></button>
+                                        <button class="btn ripple btn-warning d-inline" onclick="reset()">
+                                            Refresh&nbsp; <i class="fa fa-refresh"></i> </button>
+                                    </div>
 
+                                </div>
+                            </div>
+                        </form>
+                    @else
+                        <form id="search">
+                            <div class="row row-sm">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <select class="form-control select2" name="id_lokasi" id="id_lokasi">
+                                            <option>Pilih Lokasi</option>
+                                            @foreach ($lokasi as $key => $value)
+                                                <option value="{{ $value->id }}"
+                                                    {{ old('id') == $value->id ? 'selected' : '' }}>
+                                                    {{ $value->nama }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group btn btn-list d-inline">
+                                        <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
+                                                class="ti-search"></i></button>
+                                        <button class="btn ripple btn-warning d-inline" onclick="reset()">
+                                            Refresh&nbsp; <i class="fa fa-refresh"></i> </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>
@@ -121,17 +149,15 @@
         $(function() {
             moment.locale('id');
             var table = $('#kehadiranTable').DataTable({
-                // dom: 'lBfrtip',
                 processing: true,
                 serverSide: true,
-                "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
                 type: "GET",
                 // ordering: true,
                 ajax: {
                     url: '{!! url()->current() !!}',
                     data: function(d) {
-                        d.location = $('#location').val();
-                        d.region = $('#region').val();
+                        d.id_lokasi = $('#id_lokasi').val();
+                        d.id_wilayah = $('#id_wilayah').val();
                     }
                 },
                 columns: [{
@@ -182,7 +208,7 @@
                     },
                 ]
             });
-            $('#filter').on('submit', function(e) {
+            $('#search').on('submit', function(e) {
                 table.draw();
                 e.preventDefault();
                 table.ajax.reload();
@@ -191,7 +217,7 @@
         });
 
         function reset() {
-            document.getElementById("filter").reset();
+            document.getElementById("search").reset();
         }
 
     </script>

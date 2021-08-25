@@ -18,37 +18,32 @@ class KehadiranController extends Controller
     {
         if (request()->ajax()) {
             if (Auth::user()->privilege == 2 || 3) {
-                # code... //dikasih where wilayah
-                $query = DB::table('bm_absen')
-                ->selectRaw("bm_absen.* ,bm_user.nama,bm_user.id_wilayah,bm_user.id_lokasi ,CONCAT ('https://www.google.com/maps/?q=',bm_absen.latitude_masuk,',',bm_absen.longitude_masuk) AS 'lokasi_absen_masuk',
-                CONCAT ('https://www.google.com/maps/?q=',bm_absen.latitude_pulang,',',bm_absen.longitude_pulang) AS 'lokasi_absen_pulang'")
-                ->leftJoin('bm_user', 'bm_user.id', '=', 'bm_absen.id_user')
-                ->where('id_wilayah',  Auth::user()->id_wilayah)
-                ->get();
-            }
-            // elseif (Auth::user()->privilege == 3) {
-            //     # code... //dikasih where wilayah
-            //     $region = Auth::user()->id_wilayah;
-            //     $query = Attendance::with(['user'])->whereHas('user', function($q) use ($region)
-            //     {
-            //         $q->where('id_wilayah', '=', $region);
-
-            //     })->get();
-            // }
-            else {
-                $query = DB::table('bm_absen')
-                ->selectRaw("bm_absen.* ,bm_user.nama,bm_user.id_wilayah,bm_user.id_lokasi ,CONCAT ('https://www.google.com/maps/?q=',bm_absen.latitude_masuk,',',bm_absen.longitude_masuk) AS 'lokasi_absen_masuk',
-                CONCAT ('https://www.google.com/maps/?q=',bm_absen.latitude_pulang,',',bm_absen.longitude_pulang) AS 'lokasi_absen_pulang'")
-                ->leftJoin('bm_user', 'bm_user.id', '=', 'bm_absen.id_user')
-                ->get();
+                $query = Attendance::with(['user','user.location','user.region'])->whereHas('user', function($user){
+                    $user->where('id_wilayah', Auth::user()->id_wilayah);
+                });
+                // ->where('id_wilayah', Auth::user()->id_wilayah);
+            } else {
+                $query = Attendance::with(['user','user.location','user.region']);
             }
 
-            if (request()->id_wilayah != '') {
-                $query->where('bm_user.id_wilayah', $request->id_wilayah );
+            if (request()->region != '') {
+                $region = $request->region;
+                $query->whereHas('user', function($q) use ($region)
+                {
+                    $q->where('id_wilayah', '=', $region);
+
+                });
             }
-            if (request()->id_lokasi != '') {
-                $query->where('bm_user.id_lokasi', $request->id_lokasi );
+            if (request()->location != '') {
+                $location = $request->location;
+                $query->whereHas('user', function($q) use ($location)
+                {
+                    $q->where('id_lokasi', '=', $location);
+
+                });
             }
+
+            $query->get();
 
             return DataTables::of($query)
             ->editColumn('foto_masuk', function($item){
@@ -67,50 +62,19 @@ class KehadiranController extends Controller
             ->editColumn('jam_pulang', function($item){
                 return Carbon::parse($item->jam_pulang)->format('d-m-Y H:i');
             })
-            ->editColumn('flag', function($item){
-                if ($item->flag == 1) {
-                    return 'AKTIF';
-                } else {
-                    return 'TIDAK AKTIF';
-                    # code...
-                }
-            })
             ->addColumn('lokasi_masuk', function($item){
-                return '<a href="'.$item->lokasi_absen_masuk.'" target="_blank">Lokasi Masuk</a>';
+                $lokasi_absen_masuk = 'https://www.google.com/maps/?q='.$item->latitude_masuk.','.$item->longitude_masuk;
+                return '<a href="'.$lokasi_absen_masuk.'" target="_blank">Lokasi Masuk</a>';
             })
             ->addColumn('lokasi_pulang', function($item){
-                return '<a href="'.$item->lokasi_absen_pulang.'" target="_blank">Lokasi Pulang</a>';
-            })
-            ->addColumn('lokasi_kerja', function($item){
-                return $item->user->location->nama ?? '';
-                //coba yang concat diedit di editColumn aja, setelah itu menggunakan eloquent aja
-            })
-            ->addColumn('wilayah_kerja', function($item){
-                return $item->user->region->nama ?? '';
+                $lokasi_absen_pulang = 'https://www.google.com/maps/?q='.$item->latitude_pulang.','.$item->longitude_pulang;
+                return '<a href="'.$lokasi_absen_pulang.'" target="_blank">Lokasi Pulang</a>';
             })
             ->addColumn('action', function($item){
                 return '
-                <div class="btn-group">
-                    <div class="dropdown">
-                        <button class="btn btn-sm btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">
-                            Aksi
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">
-                                Sunting
-                            </a>
-                            <form action="#" method="POST">
-                            ' . method_field('delete') . csrf_field() . '
-                                <button type="submit" class="dropdown-item text-danger">
-                                    Hapus
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
                 ';
             })
-            ->rawColumns(['foto_masuk','foto_pulang','jam_masuk','jam_pulang','lokasi_masuk','lokasi_pulang','lokasi_kerja','wilayah_kerja','flag','action'])
+            ->rawColumns(['foto_masuk','foto_pulang','jam_masuk','jam_pulang','lokasi_masuk','lokasi_pulang','action'])
             ->make();
         }
 
