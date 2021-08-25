@@ -40,6 +40,34 @@
         <div class="col-lg-12 col-md-12">
             <div class="card custom-card">
                 <div class="card-body">
+                    @if (Auth::user()->privilege == 2 || 3)
+                    <form id="filter">
+                        <div class="row row-sm">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <select class="form-control select2" id="location">
+                                        <option value="">Pilih Lokasi</option>
+                                        @foreach ($lokasi as $key => $value)
+                                            <option value="{{ $value->id }}"
+                                                {{ old('id') == $value->id ? 'selected' : '' }}>
+                                                {{ $value->nama }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group btn btn-list d-inline">
+                                    <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
+                                            class="ti-search"></i></button>
+                                    <button class="btn ripple btn-warning d-inline" onclick="reset()">
+                                        Refresh&nbsp; <i class="fa fa-refresh"></i> </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                    @else
+
                     <form id="filter">
                         <div class="row row-sm">
                             <div class="col-md-4">
@@ -77,6 +105,7 @@
                             </div>
                         </div>
                     </form>
+                    @endif
 
                 </div>
             </div>
