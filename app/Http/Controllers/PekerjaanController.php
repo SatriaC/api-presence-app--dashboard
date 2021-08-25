@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Location;
+use App\Region;
 use App\Sow;
 use App\Task;
 use App\User;
@@ -17,6 +18,8 @@ class PekerjaanController extends Controller
 
     public function index(Request $request)
     {
+        $query = Task::with(['user','user.division', 'detail', 'detail.category', 'detail.category.sow']);
+        // dd($query);
         if (request()->ajax()) {
             if (Auth::user()->privilege == 2) {
                 # code... //dikasih where wilayah
@@ -28,17 +31,19 @@ class PekerjaanController extends Controller
                 $query = Task::with(['user','user.division', 'detail', 'detail.category', 'detail.category.sow']);
             }
 
-            if ($request->sow) {
-                $query->where('id_sow', $request->input('sow') );
+            if (request()->id_wilayah != '') {
+                $query->where('id_wilayah', $request->id_wilayah );
             }
-            if ($request->lokasi) {
-                $lokasi = $request->lokasi;
-                $query->whereHas('user', function($q) use ($lokasi)
+            if (request()->id_sow != '') {
+                $query->where('id_sow', $request->id_sow );
+            }
+            if (request()->id_lokasi != '') {
+                $location = $request->id_lokasi;
+                $query->whereHas('user', function($q) use ($location)
                 {
-                    $q->where('id_lokasi', '=', $lokasi);
+                    $q->where('id_lokasi', '=', $location);
 
                 });
-                // ('id_lokasi', $request->input('lokasi') );
             }
 
             return DataTables::of($query)
@@ -267,9 +272,10 @@ class PekerjaanController extends Controller
 
         $sow = Sow::where('flag', 1)->get();
         $lokasi = Location::where('flag', 1)->get();
+        $wilayah = Region::where('flag', 1)->get();
         // dd($sow);
 
-        return view('pages.monitoring_pekerjaan.index', compact(['sow', 'lokasi']));
+        return view('pages.monitoring_pekerjaan.index', compact(['sow', 'lokasi','wilayah']));
     }
 
     public function approve($id)

@@ -43,12 +43,63 @@
             <div class="card custom-card">
                 <div class="card-body">
                     <form id="filter">
+                        @if (Auth::user()->privilege == 1)
+                        <div class="row row-sm">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {{-- <p class="mg-b-10">SoW</p> --}}
+                                    <select class="form-control select2" name="id_sow" id="id_sow">
+                                        <option value="">Pilih SoW</option>
+                                        @foreach ($sow as $key => $value)
+                                            <option value="{{ $value->id }}"
+                                                {{ old('id') == $value->id ? 'selected' : '' }}>
+                                                {{ $value->nama }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <select class="form-control select2" name="id_wilayah" id="id_wilayah">
+                                        <option value="">Pilih Wilayah</option>
+                                        @foreach ($wilayah as $key => $value)
+                                            <option value="{{ $value->id }}"
+                                                {{ old('id') == $value->id ? 'selected' : '' }}>
+                                                {{ $value->nama }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <select class="form-control select2" name="id_lokasi" id="id_lokasi">
+                                        <option value="">Pilih Lokasi</option>
+                                        @foreach ($lokasi as $key => $value)
+                                            <option value="{{ $value->id }}"
+                                                {{ old('id') == $value->id ? 'selected' : '' }}>
+                                                {{ $value->nama }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group btn btn-list d-inline">
+                                    <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
+                                            class="ti-search"></i></button>
+                                    <button class="btn ripple btn-warning d-inline" onclick="reset()">
+                                        Refresh&nbsp; <i class="fa fa-refresh"></i> </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        @else
                         <div class="row row-sm">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     {{-- <p class="mg-b-10">SoW</p> --}}
                                     <select class="form-control select2" name="id_sow" id="id_sow">
-                                        <option label="">Pilih SoW</option>
+                                        <option>Pilih SoW</option>
                                         @foreach ($sow as $key => $value)
                                             <option value="{{ $value->id }}"
                                                 {{ old('id') == $value->id ? 'selected' : '' }}>
@@ -60,7 +111,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <select class="form-control select2" name="id_lokasi" id="id_lokasi">
-                                        <option label="">Pilih Lokasi</option>
+                                        <option>Pilih Lokasi</option>
                                         @foreach ($lokasi as $key => $value)
                                             <option value="{{ $value->id }}"
                                                 {{ old('id') == $value->id ? 'selected' : '' }}>
@@ -79,6 +130,7 @@
 
                             </div>
                         </div>
+                        @endif
                     </form>
                 </div>
             </div>
@@ -125,18 +177,19 @@
         $(function() {
             // console.log($("#sow").val().'ASASW');
             moment.locale('id');
-            let table = $('#pekerjaanTable').DataTable({
+            var table = $('#pekerjaanTable').DataTable({
                 dom: 'lBfrtip',
                 processing: true,
+                // searching: true,
                 serverSide: true,
                 "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
                 type:"GET",
                 ajax: {
                     url: '{!! url()->current() !!}',
-                    // url: "{{ route('pekerjaan.index') }}",
                     data: function(d) {
-                        d.sow = $("#id_sow").val();
-                        d.lokasi = $('#id_lokasi').val();
+                        d.id_sow = $("#id_sow").val();
+                        d.id_lokasi = $('#id_lokasi').val();
+                        d.id_wilayah = $('#id_wilayah').val();
                     }
                 },
                 columns: [{
