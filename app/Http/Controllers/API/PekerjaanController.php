@@ -128,6 +128,8 @@ class PekerjaanController extends Controller
 
         $update_pekerjaan->foto_after = $file_name1;
         $update_pekerjaan->flag = 2;
+        $update_pekerjaan->laporan = $request->laporan;
+        $update_pekerjaan->note = $request->note;
 
         $update_pekerjaan->save();
 
