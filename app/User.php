@@ -66,7 +66,7 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
 
-        $url = 'https://bmv2.test/reset-password?token=' . $token;
+        $url = 'https://10.1.150.220/reset-password?token=' . $token;
 
         $this->notify(new MailResetPasswordNotification($url));
     }
