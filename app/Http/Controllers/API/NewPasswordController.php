@@ -37,19 +37,19 @@ class NewPasswordController extends Controller
     public function ubah(Request $request)
     {
         $request->validate([
-            'token' => 'required',
+            // 'token' => 'required',
             'password' => ['required', 'confirmed'],
         ]);
 
         $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
+            $request->only('email', 'password', 'password_confirmation'),
             function ($user) use ($request) {
                 $user->forceFill([
                     'password' => bcrypt($request->password),
                     // 'remember_token' => Str::random(60),
                 ])->save();
 
-                $user->tokens()->delete();
+                // $user->tokens()->delete();
 
                 event(new PasswordReset($user));
             }
