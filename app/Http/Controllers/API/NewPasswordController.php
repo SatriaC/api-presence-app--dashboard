@@ -34,6 +34,39 @@ class NewPasswordController extends Controller
         ]);
     }
 
+    public function ubah(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'password' => ['required', 'confirmed'],
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user) use ($request) {
+                $user->forceFill([
+                    'password' => bcrypt($request->password),
+                    // 'remember_token' => Str::random(60),
+                ])->save();
+
+                $user->tokens()->delete();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        if ($status == Password::PASSWORD_RESET) {
+            return response([
+                'message'=> 'Password reset successfully'
+            ]);
+        }
+
+        return response([
+            'message'=> __($status)
+        ], 500);
+
+    }
+
     public function reset(Request $request)
     {
         $request->validate([
