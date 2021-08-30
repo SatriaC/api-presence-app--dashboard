@@ -2,10 +2,12 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Notifications\MailResetPasswordNotification;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -18,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nama','nik', 'email','no_hp', 'password', 'id_bagian', 'id_lokasi', 'id_wilayah', 'privilege', 'flag'
+        'nama', 'nik', 'email', 'no_hp', 'password', 'id_bagian', 'id_lokasi', 'id_wilayah', 'privilege', 'flag'
     ];
     // public $timestamps = false;
 
@@ -41,19 +43,31 @@ class User extends Authenticatable
     // ];
 
 
-    public function division() {
+    public function division()
+    {
         return $this->belongsTo(Division::class, 'id_bagian');
     }
 
-    public function location() {
+    public function location()
+    {
         return $this->belongsTo(Location::class, 'id_lokasi');
     }
 
-    public function region() {
+    public function region()
+    {
         return $this->belongsTo(Region::class, 'id_wilayah');
     }
 
-    public function privil() {
+    public function privil()
+    {
         return $this->belongsTo(Privilege::class, 'privilege');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+
+        $url = 'https://bmv2.test/reset-password?token=' . $token;
+
+        $this->notify(new MailResetPasswordNotification($url));
     }
 }

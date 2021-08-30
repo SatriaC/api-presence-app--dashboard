@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\EmailVerificationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,13 @@ Route::post('register', 'API\AuthController@register');
 Route::post('login', 'API\AuthController@login');
 
 Route::get('/getRegion', 'API\LocationController@locations')->name('api-locations');
+
+Route::post('forgot-password', 'API\NewPasswordController@forgotPassword');
+Route::post('reset-password', 'API\NewPasswordController@reset');
+
+Route::post('email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail'])->middleware('auth:sanctum');
+Route::get('verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify')->middleware('auth:sanctum');
+
 
 
 Route::prefix('v1')->middleware(['auth:api'])->group(function () {
