@@ -19,8 +19,8 @@
                 </a>
                 <div class="dropdown-menu">
                     <div class="header-navheading">
-                        <h6 class="main-notification-title">ADMIN</h6>
-                        <p class="main-notification-text">ADMIN</p>
+                        <h6 class="main-notification-title">{{ Auth::user()->nama }}</h6>
+                        <p class="main-notification-text">{{ Auth::user()->privil->nama }}</p>
                     </div>
                     <a class="dropdown-item" href="{{ route('ubah-password') }}">
                         <i class="fe fe-settings"></i> Change Password

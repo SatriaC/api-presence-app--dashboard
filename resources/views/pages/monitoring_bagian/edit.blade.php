@@ -46,14 +46,14 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-12">
+                        {{-- <div class="col-12">
                             <label for="nama">Status</label>
                             <select class="form-control"  name="flag" required>
                                 <option label="Pilih Status"></option>
                                 <option value="1" {{$item->flag==1 ? 'selected' : ''}}>Aktif</option>
                                 <option value="2" {{$item->flag==2 ? 'selected' : ''}}>Tidak Aktif</option>
                             </select>
-                        </div>
+                        </div> --}}
                         <button class="btn ripple btn-primary" type="submit"
                             onclick="return confirm('Apakah anda yakin akan mengedit data ?')">Submit</button>
                     </form>

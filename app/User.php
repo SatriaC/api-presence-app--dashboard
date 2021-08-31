@@ -63,11 +63,11 @@ class User extends Authenticatable
         return $this->belongsTo(Privilege::class, 'privilege');
     }
 
-    public function sendPasswordResetNotification($token)
-    {
+    // public function sendPasswordResetNotification($token)
+    // {
 
-        $url = 'https://10.1.150.220/reset-password?token=' . $token;
+    //     $url = 'https://10.1.150.220/reset-password?token=' . $token;
 
-        $this->notify(new MailResetPasswordNotification($url));
-    }
+    //     $this->notify(new MailResetPasswordNotification($url));
+    // }
 }
