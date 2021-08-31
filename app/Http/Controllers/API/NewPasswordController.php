@@ -5,9 +5,11 @@ namespace App\Http\Controllers\API;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password as RulesPassword;
 use Illuminate\Validation\ValidationException;
 
@@ -41,29 +43,40 @@ class NewPasswordController extends Controller
             'password' => ['required', 'confirmed'],
         ]);
 
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation'),
-            function ($user) use ($request) {
-                $user->forceFill([
-                    'password' => bcrypt($request->password),
-                    // 'remember_token' => Str::random(60),
-                ])->save();
+        $user = User::where('id', Auth::guard('api')->user()->id)->orderBy('id', 'desc')->first();
 
-                // $user->tokens()->delete();
+        # code...
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return response()->json([
+            'status' => 200,
+            'title' => 'success',
+            'message' => 'Password Berhasil dirubah!'
+        ]);
 
-                event(new PasswordReset($user));
-            }
-        );
+        // $status = Password::reset(
+        //     $request->only('email', 'password', 'password_confirmation', 'token'),
+        //     function ($user) use ($request) {
+        //         $user->forceFill([
+        //             'password' => bcrypt($request->password),
+        //             // 'remember_token' => Str::random(60),
+        //         ])->save();
 
-        if ($status == Password::PASSWORD_RESET) {
-            return response([
-                'message'=> 'Password reset successfully'
-            ]);
-        }
+        //         $user->tokens()->delete();
 
-        return response([
-            'message'=> __($status)
-        ], 500);
+        //         event(new PasswordReset($user));
+        //     }
+        // );
+
+        // if ($status == Password::PASSWORD_RESET) {
+        //     return response([
+        //         'message'=> 'Password reset successfully'
+        //     ]);
+        // }
+
+        // return response([
+        //     'message'=> __($status)
+        // ], 500);
 
     }
 
