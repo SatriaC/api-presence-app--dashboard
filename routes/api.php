@@ -29,7 +29,6 @@ Route::post('login', 'API\AuthController@login');
 
 Route::get('/getRegion', 'API\LocationController@locations')->name('api-locations');
 
-Route::post('forgot-password', 'API\NewPasswordController@forgotPassword');
 Route::post('reset-password', 'API\NewPasswordController@reset');
 
 Route::post('email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail'])->middleware('auth:sanctum');

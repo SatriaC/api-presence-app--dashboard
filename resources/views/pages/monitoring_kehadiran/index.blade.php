@@ -45,6 +45,7 @@
                         <div class="row row-sm">
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <p class="mg-b-10">Lokasi</p>
                                     <select class="form-control select2" id="location">
                                         <option value="">Pilih Lokasi</option>
                                         @foreach ($lokasi as $key => $value)
@@ -55,7 +56,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 mt-4">
                                 <div class="form-group btn btn-list d-inline">
                                     <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
                                             class="ti-search"></i></button>
@@ -72,6 +73,7 @@
                         <div class="row row-sm">
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <p class="mg-b-10">Wilayah</p>
                                     <select class="form-control select2" id="region">
                                         <option value="">Pilih Wilayah</option>
                                         @foreach ($wilayah as $key => $value)
@@ -84,6 +86,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <p class="mg-b-10">Lokasi</p>
                                     <select class="form-control select2" id="location">
                                         <option value="">Pilih Lokasi</option>
                                         @foreach ($lokasi as $key => $value)
@@ -94,7 +97,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 mt-4">
                                 <div class="form-group btn btn-list d-inline">
                                     <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
                                             class="ti-search"></i></button>
