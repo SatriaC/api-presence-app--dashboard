@@ -13,7 +13,7 @@ class DivisionController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Division::query()->where('flag', 1);
+            $query = Division::query()->where('flag', 1)->orderby('created_at', 'desc');
 
             return DataTables::of($query)
             ->editColumn('flag', function($item){

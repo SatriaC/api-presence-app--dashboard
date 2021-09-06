@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/manual-book', 'DashboardController@manualbook')->name('manual-book');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth'])
     ->group(function () {

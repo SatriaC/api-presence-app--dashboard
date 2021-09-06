@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 
 class MasterDataController extends Controller
 {
@@ -130,5 +131,24 @@ class MasterDataController extends Controller
         $response = Response::make($file, 200);
         $response->header('Content-type', $type);
         return $response;
+    }
+
+    public function manualbook()
+    {
+        // $path = '/Manual Book/' . 'manual-book-mobile.pdf';
+        // return Storage::disk('local')->download($path);
+        $path = storage_path('app/Manual Book/' . 'manual-book-mobile.pdf');
+        return response()->download($path);
+
+        // return response()->json([
+        //     'status' => 200,
+        //     'title' => 'success',
+        //     'message' => 'Absen Masuk Berhasil!',
+        //     "data" => [
+        //         'foto_masuk' => $file_name,
+        //         'date' => $date,
+        //         'time' => $time
+        //     ]
+        // ]);
     }
 }

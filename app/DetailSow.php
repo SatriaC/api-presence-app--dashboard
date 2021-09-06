@@ -11,7 +11,7 @@ class DetailSow extends Model
         'nama','id_kategori', 'flag'
     ];
 
-    public $timestamps = false;
+    // public $timestamps = false;
 
     public function category() {
         return $this->belongsTo(Category::class, 'id_kategori');

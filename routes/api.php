@@ -27,6 +27,7 @@ use App\Http\Controllers\Api\EmailVerificationController;
 Route::post('register', 'API\AuthController@register');
 Route::post('login', 'API\AuthController@login');
 
+Route::get('/manual-book', 'API\MasterDataController@manualbook');
 Route::get('/getRegion', 'API\LocationController@locations')->name('api-locations');
 
 Route::post('reset-password', 'API\NewPasswordController@reset');

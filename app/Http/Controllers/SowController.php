@@ -15,7 +15,7 @@ class SowController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Sow::with(['division'])->where('flag', 1);
+            $query = Sow::with(['division'])->where('flag', 1)->orderby('created_at', 'desc');
 
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {

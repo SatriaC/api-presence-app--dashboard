@@ -14,7 +14,7 @@ class Sow extends Model
 
 
 
-    public $timestamps = false;
+    // public $timestamps = false;
 
     public function division() {
         return $this->belongsTo(Division::class, 'id_bagian');

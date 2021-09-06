@@ -11,7 +11,7 @@ class Category extends Model
         'nama','id_sow', 'flag'
     ];
 
-    public $timestamps = false;
+    // public $timestamps = false;
 
     public function sow() {
         return $this->belongsTo(Sow::class, 'id_sow');

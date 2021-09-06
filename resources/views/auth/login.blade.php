@@ -133,7 +133,7 @@
                                         <div class="text-left mt-5 ml-0">
 
                                             <div class="mb-1"><a target="_blank"
-                                                    href="#">Download Manual Book</a>
+                                                href="{{ route('manual-book') }}">Download Manual Book</a>
                                             </div>
                                             @if (Route::has('password.request'))
                                                 <div class="mb-1"><a

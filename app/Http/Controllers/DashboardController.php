@@ -11,6 +11,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -114,7 +115,7 @@ class DashboardController extends Controller
             foreach ($data_name as $item) {
                 $pembilangDone = Task::where('flag', 3)->where('id_wilayah', $request->id_wilayah)->count();
                 $pembilangOnProgress = Task::where('flag', 2)->where('id_wilayah', $request->id_wilayah)->count();
-                  
+
 
                 if ($item == 'Done') {
                     $data_progress[] = ($pembilangDone/$pekerjaan)*100;
@@ -126,5 +127,11 @@ class DashboardController extends Controller
         }
 
         return view('pages.dashboards', compact(['pekerjaan', 'karyawan', 'sow','data','data_done','data_onProgress','data_notYet','data_name','data_progress','wilayah']));
+    }
+
+    public function manualbook()
+    {
+        $path = '/Manual Book/' . 'manual-book.pdf';
+        return Storage::disk('local')->download($path);
     }
 }

@@ -11,6 +11,6 @@ class Division extends Model
         'nama','flag'
     ];
 
-    public $timestamps = false;
+    // public $timestamps = false;
 
 }
