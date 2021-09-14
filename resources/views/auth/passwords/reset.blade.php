@@ -53,7 +53,7 @@ Reset Password
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn ripple" style="background-color: #c01b3f; color: white">
+                                <button type="submit" class="btn ripple" style="background-color:#3195F1;color: white;">
                                     {{ __('Ubah Password') }}
                                 </button>
                             </div>

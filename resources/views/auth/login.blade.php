@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Login V18</title>
+    <title>Login SELMA</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -60,7 +60,7 @@
                     </b>
                     <p class="">untuk mengakses Building Management</p>
 
-                    <div class="wrap-input100 validate-input mt-50" data-validate="Valid email is required: ex@abc.xyz">
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                         <input id="email" type="email"
                         class="input100 @error('email') is-invalid @enderror"
                         name="email" value="{{ old('email') }}" required
@@ -102,7 +102,7 @@
 
 
                     <div class="container-login100-form-btn">
-                        <button class="login100-form-btn" type="submit">
+                        <button class="login100-form-btn" type="submit" style="background-color:#3195F1;color: white;">
                             Sign In
                         </button>
                     </div>
