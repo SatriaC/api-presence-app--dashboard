@@ -88,9 +88,29 @@ class DashboardController extends Controller
                 $pembilangOnProgress = $pembilangOnProgress->count();
 
                 if ($item == 'Done') {
-                    $data_progress[] = ($pembilangDone/$pekerjaan)*100;
+                    if (!empty($pekerjaan)) {
+                        # code...
+                        $data_progress[] = ($pembilangDone/$pekerjaan)*100;
+                    } else {
+                        # code...
+                        return view('pages.notFound')->with(
+                            [
+                               'message' => 'Mohon maaf, wilayah yang anda pilih belum memiliki record data pekerjaan',
+
+                            ]);
+                    }
                 } else {
-                    $data_progress[] = ($pembilangOnProgress/$pekerjaan)*100;
+                    if (!empty($pekerjaan)) {
+                        # code...
+                        $data_progress[] = ($pembilangOnProgress/$pekerjaan)*100;
+                    } else {
+                        # code...
+                        return view('pages.notFound')->with(
+                            [
+                               'message' => 'Mohon maaf, wilayah yang anda pilih belum memiliki record data pekerjaan',
+
+                            ]);
+                    }
                 }
             }
 
