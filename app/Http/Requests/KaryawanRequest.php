@@ -27,8 +27,8 @@ class KaryawanRequest extends FormRequest
             //
             'nama' => 'required|max:255',
             'no_hp' => 'required|max:15',
-            'email' => 'required|email|unique:bm_user,email',
-            'nik' => 'required|unique:bm_user,nik',
+            'email' => 'required|email',
+            'nik' => 'required',
             'id_wilayah' => 'required',
             // 'id_bagian' => 'required',
             // 'id_lokasi' => 'required',
