@@ -69,14 +69,11 @@
                                     margin-bottom: auto;"
                                     alt="logo" width="30" height="30"> --}}
                                 <img src="{{ asset('assets/img/Design Login.png') }}" class="header-brand-img mb-4"
-                                style="display: block;
-                                    margin-left: 30%;
-                                    margin-right: auto;
-                                    margin-top: -30px;
-                                    margin-bottom: auto;
-                                    width: 100%;
-
-                                    object-fit: cover;"
+                                style="    display: block;
+                                width: 74%;
+                                margin-left: 26px;
+                                height: auto;
+                                object-fit: cover;"
 
                                     alt="logo" width="400" height="300">
                                 <div class="clearfix"></div>
@@ -95,10 +92,7 @@
                                             @csrf
                                             <img src="{{ asset('assets/img/logo-1.png') }}" style="width: 50%; margin-bottom: 10px" alt="">
                                             <h5 class="text-left mt-2">Signin</h5>
-                                            <span class="float-left" style="margin-top: -10px">
-                                                untuk mengakses Building Management
 
-                                            </span>
                                             <br>
                                             <br>
                                             {{-- <p class="mb-4 text-muted tx-13 ml-0 text-left">Signin to create, discover and

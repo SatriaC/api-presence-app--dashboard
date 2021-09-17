@@ -93,11 +93,12 @@ class DashboardController extends Controller
                         $data_progress[] = ($pembilangDone/$pekerjaan)*100;
                     } else {
                         # code...
-                        return view('pages.notFound')->with(
-                            [
-                               'message' => 'Mohon maaf, wilayah yang anda pilih belum memiliki record data pekerjaan',
+                        $data_progress[] = 0;
+                        // return view('pages.notFound')->with(
+                        //     [
+                        //        'message' => 'Mohon maaf, wilayah yang anda pilih belum memiliki record data pekerjaan',
 
-                            ]);
+                        //     ]);
                     }
                 } else {
                     if (!empty($pekerjaan)) {
@@ -105,11 +106,12 @@ class DashboardController extends Controller
                         $data_progress[] = ($pembilangOnProgress/$pekerjaan)*100;
                     } else {
                         # code...
-                        return view('pages.notFound')->with(
-                            [
-                               'message' => 'Mohon maaf, wilayah yang anda pilih belum memiliki record data pekerjaan',
+                        $data_progress[] = 0;
+                        // return view('pages.notFound')->with(
+                        //     [
+                        //        'message' => 'Mohon maaf, wilayah yang anda pilih belum memiliki record data pekerjaan',
 
-                            ]);
+                        //     ]);
                     }
                 }
             }
