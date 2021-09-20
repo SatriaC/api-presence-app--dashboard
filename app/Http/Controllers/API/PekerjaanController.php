@@ -127,7 +127,7 @@ class PekerjaanController extends Controller
         }
 
         $update_pekerjaan->foto_after = $file_name1;
-        // $update_pekerjaan->flag = 2;
+        $update_pekerjaan->flag = 2;
         if($request->laporan != ""){
             $update_pekerjaan->laporan = $request->laporan;
         }

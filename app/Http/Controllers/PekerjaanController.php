@@ -62,8 +62,10 @@ class PekerjaanController extends Controller
             })
             ->editColumn('flag', function($item){
                 if ($item->flag == 1) {
-                    return '<span class="badge badge-warning">Butuh Approval</span>';
+                    return '';
                 } elseif ($item->flag == 2) {
+                    return '<span class="badge badge-warning">Butuh Approval</span>';
+                } elseif ($item->flag == 3) {
                     return '<span class="badge badge-success">Disetujui</span>';
                 } else {
                     return '<span class="badge badge-danger">Ditolak</span>';
@@ -74,7 +76,7 @@ class PekerjaanController extends Controller
                 return $item->user->location->nama;
             })
             ->addColumn('action', function($item){
-                if ($item->flag == 1) {
+                if ($item->flag == 2) {
                     if (Auth::user()->privilege == 3 || 1) {
                         return '<a href="#" class="btn btn-sm btn-warning d-inline"
                                 data-target="#modaldemo1-' . $item->id . '" data-toggle="modal">Approval Pekerjaan</a>
@@ -282,7 +284,7 @@ class PekerjaanController extends Controller
     {
         $item = Task::findOrFail($id);
         $item->update([
-            'flag' => 2,
+            'flag' => 3,
         ]);
 
         return redirect()->back()->with('success', 'Anda telah berhasil melakukan approval pekerjaan');
@@ -298,7 +300,7 @@ class PekerjaanController extends Controller
     {
         $item = Task::findOrFail($id);
         $item->update([
-            'flag' => 3,
+            'flag' => 4,
         ]);
 
         return redirect()->route('pekerjaan.index')->with('success', 'Anda telah berhasil melakukan reject pekerjaan');
