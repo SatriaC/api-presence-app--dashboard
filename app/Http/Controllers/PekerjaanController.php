@@ -244,11 +244,11 @@ class PekerjaanController extends Controller
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Foto Sebelum</label>
-                                                                <img src"'. Storage::url($item->foto_before) .'"style="max-height:80px;"/>
+                                                                <img src"'. Storage::url("foto_pekerjaan/".$item->foto_before) .'"style="max-height:80px;"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Foto Sesudah</label>
-                                                                <img src"'. Storage::url($item->foto_after) .'"style="max-height:80px;"/>
+                                                                <img src"'. Storage::url("foto_pekerjaan/".$item->foto_after) .'"style="max-height:80px;"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Laporan Pekerjaan</label>
