@@ -116,14 +116,6 @@ class PekerjaanController extends Controller
                                                                 <input class="form-control" value="'.$item->detail->nama.'" type="text" disabled="">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="detail">Foto Sebelum</label>
-                                                                <img src"'. $url_before .'"style="max-height:80px;"/>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="detail">Foto Sesudah</label>
-                                                                <img src"'. $url_after .'"style="max-height:80px;"/>
-                                                            </div>
-                                                            <div class="form-group">
                                                                 <label for="detail">Laporan Pekerjaan</label>
                                                                 <textarea name="" class="form-control" cols="30" rows="5" readonly="">'.$item->laporan.'</textarea>
                                                             </div>
@@ -184,14 +176,6 @@ class PekerjaanController extends Controller
                                                                 <input class="form-control" value="'.$item->detail->nama.'" type="text" disabled="">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="detail">Foto Sebelum</label>
-                                                                <img src"'. $url_before .'"style="max-height:80px;"/>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="detail">Foto Sesudah</label>
-                                                                <img src"'. $url_after .'"style="max-height:80px;"/>
-                                                            </div>
-                                                            <div class="form-group">
                                                                 <label for="detail">Laporan Pekerjaan</label>
                                                                 <textarea name="" class="form-control" cols="30" rows="5" readonly="">'.$item->laporan.'</textarea>
                                                             </div>
@@ -243,14 +227,6 @@ class PekerjaanController extends Controller
                                                             <div class="form-group">
                                                                 <label for="detail">Detail SoW</label>
                                                                 <input class="form-control" value="'.$item->detail->nama.'" type="text" disabled="">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="detail">Foto Sebelum</label>
-                                                                <img src"'. $url_before .'"style="max-height:80px;"/>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="detail">Foto Sesudah</label>
-                                                                <img src"'. $url_after .'"style="max-height:80px;"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Laporan Pekerjaan</label>
