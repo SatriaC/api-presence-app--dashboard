@@ -348,11 +348,7 @@
             //     text: ''
             // },
             xAxis: {
-                categories: [
-                    'CSOB & HK',
-                    'Security',
-                    'Teknisi ME'
-                ],
+                categories: {!! json_encode($nama) !!},
                 crosshair: true
             },
             yAxis: {

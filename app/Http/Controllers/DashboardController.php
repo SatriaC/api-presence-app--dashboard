@@ -148,7 +148,10 @@ class DashboardController extends Controller
 
         }
 
-        return view('pages.dashboards', compact(['pekerjaan', 'karyawan', 'sow','data','data_done','data_onProgress','data_notYet','data_name','data_progress','wilayah']));
+        $nama = Division::where('flag', 1)->pluck('nama');
+        // dd($nama);
+
+        return view('pages.dashboards', compact(['pekerjaan', 'karyawan', 'sow','data','data_done','data_onProgress','data_notYet','data_name','data_progress','wilayah','nama']));
     }
 
     public function manualbook()

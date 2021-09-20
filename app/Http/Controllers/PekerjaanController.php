@@ -49,13 +49,15 @@ class PekerjaanController extends Controller
             return DataTables::of($query)
             ->editColumn('foto_before', function($item){
                 // return $item->foto_before ? '<img src"'. Storage::url($item->foto_before) .'"style="max-height:80px;"/>' : '';
-                $url = asset('storage/'.$item->foto_before);
-                return '<img src="'.$url.'" border="0" width="100" class="img-rounded" align="center" />';
+                // $url = asset('storage/'.$item->foto_before);
+                // return '<img src="'.$url.'" border="0" width="100" class="img-rounded" align="center" />';
+                return $item->foto_before ? '<img src="' . Storage::url($item->foto_before) . '" border="0" width="100" class="img-rounded" align="center" />' : '';
             })
             ->editColumn('foto_after', function($item){
                 // return $item->foto_after ? '<img src"'. Storage::url($item->foto_after) .'"style="max-height:80px;"/>' : '';
-                $url = asset('storage/'.$item->foto_after);
-                return '<img src="'.$url.'" border="0" width="100" class="img-rounded" align="center" />';
+                // $url = asset('storage/'.$item->foto_after);
+                // return '<img src="'.$url.'" border="0" width="100" class="img-rounded" align="center" />';
+                return $item->foto_after ? '<img src="' . Storage::url($item->foto_after) . '" border="0" width="100" class="img-rounded" align="center" />' : '';
             })
             ->editColumn('approved_at', function($item){
                 return Carbon::parse($item->approved_at)->format('d-m-Y H:i');
@@ -116,14 +118,6 @@ class PekerjaanController extends Controller
                                                             <div class="form-group">
                                                                 <label for="detail">Detail SoW</label>
                                                                 <input class="form-control" value="'.$item->detail->nama.'" type="text" disabled="">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="detail">Foto Sebelum</label>
-                                                                <img src"'. Storage::url($item->foto_before) .'"style="max-height:80px;"/>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="detail">Foto Sesudah</label>
-                                                                <img src"'. Storage::url($item->foto_after) .'"style="max-height:80px;"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Laporan Pekerjaan</label>
