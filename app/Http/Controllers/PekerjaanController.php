@@ -72,6 +72,8 @@ class PekerjaanController extends Controller
                 return $item->user->location->nama;
             })
             ->addColumn('action', function($item){
+                $url_before = asset('storage/foto_pekerjaan/'.$item->foto_before);
+                $url_after = asset('storage/foto_pekerjaan/'.$item->foto_after);
                 if ($item->flag == 2) {
                     if (Auth::user()->privilege == 3 || 1) {
                         return '<a href="#" class="btn btn-sm btn-warning d-inline"
@@ -115,11 +117,11 @@ class PekerjaanController extends Controller
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Foto Sebelum</label>
-                                                                <img src"'. Storage::url("foto_pekerjaan/".$item->foto_before) .'"style="max-height:80px;"/>
+                                                                <img src"'. $url_before .'"style="max-height:80px;"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Foto Sesudah</label>
-                                                                <img src"'. Storage::url("foto_pekerjaan/".$item->foto_after) .'"style="max-height:80px;"/>
+                                                                <img src"'. $url_after .'"style="max-height:80px;"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Laporan Pekerjaan</label>
@@ -183,11 +185,11 @@ class PekerjaanController extends Controller
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Foto Sebelum</label>
-                                                                <img src"'. Storage::url("foto_pekerjaan/".$item->foto_before) .'"style="max-height:80px;"/>
+                                                                <img src"'. $url_before .'"style="max-height:80px;"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Foto Sesudah</label>
-                                                                <img src"'. Storage::url("foto_pekerjaan/".$item->foto_after) .'"style="max-height:80px;"/>
+                                                                <img src"'. $url_after .'"style="max-height:80px;"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Laporan Pekerjaan</label>
@@ -244,11 +246,11 @@ class PekerjaanController extends Controller
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Foto Sebelum</label>
-                                                                <img src"'. Storage::url("foto_pekerjaan/".$item->foto_before) .'"style="max-height:80px;"/>
+                                                                <img src"'. $url_before .'"style="max-height:80px;"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Foto Sesudah</label>
-                                                                <img src"'. Storage::url("foto_pekerjaan/".$item->foto_after) .'"style="max-height:80px;"/>
+                                                                <img src"'. $url_after .'"style="max-height:80px;"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="detail">Laporan Pekerjaan</label>

@@ -47,14 +47,12 @@ class KehadiranController extends Controller
 
             return DataTables::of($query)
             ->editColumn('foto_masuk', function($item){
-                return $item->foto_masuk ? '<img src"'. Storage::url("foto_absensi/".$item->foto_masuk) .'" border="0" width="100" class="img-rounded" align="center"' : '';
-                // $url = asset('storage/'.$item->foto_masuk);
-                // return '<img src="'.$url.'" border="0" width="100" class="img-rounded" align="center" />';
+                $url = asset('storage/foto_absensi/'.$item->foto_masuk);
+                return '<img src="'.$url.'" border="0" width="100" class="img-rounded" align="center" />';
             })
             ->editColumn('foto_pulang', function($item){
-                // $url = asset('storage/'.$item->foto_pulang);
-                // return '<img src="'.$url.'" border="0" width="100" class="img-rounded" align="center" />';
-                return $item->foto_pulang ? '<img src"'. Storage::url("foto_absensi/".$item->foto_pulang) .'" border="0" width="100" class="img-rounded" align="center"' : '';
+                $url = asset('storage/foto_absensi/'.$item->foto_pulang);
+                return '<img src="'.$url.'" border="0" width="100" class="img-rounded" align="center" />';
             })
             ->editColumn('jam_masuk', function($item){
                 return Carbon::parse($item->jam_masuk)->format('d-m-Y H:i');
