@@ -57,11 +57,13 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-12 mt-2 mb-3">
+
+                        <div class="col-12 mt-2">
                             <label>Icon</label>
-                            @foreach ($ikons as $value)
-                            <label class="rdiobox"><input name="ikon" value="{{ $value->ikon }}" {{$value->ikon == $item->ikon ? 'checked' : ''}} type="radio"><span> <img src="{{ Storage::url($value->ikon) }}" style="max-height: 40px;" /></span></label>
-                            @endforeach
+                            <input type="file" name="ikon" class="form-control @error('ikon') is-invalid @enderror" value="{{ $item->ikon }}"  required>
+                            @error('ikon')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <button class="btn ripple btn-primary" type="submit"
                             onclick="return confirm('Apakah anda yakin akan mengedit data ?')">Submit</button>

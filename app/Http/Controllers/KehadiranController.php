@@ -42,6 +42,21 @@ class KehadiranController extends Controller
 
                 });
             }
+            // if (request()->tanggal_awal != '') {
+            //     $awal = Carbon::parse($request->tanggal_awal)->format('Y-m-d');
+            //     $akhir = Carbon::parse($request->tanggal_akhir)->format('Y-m-d');
+            //     $query->whereHas('user', function($q) use ($location)
+            //     {
+            //         $q->where('id_lokasi', '=', $location);
+
+            //     });
+            // }
+
+            if($request->tanggal_awal && $request->tanggal_akhir){
+                $tanggal_awal = Carbon::parse($request->tanggal_awal)->startOfDay();
+                $tanggal_akhir = Carbon::parse($request->tanggal_akhir)->endOfDay();
+                $query->whereBetween('jam_masuk', array($tanggal_awal, $tanggal_akhir));
+            }
 
             $query->get();
 

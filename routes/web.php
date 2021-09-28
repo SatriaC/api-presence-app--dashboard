@@ -42,7 +42,12 @@ Route::prefix('master-data')
         Route::post('sow', 'SowController@store')->name('sow.store');
         Route::get('/sow/{id}/edit', 'SowController@edit')->name('sow.edit');
         Route::put('/sow/{id}', 'SowController@update')->name('sow.update');
+        Route::get('sow/create', 'SowController@create')->name('sow.create');
         Route::delete('/sow/{id}', 'SowController@destroy')->name('sow.destroy');
+        Route::post('ikon', 'IkonController@store')->name('ikon.store');
+        Route::get('/ikon/{id}/edit', 'IkonController@edit')->name('ikon.edit');
+        Route::put('/ikon/{id}', 'IkonController@update')->name('ikon.update');
+        Route::delete('/ikon/{id}', 'IkonController@destroy')->name('ikon.destroy');
         Route::resource('bagian', 'DivisionController');
         Route::resource('karyawan', 'KaryawanController');
     });
@@ -55,6 +60,7 @@ Route::prefix('master-data')
         Route::resource('detail-sow', 'DetailSowController')->except(['create','update','edit','destroy', 'show']);
         Route::resource('kategori-sow', 'KategoriSowController')->except(['create','update','edit','destroy', 'show']);
         Route::resource('sow', 'SowController')->except(['create','update','edit','destroy', 'show']);
+        Route::resource('ikon', 'IkonController')->except(['create','update','edit','destroy', 'show']);
     });
 Route::prefix('report')
     // ->namespace('Admin')

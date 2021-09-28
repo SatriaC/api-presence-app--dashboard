@@ -1,13 +1,13 @@
 @extends('layouts.admin')
-@section('title', 'Edit Data Sow')
+@section('title', 'Create Data Sow')
 @section('content')
     <!-- Page Header -->
     <div class="page-header">
         <div>
-            <h2 class="main-content-title tx-24 mg-b-5">Edit Data Sow</h2>
+            <h2 class="main-content-title tx-24 mg-b-5">Create Data Sow</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">BM</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Edit Data Sow</li>
+                <li class="breadcrumb-item active" aria-current="page">Create Data Sow</li>
             </ol>
         </div>
         <div class="d-flex">
@@ -35,32 +35,33 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('sow.update', $item->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('sow.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
                         <div class="col-12">
                             <label for="nama">Nama</label>
-                            <input class="form-control tanggalan @error('nama') is-invalid @enderror" name="nama"
-                                value="{{ $item->nama }}" type="text">
+                            <input
+                                class="form-control tanggalan @error('nama') is-invalid @enderror"
+                                name="nama"
+                                value="{{ old('nama') }}" type="text">
                             @error('nama')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-12 mt-2">
                             <label for="">Bagian</label>
-                            <select class="form-control select2" name="id_bagian">
-                                <option label="Pilih Bagian"></option>
+                            <select class="form-control select2"  name="id_bagian">
+                                <option label="Pilih Dokumen"></option>
                                 @foreach ($divisions as $value)
-                                    <option value="{{ $value->id }}"
-                                    {{$item->id_bagian==$value->id ? 'selected' : ''}}>
+                                    <option value="{{$value->id}}"
+                                    {{old('id_bagian')==$value->id ? 'selected' : ''}}>
                                     {{$value->nama}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-12 mt-2 mb-3">
                             <label>Icon</label>
-                            @foreach ($ikons as $value)
-                            <label class="rdiobox"><input name="ikon" value="{{ $value->ikon }}" {{$value->ikon == $item->ikon ? 'checked' : ''}} type="radio"><span> <img src="{{ Storage::url($value->ikon) }}" style="max-height: 40px;" /></span></label>
+                            @foreach ($ikons as $item)
+                            <label class="rdiobox"><input name="ikon" value="{{ $item->ikon }}" type="radio"><span> <img src="{{ Storage::url($item->ikon) }}" style="max-height: 40px;" /></span></label>
                             @endforeach
                         </div>
                         <button class="btn ripple btn-primary" type="submit"

@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Sow;
-use App\Division;
-use App\Http\Requests\SowRequest;
 use App\Ikon;
+use App\Division;
+use App\Http\Requests\IkonRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
-class SowController extends Controller
+class IkonController extends Controller
 {
     public function index()
     {
         if (request()->ajax()) {
-            $query = Sow::with(['division'])->orderby('created_at', 'desc');
+            $query = Ikon::query();
 
             return DataTables::of($query)
-                ->editColumn('flag', function($item){
-                    if ($item->flag == 1) {
+                ->editColumn('status', function($item){
+                    if ($item->status == 1) {
                         return 'AKTIF';
                     } else {
                         return 'TIDAK AKTIF';
@@ -36,10 +35,10 @@ class SowController extends Controller
                             Aksi
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="' . route('sow.edit', $item->id) . '">
+                            <a class="dropdown-item" href="' . route('ikon.edit', $item->id) . '">
                                 Sunting
                             </a>
-                            <form action="' . route('sow.destroy', $item->id) . '" method="POST">
+                            <form action="' . route('ikon.destroy', $item->id) . '" method="POST">
                             ' . method_field('delete') . csrf_field() . '
                                 <button type="submit" class="dropdown-item text-danger">
                                     Hapus
@@ -56,59 +55,55 @@ class SowController extends Controller
                 ->editColumn('ikon', function ($item) {
                     return $item->ikon ? '<img src="' . Storage::url($item->ikon) . '" style="max-height: 40px;" />' : '';
                 })
-                ->rawColumns(['ikon', 'action'])
+                ->rawColumns(['ikon','status', 'action'])
                 ->make();
         }
 
-        $divisions = Division::where('flag', 1)->get();
 
-        return view('pages.monitoring_sow.index', compact('divisions'));
+        return view('pages.monitoring_ikon.index');
     }
 
-    public function store(SowRequest $request)
+    public function store(Request $request)
     {
         $data = $request->all();
-        // dd($data);
-        Sow::create($data);
+        // $data['ikon'] = $request->file('ikon');
 
-        return redirect()->route('sow.index')->with('success', 'Anda telah berhasil melakukan input data');
-    }
+        $nama_file = date('Ymd') . "_" . $data['ikon']->getClientOriginalName();
+        $path = Storage::putFileAs('public/assets/ikon-sow', $data['ikon'], $nama_file);
+        $data['ikon'] = 'assets/ikon-sow/' . $nama_file;
+        Ikon::create($data);
 
-    public function create()
-    {
-        $divisions = Division::where('flag', 1)->get();
-        $ikons = Ikon::where('status', 1)->get();
-
-        return view('pages.monitoring_sow.create', compact('divisions','ikons'));
+        return redirect()->route('ikon.index')->with('success', 'Anda telah berhasil melakukan input data');
     }
 
     public function edit($id)
     {
-        $item = Sow::findOrFail($id);
-        $divisions = Division::where('flag', 1)->get();
-        $ikons = Ikon::where('status', 1)->get();
+        $item = Ikon::findOrFail($id);
 
-        return view('pages.monitoring_sow.edit', compact('item', 'divisions','ikons'));
+        return view('pages.monitoring_ikon.edit', compact('item'));
     }
 
-    public function update(SowRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
+        $nama_file = date('Ymd') . "_" . $data['ikon']->getClientOriginalName();
+        $path = Storage::putFileAs('public/assets/ikon-sow', $data['ikon'], $nama_file);
+        $data['ikon'] = 'assets/ikon-sow/' . $nama_file;
 
-        $item = Sow::findOrFail($id);
+        $item = Ikon::findOrFail($id);
 
         $item->update($data);
 
-        return redirect()->route('sow.index')->with('success', 'Anda telah berhasil melakukan edit data');
+        return redirect()->route('ikon.index')->with('success', 'Anda telah berhasil melakukan edit data');
     }
 
     public function destroy($id)
     {
-        $item = Sow::findOrFail($id);
+        $item = Ikon::findOrFail($id);
         $item->update([
-            'flag' => 2,
+            'status' => 2,
         ]);
 
-        return redirect()->route('sow.index')->with('success', 'Anda telah berhasil melakukan hapus data');
+        return redirect()->route('ikon.index')->with('success', 'Anda telah berhasil melakukan hapus data');
     }
 }

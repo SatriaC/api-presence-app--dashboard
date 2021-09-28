@@ -14,9 +14,17 @@ class KategoriSowController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Category::with(['sow','sow.division'])->where('flag', 1)->orderby('created_at', 'desc');
+            $query = Category::with(['sow','sow.division'])->orderby('created_at', 'desc');
 
             return DataTables::of($query)
+            ->editColumn('flag', function($item){
+                if ($item->flag == 1) {
+                    return 'AKTIF';
+                } else {
+                    return 'TIDAK AKTIF';
+                    # code...
+                }
+            })
             ->addColumn('action', function($item){
                 if (Auth::user()->privilege == 1) {
                 return '
@@ -43,7 +51,7 @@ class KategoriSowController extends Controller
                 return '';
             }
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','flag'])
             ->make();
         }
 

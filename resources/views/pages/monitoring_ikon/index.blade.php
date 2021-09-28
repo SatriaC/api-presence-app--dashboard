@@ -1,13 +1,13 @@
 @extends('layouts.admin')
-@section('title', 'Monitor Detail SOW')
+@section('title', 'Monitor Ikon')
 @section('content')
     <!-- Page Header -->
     <div class="page-header">
         <div>
-            <h2 class="main-content-title tx-24 mg-b-5">Monitor Detail SOW</h2>
+            <h2 class="main-content-title tx-24 mg-b-5">Monitor Ikon</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">BM</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Monitor Detail SOW</li>
+                <li class="breadcrumb-item active" aria-current="page">Monitor Ikon</li>
             </ol>
         </div>
         <div class="d-flex">
@@ -49,31 +49,17 @@
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content modal-content-demo">
                                     <div class="modal-header">
-                                        <h6 class="modal-title">Tambah Data Detail SOW</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                                        <h6 class="modal-title">Tambah Data Ikon</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                                     </div>
-                                    <form action="{{ route('detail-sow.store') }}" method="post" enctype="multipart/form-data">
+                                    <form action="{{ route('ikon.store') }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="modal-body">
-                                        <div class="col-12">
-                                            <label for="name">Nama</label>
-                                            <input
-                                                class="form-control tanggalan @error('nama') is-invalid @enderror"
-                                                name="nama"
-                                                value="{{ old('nama') }}" type="text">
-                                            @error('nama')
+                                        <div class="col-12 mt-2">
+                                            <label>Icon</label>
+                                            <input type="file" name="ikon" class="form-control @error('ikon') is-invalid @enderror" value="{{ old('ikon') }}"  required>
+                                            @error('ikon')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
-                                        </div>
-                                        <div class="col-12 mt-2">
-                                            <label for="">Kategori SoW</label>
-                                            <select class="form-control select2"  name="id_kategori">
-                                                <option label="Pilih Kategori"></option>
-                                                @foreach ($categories as $value)
-                                                    <option value="{{$value->id}}"
-                                                    {{old('id_kategori')==$value->id ? 'selected' : ''}}>
-                                                    {{$value->nama}} - {{$value->sow->nama}} - Bagian {{$value->sow->division->nama}}</option>
-                                                @endforeach
-                                            </select>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -90,14 +76,11 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive border">
-                        <table id="detailSowTable" class="table text-nowrap text-md-nowrap table-hover mg-b-0">
+                        <table id="ikonTable" class="table text-nowrap text-md-nowrap table-hover mg-b-0">
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama Detail</th>
-                                    <th>Kategori SoW</th>
-                                    <th>SoW</th>
-                                    <th>Bagian</th>
+                                    <th>Ikon</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -116,7 +99,7 @@
 <script>
     $(function() {
         moment.locale('id');
-        var datatable = $('#detailSowTable').DataTable({
+        var datatable = $('#ikonTable').DataTable({
             processing: true,
             serverSide: true,
             ordering: true,
@@ -130,24 +113,12 @@
                     }
                 },
                 {
-                    data: 'nama',
-                    name: 'nama'
+                    data: 'ikon',
+                    name: 'ikon'
                 },
                 {
-                    data: 'category.nama',
-                    name: 'category.nama'
-                },
-                {
-                    data: 'category.sow.nama',
-                    name: 'category.sow.nama'
-                },
-                {
-                    data: 'category.sow.division.nama',
-                    name: 'category.sow.division.nama'
-                },
-                {
-                    data: 'flag',
-                    name: 'flag'
+                    data: 'status',
+                    name: 'status'
                 },
                 {
                     data: 'action',

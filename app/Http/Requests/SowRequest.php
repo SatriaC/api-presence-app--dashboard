@@ -26,7 +26,7 @@ class SowRequest extends FormRequest
         return [
             'nama' => 'required|max:255',
             'id_bagian' => 'required',
-            'ikon' => 'required|image',
+            'ikon' => 'required',
         ];
     }
 }

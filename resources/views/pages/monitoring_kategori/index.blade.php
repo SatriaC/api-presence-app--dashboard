@@ -71,7 +71,7 @@
                                                 @foreach ($sows as $value)
                                                     <option value="{{$value->id}}"
                                                     {{old('id_sow')==$value->id ? 'selected' : ''}}>
-                                                    {{$value->nama}}</option>
+                                                    {{$value->nama}} - Bagian {{$value->division->nama}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -97,6 +97,7 @@
                                     <th>Nama Kategori</th>
                                     <th>SoW</th>
                                     <th>Bagian</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -138,6 +139,10 @@
                 {
                     data: 'sow.division.nama',
                     name: 'sow.division.nama'
+                },
+                {
+                    data: 'flag',
+                    name: 'flag'
                 },
                 {
                     data: 'action',

@@ -40,74 +40,116 @@
         <div class="col-lg-12 col-md-12">
             <div class="card custom-card">
                 <div class="card-body">
-                    @if (Auth::user()->privilege == 2 || 3)
-                    <form id="filter">
-                        <div class="row row-sm">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <p class="mg-b-10">Lokasi</p>
-                                    <select class="form-control select2" id="location">
-                                        <option value="">Pilih Lokasi</option>
-                                        @foreach ($lokasi as $key => $value)
-                                            <option value="{{ $value->id }}"
-                                                {{ old('id') == $value->id ? 'selected' : '' }}>
-                                                {{ $value->nama }} </option>
-                                        @endforeach
-                                    </select>
+                    @if (Auth::user()->privilege == 3)
+                        <form id="filter">
+                            <div class="row row-sm">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <p class="mg-b-10">Lokasi</p>
+                                        <select class="form-control select2" id="location">
+                                            <option value="">Pilih Lokasi</option>
+                                            @foreach ($lokasi as $key => $value)
+                                                <option value="{{ $value->id }}"
+                                                    {{ old('id') == $value->id ? 'selected' : '' }}>
+                                                    {{ $value->nama }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4 mt-4">
-                                <div class="form-group btn btn-list d-inline">
-                                    <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
-                                            class="ti-search"></i></button>
-                                    <button class="btn ripple btn-warning d-inline" onclick="reset()">
-                                        Refresh&nbsp; <i class="fa fa-refresh"></i> </button>
-                                </div>
+                                <div class="col-md-4 mt-4">
+                                    <div class="form-group btn btn-list d-inline">
+                                        <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
+                                                class="ti-search"></i></button>
+                                        <button class="btn ripple btn-warning d-inline" onclick="reset()">
+                                            Refresh&nbsp; <i class="fa fa-refresh"></i> </button>
+                                    </div>
 
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    @elseif (Auth::user()->privilege == 2)
+                        <form id="filter">
+                            <div class="row row-sm">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <p class="mg-b-10">Lokasi</p>
+                                        <select class="form-control select2" id="location">
+                                            <option value="">Pilih Lokasi</option>
+                                            @foreach ($lokasi as $key => $value)
+                                                <option value="{{ $value->id }}"
+                                                    {{ old('id') == $value->id ? 'selected' : '' }}>
+                                                    {{ $value->nama }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mt-4">
+                                    <div class="form-group btn btn-list d-inline">
+                                        <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
+                                                class="ti-search"></i></button>
+                                        <button class="btn ripple btn-warning d-inline" onclick="reset()">
+                                            Refresh&nbsp; <i class="fa fa-refresh"></i> </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+
                     @else
 
-                    <form id="filter">
-                        <div class="row row-sm">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <p class="mg-b-10">Wilayah</p>
-                                    <select class="form-control select2" id="region">
-                                        <option value="">Pilih Wilayah</option>
-                                        @foreach ($wilayah as $key => $value)
-                                            <option value="{{ $value->id }}"
-                                                {{ old('id') == $value->id ? 'selected' : '' }}>
-                                                {{ $value->nama }} </option>
-                                        @endforeach
-                                    </select>
+                        <form id="filter">
+                            <div class="row row-sm">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <p class="mg-b-10">Wilayah</p>
+                                        <select class="form-control select2" id="region">
+                                            <option value="">Pilih Wilayah</option>
+                                            @foreach ($wilayah as $key => $value)
+                                                <option value="{{ $value->id }}"
+                                                    {{ old('id') == $value->id ? 'selected' : '' }}>
+                                                    {{ $value->nama }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <p class="mg-b-10">Lokasi</p>
+                                        <select class="form-control select2" id="location">
+                                            <option value="">Pilih Lokasi</option>
+                                            @foreach ($lokasi as $key => $value)
+                                                <option value="{{ $value->id }}"
+                                                    {{ old('id') == $value->id ? 'selected' : '' }}>
+                                                    {{ $value->nama }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <p class="mg-b-10">Tanggal Awal</p>
+                                        <input class="form-control"  id="tanggal_awal"  autocomplete="off" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <p class="mg-b-10">Tanggal Akhir</p>
+                                        <input class="form-control"  id="tanggal_akhir"  autocomplete="off" type="text">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <p class="mg-b-10">Lokasi</p>
-                                    <select class="form-control select2" id="location">
-                                        <option value="">Pilih Lokasi</option>
-                                        @foreach ($lokasi as $key => $value)
-                                            <option value="{{ $value->id }}"
-                                                {{ old('id') == $value->id ? 'selected' : '' }}>
-                                                {{ $value->nama }} </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mt-4">
-                                <div class="form-group btn btn-list d-inline">
-                                    <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
-                                            class="ti-search"></i></button>
-                                    <button class="btn ripple btn-warning d-inline" onclick="reset()">
-                                        Refresh&nbsp; <i class="fa fa-refresh"></i> </button>
-                                </div>
+                            <div class="row row-sm">
+                                <div class="col-md-4">
+                                    <div class="form-group btn btn-list d-inline">
+                                        <button type="submit" class="btn ripple btn-primary">Cari &nbsp; <i
+                                                class="ti-search"></i></button>
+                                        <button class="btn ripple btn-warning d-inline" onclick="reset()">
+                                            Refresh&nbsp; <i class="fa fa-refresh"></i> </button>
+                                    </div>
 
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
                     @endif
 
                 </div>
@@ -153,10 +195,13 @@
         $(function() {
             moment.locale('id');
             var table = $('#kehadiranTable').DataTable({
-                // dom: 'lBfrtip',
+                dom: 'lBfrtip',
                 processing: true,
                 serverSide: true,
-                "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
+                "lengthMenu": [
+                    [10, 25, 50, 100, -1],
+                    [10, 25, 50, 100, "All"]
+                ],
                 type: "GET",
                 // ordering: true,
                 ajax: {
@@ -164,6 +209,8 @@
                     data: function(d) {
                         d.location = $('#location').val();
                         d.region = $('#region').val();
+                        d.tanggal_awal = $('#tanggal_awal').val();
+                        d.tanggal_akhir = $('#tanggal_akhir').val();
                     }
                 },
                 columns: [{
@@ -226,5 +273,25 @@
             document.getElementById("filter").reset();
         }
 
+        $(document).ready(function(){
+        $("#tanggal_awal").datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    autoclose: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-100:+0",
+                // viewMode: "months",
+                // minViewMode: "months"
+                });
+        $("#tanggal_akhir").datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    autoclose: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-100:+0",
+                // viewMode: "months",
+                // minViewMode: "months"
+                });
+        });
     </script>
 @endpush

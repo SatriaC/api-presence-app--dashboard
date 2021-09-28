@@ -41,58 +41,9 @@
                 <div class="card-header">
                     <div>
                         @if (Auth::user()->privilege == 1)
-                        <a href="#" class="btn btn-warning float-right"
-                        data-target="#modaldemo3" data-toggle="modal">Tambah</a>
+                        <a href="{{ route('sow.create') }}" class="btn btn-warning float-right">Tambah</a>
                         @endif
-                        <!-- Large Modal -->
-                        <div class="modal fade show in" id="modaldemo3">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content modal-content-demo">
-                                    <div class="modal-header">
-                                        <h6 class="modal-title">Tambah Data SOW</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
-                                    </div>
-                                    <form action="{{ route('sow.store') }}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="modal-body">
-                                        <div class="col-12">
-                                            <label for="nama">Nama</label>
-                                            <input
-                                                class="form-control tanggalan @error('nama') is-invalid @enderror"
-                                                name="nama"
-                                                value="{{ old('nama') }}" type="text">
-                                            @error('nama')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-12 mt-2">
-                                            <label for="">Bagian</label>
-                                            <select class="form-control select2"  name="id_bagian">
-                                                <option label="Pilih Dokumen"></option>
-                                                @foreach ($divisions as $value)
-                                                    <option value="{{$value->id}}"
-                                                    {{old('id_bagian')==$value->id ? 'selected' : ''}}>
-                                                    {{$value->nama}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-12 mt-2">
-                                            <label>Icon</label>
-                                            <input type="file" name="ikon" class="form-control @error('ikon') is-invalid @enderror" value="{{ old('ikon') }}"  required>
-                                            @error('ikon')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn ripple btn-primary" type="submit"
-                                            onclick="return confirm('Apakah anda yakin dengan data yang diinputkan ?')">Submit</button>
-                                    </form>
-                                        <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--End Large Modal -->
+
                     </div>
                 </div>
                 <div class="card-body">
@@ -104,6 +55,7 @@
                                     <th>Nama SOW</th>
                                     <th>Divisi</th>
                                     <th>Icon</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -145,6 +97,10 @@
                 {
                     data: 'ikon',
                     name: 'ikon'
+                },
+                {
+                    data: 'flag',
+                    name: 'flag'
                 },
                 {
                     data: 'action',
