@@ -80,7 +80,7 @@ class KaryawanController extends Controller
     public function store(KaryawanRequest $request)
     {
         $data = $request->all();
-        $data['password'] = bcrypt('12345678');
+        $data['password'] = bcrypt('Building2021');
         $data['flag'] = 1;
         User::create($data);
 

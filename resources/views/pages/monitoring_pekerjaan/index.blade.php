@@ -101,7 +101,7 @@
                                 <div class="form-group">
                                     <p class="mg-b-10">SoW</p>
                                     <select class="form-control select2" name="id_sow" id="id_sow">
-                                        <option>Pilih SoW</option>
+                                        <option value="">Pilih SoW</option>
                                         @foreach ($sow as $key => $value)
                                             <option value="{{ $value->id }}"
                                                 {{ old('id') == $value->id ? 'selected' : '' }}>
@@ -114,7 +114,7 @@
                                 <div class="form-group">
                                     <p class="mg-b-10">Lokasi</p>
                                     <select class="form-control select2" name="id_lokasi" id="id_lokasi">
-                                        <option>Pilih Lokasi</option>
+                                        <option value="">Pilih Lokasi</option>
                                         @foreach ($lokasi as $key => $value)
                                             <option value="{{ $value->id }}"
                                                 {{ old('id') == $value->id ? 'selected' : '' }}>

@@ -38,6 +38,12 @@
                     <li class="nav-sub-item">
                         <a class="nav-sub-link" href="{{ route('detail-sow.index') }}">Detail SoW</a>
                     </li>
+                    <li class="nav-sub-item">
+                        <a class="nav-sub-link" href="{{ route('wilayah.index') }}">Wilayah</a>
+                    </li>
+                    <li class="nav-sub-item">
+                        <a class="nav-sub-link" href="{{ route('lokasi.index') }}">Lokasi</a>
+                    </li>
                     {{-- <li class="nav-sub-item">
                         <a class="nav-sub-link" href="{{ route('ikon.index') }}">Ikon</a>
                     </li> --}}

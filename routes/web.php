@@ -50,6 +50,8 @@ Route::prefix('master-data')
         Route::delete('/ikon/{id}', 'IkonController@destroy')->name('ikon.destroy');
         Route::resource('bagian', 'DivisionController');
         Route::resource('karyawan', 'KaryawanController');
+        Route::resource('wilayah', 'WilayahController');
+        Route::resource('lokasi', 'LokasiController');
     });
 Route::prefix('master-data')
     ->middleware(['auth', 'checkRole:1,2,3'])
@@ -61,6 +63,8 @@ Route::prefix('master-data')
         Route::resource('kategori-sow', 'KategoriSowController')->except(['create','update','edit','destroy', 'show']);
         Route::resource('sow', 'SowController')->except(['create','update','edit','destroy', 'show']);
         Route::resource('ikon', 'IkonController')->except(['create','update','edit','destroy', 'show']);
+        Route::resource('wilayah', 'WilayahController')->except(['create','update','edit','destroy', 'show']);
+        Route::resource('lokasi', 'LokasiController')->except(['create','update','edit','destroy', 'show']);
     });
 Route::prefix('report')
     // ->namespace('Admin')

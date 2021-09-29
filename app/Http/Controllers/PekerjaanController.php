@@ -18,17 +18,12 @@ class PekerjaanController extends Controller
 
     public function index(Request $request)
     {
-        $query = Task::with(['user','user.division', 'detail', 'detail.category', 'detail.category.sow']);
-        // dd($query);
         if (request()->ajax()) {
-            if (Auth::user()->privilege == 2) {
-                # code... //dikasih where wilayah
-                $query = Task::with(['user','user.division', 'detail', 'detail.category', 'detail.category.sow'])->where('id_wilayah', Auth::user()->id_wilayah);
-            } elseif (Auth::user()->privilege == 3) {
-                # code... //dikasih where wilayah
-                $query = Task::with(['user','user.division', 'detail', 'detail.category', 'detail.category.sow'])->where('id_wilayah', Auth::user()->id_wilayah);
-            } else {
+            if (Auth::user()->privilege == 1) {
                 $query = Task::with(['user','user.division', 'detail', 'detail.category', 'detail.category.sow']);
+            }  else {
+                # code... //dikasih where wilayah
+                $query = Task::with(['user','user.division', 'detail', 'detail.category', 'detail.category.sow'])->where('id_wilayah', Auth::user()->id_wilayah);
             }
 
             if (request()->id_wilayah != '') {
@@ -45,6 +40,7 @@ class PekerjaanController extends Controller
 
                 });
             }
+            $query->get();
 
             return DataTables::of($query)
             ->editColumn('foto_before', function($item){

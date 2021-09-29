@@ -17,13 +17,12 @@ class KehadiranController extends Controller
     public function index(Request $request)
     {
         if (request()->ajax()) {
-            if (Auth::user()->privilege == 2 || 3) {
+            if (Auth::user()->privilege == 1) {
+                $query = Attendance::with(['user','user.location','user.region']);
+            } else {
                 $query = Attendance::with(['user','user.location','user.region'])->whereHas('user', function($user){
                     $user->where('id_wilayah', Auth::user()->id_wilayah);
                 });
-                // ->where('id_wilayah', Auth::user()->id_wilayah);
-            } else {
-                $query = Attendance::with(['user','user.location','user.region']);
             }
 
             if (request()->region != '') {
