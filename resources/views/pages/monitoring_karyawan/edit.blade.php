@@ -95,13 +95,13 @@
                         @if ($user->privilege == 4)
                         <div class="col-12 mt-2">
                             <label for="">Lokasi</label>
-                            <select class="form-control select2" id="location" name="id_lokasi">
+                            <select class="form-control select2" id="location" name="id_lokasi" required>
                                 <option label="Pilih Lokasi"></option>
                             </select>
                         </div>
                         <div class="col-12 mt-2">
                             <label for="">Bagian</label>
-                            <select class="form-control select2" name="id_bagian" id="bagian">
+                            <select class="form-control select2" name="id_bagian" id="bagian" required>
                                 <option label="Pilih Divisi"></option>
                                 @foreach ($divisions as $value)
                                     <option value="{{ $value->id }}"

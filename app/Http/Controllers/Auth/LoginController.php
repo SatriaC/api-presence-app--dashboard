@@ -61,6 +61,7 @@ class LoginController extends Controller
 
         $user = User::where('email', $request->email)->first();
         // dd($user->email);
+        // dd($user->email);
         if ($user) {
             if($user->privilege != 4 ){
                 if($user->flag == 1 ){

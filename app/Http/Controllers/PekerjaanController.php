@@ -65,7 +65,12 @@ class PekerjaanController extends Controller
                 }
             })
             ->addColumn('lokasi', function($item){
-                return $item->user->location->nama;
+                if ($item->user->id_lokasi != '0') {
+                    return $item->user->location->nama;
+                } else {
+                    return '';
+                    # code...
+                }
             })
             ->addColumn('action', function($item){
                 $url_before = asset('storage/foto_pekerjaan/'.$item->foto_before);
