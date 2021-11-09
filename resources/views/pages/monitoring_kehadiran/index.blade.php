@@ -128,13 +128,13 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <p class="mg-b-10">Tanggal Awal</p>
-                                        <input class="form-control"  id="tanggal_awal"  autocomplete="off" type="text">
+                                        <input class="form-control" id="tanggal_awal" autocomplete="off" type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <p class="mg-b-10">Tanggal Akhir</p>
-                                        <input class="form-control"  id="tanggal_akhir"  autocomplete="off" type="text">
+                                        <input class="form-control" id="tanggal_akhir" autocomplete="off" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -273,25 +273,26 @@
             document.getElementById("filter").reset();
         }
 
-        $(document).ready(function(){
-        $("#tanggal_awal").datepicker({
-                    dateFormat: 'yy-mm-dd',
-                    autoclose: true,
-                    changeMonth: true,
-                    changeYear: true,
-                    yearRange: "-100:+0",
+        $(document).ready(function() {
+            $("#tanggal_awal").datepicker({
+                dateFormat: 'yy-mm-dd',
+                autoclose: true,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
                 // viewMode: "months",
                 // minViewMode: "months"
-                });
-        $("#tanggal_akhir").datepicker({
-                    dateFormat: 'yy-mm-dd',
-                    autoclose: true,
-                    changeMonth: true,
-                    changeYear: true,
-                    yearRange: "-100:+0",
+            });
+            $("#tanggal_akhir").datepicker({
+                dateFormat: 'yy-mm-dd',
+                autoclose: true,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
                 // viewMode: "months",
                 // minViewMode: "months"
-                });
+            });
         });
+
     </script>
 @endpush

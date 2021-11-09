@@ -84,7 +84,7 @@ class MasterDataController extends Controller
         ->leftJoin('bm_sow', 'bm_sow.id', '=', 'bm_pekerjaan.id_sow')
         ->leftJoin('bm_kategorisow', 'bm_kategorisow.id', '=', 'bm_pekerjaan.id_kategori')
         ->leftJoin('bm_detailsow', 'bm_detailsow.id', '=', 'bm_pekerjaan.id_detail')
-        ->where([['bm_pekerjaan.id_user', Auth::guard('api')->user()->id], ['bm_pekerjaan.flag', 1]])
+        ->where([['bm_pekerjaan.id_user', Auth::guard('api')->user()->id], ['bm_pekerjaan.flag', 1], ['bm_pekerjaan.laporan', '!=', null]])
         ->orderBy('bm_pekerjaan.id', 'desc')->get();
         // nama Sow, kategori dan detail
         return response()->json([
