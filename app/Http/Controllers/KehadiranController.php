@@ -18,11 +18,11 @@ class KehadiranController extends Controller
     {
         if (request()->ajax()) {
             if (Auth::user()->privilege == 1) {
-                $query = Attendance::with(['user','user.location','user.region']);
+                $query = Attendance::with(['user','user.location','user.region'])->orderBy('jam_masuk', 'desc');
             } else {
                 $query = Attendance::with(['user','user.location','user.region'])->whereHas('user', function($user){
                     $user->where('id_wilayah', Auth::user()->id_wilayah);
-                });
+                })->orderBy('jam_masuk', 'desc');
             }
 
             if (request()->region != '') {

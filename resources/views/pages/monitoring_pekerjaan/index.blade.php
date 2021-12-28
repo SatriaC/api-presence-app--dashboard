@@ -53,7 +53,7 @@
                                         @foreach ($sow as $key => $value)
                                             <option value="{{ $value->id }}"
                                                 {{ old('id') == $value->id ? 'selected' : '' }}>
-                                                {{ $value->nama }} </option>
+                                                {{ $value->nama }} - {{ $value->division->nama }} </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -263,5 +263,34 @@
             document.getElementById("filter").reset();
         }
 
+    </script>
+    <script>
+        jQuery(document).ready(function() {
+            jQuery('#id_wilayah').on('change', function() {
+                // console.log($(this).val());
+                const _url = "{{ url('api/getRegion') }}";
+                $.ajax({
+                    dataType: "json",
+                    url: _url,
+                    type: "GET",
+                    data: {
+                        regions_id: $(this).val(),
+                    },
+                    success: function(html) {
+                        // console.log(html.data);
+                        $('#id_lokasi').empty();
+                        $('#id_lokasi').append('<option value="">Pilih Lokasi</option>');
+                        $.each(html.data, function(key, item) {
+                            $('#id_lokasi').append('<option value="' + item.id +
+                                '">' + item.nama + '</option>')
+                        });
+                    },
+                    error: function(xhr) {
+                        console.log(xhr);
+                    }
+                })
+
+            });
+        });
     </script>
 @endpush

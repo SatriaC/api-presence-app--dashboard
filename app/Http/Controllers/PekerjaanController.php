@@ -20,10 +20,10 @@ class PekerjaanController extends Controller
     {
         if (request()->ajax()) {
             if (Auth::user()->privilege == 1) {
-                $query = Task::with(['user','user.division', 'detail', 'detail.category', 'detail.category.sow']);
+                $query = Task::with(['user','user.division', 'detail', 'detail.category', 'detail.category.sow'])->orderBy('reported_at', 'desc');
             }  else {
                 # code... //dikasih where wilayah
-                $query = Task::with(['user','user.division', 'detail', 'detail.category', 'detail.category.sow'])->where('id_wilayah', Auth::user()->id_wilayah);
+                $query = Task::with(['user','user.division', 'detail', 'detail.category', 'detail.category.sow'])->where('id_wilayah', Auth::user()->id_wilayah)->orderBy('reported_at', 'desc');
             }
 
             if (request()->id_wilayah != '') {
@@ -252,7 +252,7 @@ class PekerjaanController extends Controller
         $wilayah = Region::where('flag', 1)->get();
         // dd($sow);
 
-        return view('pages.monitoring_pekerjaan.index', compact(['sow', 'lokasi','wilayah']));
+        return view('pages.monitoring_pekerjaan.index', compact(['sow', 'lokasi','wilayah','query']));
     }
 
     public function approve($id)
