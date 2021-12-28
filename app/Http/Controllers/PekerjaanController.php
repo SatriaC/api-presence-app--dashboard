@@ -40,6 +40,11 @@ class PekerjaanController extends Controller
 
                 });
             }
+            if (request()->id_bulan != '') {
+                $bulan = Carbon::parse(request()->id_bulan)->format('m');
+                $tahun = Carbon::parse(request()->id_bulan)->format('Y');
+                $query->whereYear('reported_at', $tahun)->whereMonth('reported_at', $bulan);
+            }
             $query->get();
 
             return DataTables::of($query)

@@ -2,6 +2,11 @@
 @section('title', 'Monitor Pekerjaan')
     @push('custom-style')
 
+    <style>
+        .ui-datepicker-calendar {
+            display: none;
+        }
+        </style>
     @endpush
 @section('content')
     <!-- Page Header -->
@@ -82,6 +87,12 @@
                                                 {{ $value->nama }} </option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <p class="mg-b-10">Bulan</p>
+                                    <input name="startDate" id="startDate" class="date-picker form-control" />
                                 </div>
                             </div>
                             <div class="col-md-3 mt-4">
@@ -193,6 +204,7 @@
                         d.id_sow = $("#id_sow").val();
                         d.id_lokasi = $('#id_lokasi').val();
                         d.id_wilayah = $('#id_wilayah').val();
+                        d.id_bulan = $('#startDate').val();
                     }
                 },
                 columns: [{
@@ -290,6 +302,19 @@
                     }
                 })
 
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            $('.date-picker').datepicker( {
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'yy-mm',
+            onClose: function(dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+            }
             });
         });
     </script>
