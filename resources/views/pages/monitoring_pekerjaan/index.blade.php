@@ -196,7 +196,7 @@
                 processing: true,
                 // searching: true,
                 serverSide: true,
-                "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
+                "lengthMenu": [ [10, 25, 50, 100], [10, 25, 50, 100] ],
                 type:"GET",
                 ajax: {
                     url: '{!! url()->current() !!}',
